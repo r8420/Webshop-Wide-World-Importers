@@ -2,8 +2,8 @@
 <project version="4">
   <component name="WebServers">
     <option name="servers">
-      <webServer id="a392f3c6-4504-47c6-968b-3301bfbb7bfc" name="Xampp" url="http://localhost/KBS/Navbar.php">
-        <fileTransfer port="0" mountedRoot="C:\xampp\htdocs\KBS" accessType="MOUNT" />
+      <webServer id="a392f3c6-4504-47c6-968b-3301bfbb7bfc" name="Xampp" url="http://localhost/">
+        <fileTransfer port="0" mountedRoot="C:\xampp\htdocs" accessType="MOUNT" />
       </webServer>
     </option>
   </component>
