@@ -3,7 +3,11 @@
 <!DOCTYPE>
 <html>
 <head>
-    <link type="text/css" rel="stylesheel" href="/css/bootstrap.css">
+    <link type="text/css" rel="stylesheet" href="/css/bootstrap.css">
+    <link type="text/css" rel="stylesheet" href="/css/bootstrap-grid.css">
+    <link type="text/css" rel="stylesheet" href="/css/bootstrap-reboot.css">
+    <script src="/js/bootstrap.bundle.js"></script>
+    <script src="/js/bootstrap.js"></script>
 </head>
 <body>
 <nav class="navbar navbar-light bg-primary">
