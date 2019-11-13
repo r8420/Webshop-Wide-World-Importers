@@ -18,7 +18,7 @@
         <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarWWi">
-        <ul class="navbar-nav mr-auto">
+        <ul class="navbar-nav mr-auto">1
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" id="itemsDropdown" role="button" data-toggle="dropdown">
                     Artikelen
@@ -30,12 +30,11 @@
                 </div>
             </li>
         </ul>
-    </div>
-
     <form class="form-inline">
         <input type="search" placeholder="Search" class="form-control mr-sm-2">
-        <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">Zoeken</button>
+        <button class="btn btn-outline-secondary my-2 my-sm-0" type="submit">Zoeken</button>
     </form>
+    </div>
 </nav>
 
 </body>
