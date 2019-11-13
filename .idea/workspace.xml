@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="e0ba4930-a7cb-4abb-8bcb-85b00cecc6a1" name="Default Changelist" comment="Added DatabaseFactory">
-      <change afterPath="$PROJECT_DIR$/modules/Navbar.php" afterDir="false" />
+    <list default="true" id="e0ba4930-a7cb-4abb-8bcb-85b00cecc6a1" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/deployment.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/webServers.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Sjoerd.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mohamed.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/Navbar.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Navbar.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -21,17 +21,22 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="master" />
+        <entry key="$PROJECT_DIR$" value="navbar" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="PhpWorkspaceProjectConfiguration" interpreter_name="PHP" />
   <component name="ProjectId" id="1TT3DnacUhIvaPgtDROgxr2222F" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-    <property name="settings.editor.selected.configurable" value="project.propVCSSupport.CommitDialog" />
+    <property name="last_opened_file_path" value="C:/xampp/htdocs/KBS" />
+    <property name="settings.editor.selected.configurable" value="reference.settings.deploy.options" />
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -45,6 +50,16 @@
       </list>
     </option>
   </component>
+  <component name="RunManager">
+    <configuration name="Navbar.php" type="JavascriptDebugType" temporary="true" nameIsGenerated="true" uri="http://localhost:63342/KBS2/Modules/Navbar.php" useBuiltInWebServerPort="true">
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="JavaScript Debug.Navbar.php" />
+      </list>
+    </recent_temporary>
+  </component>
   <component name="SvnConfiguration">
     <configuration />
   </component>
@@ -56,19 +71,25 @@
       <option name="presentableId" value="Default" />
       <updated>1573470140870</updated>
       <workItem from="1573470143771" duration="472000" />
-      <workItem from="1573481270916" duration="1994000" />
-      <workItem from="1573645570304" duration="135000" />
-      <workItem from="1573645769854" duration="720000" />
-      <workItem from="1573652100006" duration="3434000" />
+      <workItem from="1573482517811" duration="594000" />
+      <workItem from="1573670129346" duration="2927000" />
+      <workItem from="1573673069639" duration="649000" />
     </task>
-    <task id="LOCAL-00001" summary="Added DatabaseFactory">
-      <created>1573656987481</created>
+    <task id="LOCAL-00001" summary="added sjoerd">
+      <created>1573482566778</created>
       <option name="number" value="00001" />
       <option name="presentableId" value="LOCAL-00001" />
       <option name="project" value="LOCAL" />
-      <updated>1573656987481</updated>
+      <updated>1573482566778</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="added navbar">
+      <created>1573673419808</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1573673419808</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -88,7 +109,9 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Added DatabaseFactory" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added DatabaseFactory" />
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+    <MESSAGE value="added sjoerd" />
+    <MESSAGE value="added navbar" />
+    <option name="LAST_COMMIT_MESSAGE" value="added navbar" />
   </component>
 </project>
