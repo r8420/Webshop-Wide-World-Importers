@@ -7,19 +7,23 @@
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-
+    <link rel="stylesheet" href="style.css">
     <title>Hello, world!</title>
 </head>
 <body>
 
-<footer>
+<footer class="fixed-bottom darkblue text-white">
     <div class="container">
-        <div class="row">
+        <div class="row pt-3 pb-4 ">
             <div class="col-6">
+                <img class="float-left pr-5" src="/Images/logo.png" width="40px" height="40px"><h2>WWI</h2>
+                <p class="pt-2">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi et nisl hendrerit, aliquet mi sed, scelerisque tortor. Aliquam eu scelerisque quam, ac tristique dolor. Aliquam nulla risus, fermentum feugiat tortor quis, facilisis cursus arcu. Sed eu purus placerat, aliquet augue nec, molestie felis. Fusce porta.</p>
 
             </div>
             <div class="col-6">
-                <img src="">
+                <h2>Klantenservice</h2>
+                <p class="pt-2">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi et nisl hendrerit, aliquet mi sed, scelerisque tortor. Aliquam eu scelerisque quam, ac tristique dolor. Aliquam nulla risus, fermentum feugiat tortor quis, facilisis cursus arcu. Sed eu purus placerat, aliquet augue nec, molestie felis. Fusce porta.</p>
+
             </div>
         </div>
     </div>
