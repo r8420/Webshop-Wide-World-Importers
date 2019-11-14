@@ -23,8 +23,8 @@
 <div class="container-fluid">
     <nav class="navbar fixed-top navbar-expand-sm navbar-light bg-primary">
         <a class="navbar-brand" href="homepage.php">
-            <img src="/Images/wide-world-importers-logo-small.png" width="250" height="90"
-                 class="d-inline-block align-bottom">
+            <img src="/Images/logo.png"
+                 class="d-inline-block align-bottom"> <h1>WWI</h1>
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarWWI"
                 aria-controls="navbarWWI" aria-expanded="false" aria-label="Toggle navigation">
@@ -47,6 +47,12 @@
                 <input type="search" placeholder="Search" class="form-control mr-sm-2">
                 <button class="btn bg-secondary btn-outline-secondary my-2 my-sm-0" type="submit">Zoeken</button>
             </form>
+            <button>
+                <i class="fas fa-shopping-basket"></i>
+            </button>
+            <button>
+                <i class="fas fa-user-circle"></i>
+            </button>
         </div>
     </nav>
 </div>
