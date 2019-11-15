@@ -9,27 +9,36 @@
     <style>
         .container {
             margin: 100px auto;
+            width: 400px;
+            text-align: center;
+        }
+        #inlogbutton {
+            width: 120px;
+            margin-top: 6px;
+        }
+        .mb-13px {
+            margin-bottom: 13px;
         }
     </style>
 </head>
 <body>
 
-
+<?php
+include '../Modules/Navbar.php'
+?>
 <!-- Begin page content -->
 <div class="container">
-    <div id="pageheading">
+    <div class="mb-5">
         <h1>Login</h1>
     </div>
     <form>
         <div class="form-group">
-            <label for="InputEmail">Email address</label>
-            <input type="email" class="form-control" id="InputEmail" placeholder="Emailadress" required>
+            <input type="text" class="form-control" id="InputGebruikersnaam" placeholder="Gebruikersnaam" required>
         </div>
         <div class="form-group">
-            <label for="InputWachtwoord1">Password</label>
             <input type="password" class="form-control" id="InputWachtwoord1" placeholder="Wachtwoord" required>
         </div>
-        <button type="submit" class="btn btn-success">Inloggen</button>
+        <button type="submit" id="inlogbutton" class="btn btn-success mb-13px">Inloggen</button>
     </form>
     <p>
         Nog geen account?<br>
@@ -37,6 +46,9 @@
     </p>
 </div>
 
+<?php
+include '../Modules/footer.php'
+?>
 <!-- Placed at the end of the document so the pages load faster -->
 <script src="../js/imports-dist.js"></script>
 </body>
