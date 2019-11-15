@@ -19,23 +19,40 @@
         .mb-13px {
             margin-bottom: 13px;
         }
+        .input-group-text {
+            background-color: unset;
+            border: unset;
+        }
+        .input-group-text .fas {
+            font-size: 1.5rem;
+            padding-right: 15px;
+        }
+        #InputGebruikersnaam, #InputWachtwoord1 {
+            border-radius: .25rem;
+        }
     </style>
 </head>
 <body>
 
 <?php
-include '../Modules/Navbar.php'
-?>
+//include '../Modules/Navbar.php'
+//?>
 <!-- Begin page content -->
 <div class="container">
     <div class="mb-5">
         <h1>Login</h1>
     </div>
     <form>
-        <div class="form-group">
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <div class="input-group-text"><i class="fas fa-user"></i></div>
+            </div>
             <input type="text" class="form-control" id="InputGebruikersnaam" placeholder="Gebruikersnaam" required>
         </div>
-        <div class="form-group">
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <div class="input-group-text"><i class="fas fa-lock"></i></div>
+            </div>
             <input type="password" class="form-control" id="InputWachtwoord1" placeholder="Wachtwoord" required>
         </div>
         <button type="submit" id="inlogbutton" class="btn btn-success mb-13px">Inloggen</button>
@@ -47,8 +64,8 @@ include '../Modules/Navbar.php'
 </div>
 
 <?php
-include '../Modules/footer.php'
-?>
+//include '../Modules/footer.php'
+//?>
 <!-- Placed at the end of the document so the pages load faster -->
 <script src="../js/imports-dist.js"></script>
 </body>
