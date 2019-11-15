@@ -9,7 +9,7 @@
     <style>
         .container {
             margin: 100px auto;
-            width: 400px;
+            max-width: 400px;
             text-align: center;
         }
         #inlogbutton {
