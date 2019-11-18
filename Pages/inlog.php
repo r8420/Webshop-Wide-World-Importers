@@ -59,7 +59,7 @@ include '../Modules/header.php'
     </form>
     <p>
         Nog geen account?<br>
-        <a href="register.php">Maak hier een account aan</a>
+        <a href="registreren.php">Maak hier een account aan</a>
     </p>
 </div>
 
