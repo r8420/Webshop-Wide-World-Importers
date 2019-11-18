@@ -35,7 +35,7 @@
 <body>
 
 <?php
-include '../Modules/Navbar.php'
+include '../Modules/header.php'
 ?>
 <!-- Begin page content -->
 <div class="container">
