@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Page title</title>
+    <title>Inloggen</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="../css/imports.css">
@@ -35,8 +35,8 @@
 <body>
 
 <?php
-//include '../Modules/Navbar.php'
-//?>
+include '../Modules/Navbar.php'
+?>
 <!-- Begin page content -->
 <div class="container">
     <div class="mb-5">
@@ -64,9 +64,7 @@
 </div>
 
 <?php
-//include '../Modules/footer.php'
-//?>
-<!-- Placed at the end of the document so the pages load faster -->
-<script src="../js/imports-dist.js"></script>
+include '../Modules/footer.php'
+?>
 </body>
 </html>
