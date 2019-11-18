@@ -6,5 +6,5 @@ include "Modules/header.php";
 
 
 <?php
-include "Modules/header.php";
+include "Modules/footer.php";
 ?>
