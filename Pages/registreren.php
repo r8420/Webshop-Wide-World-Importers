@@ -45,7 +45,7 @@
     <form>
         <div class="input-group mb-3">
             <div class="input-group-prepend">
-                <div class="input-group-text"><i class="fas fa-user"></i></div>
+                <div class="input-group-text"><i class="fas fa-at"></i></div>
             </div>
             <input type="text" class="form-control" id="InputEmail" placeholder="Voer uw emailadress in" required>
         </div>
@@ -65,13 +65,13 @@
             <div class="input-group-prepend">
                 <div class="input-group-text"><i class="fas fa-lock"></i></div>
             </div>
-            <input type="password" class="form-control" id="InputWachtwoord2" placeholder="Voer hetzelfde wachtwoord opnieuw in" required>
+            <input type="password" class="form-control" id="InputWachtwoord2" placeholder="Voer het wachtwoord opnieuw in" required>
         </div>
         <button type="submit" id="registreerbutton" class="btn btn-success mb-13px">Registreren</button>
     </form>
     <p>
         Heeft u al een account?<br>
-        <a href="registreren.php">Log hier in</a>
+        <a href="../Modules/inlog.php">Log hier in</a>
     </p>
 </div>
 
