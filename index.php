@@ -1,5 +1,5 @@
 <?php
-include_once "Modules/header.php";
+include "Modules/header.php";
 ?>
 
 <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
