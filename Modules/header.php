@@ -12,39 +12,36 @@
     <title>WWI Webshop</title>
 </head>
 <body>
-<div class="container-fluid">
-    <nav class="navbar fixed-top navbar-expand-sm navbar-light bg-primary">
-        <a class="navbar-brand" href="#">
-            <img src="/Images/logo.png"
-                 class="d-inline-block align-bottom" alt="logo wwi"> <h1>WWI</h1>
-        </a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarWWI"
-                aria-controls="navbarWWI" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarWWI">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" id="itemsDropdown" role="button" data-toggle="dropdown">
-                        Artikelen
-                    </a>
-                    <div class="dropdown-menu">
-                        <a class="dropdown-item" href="#">Chocolade</a>
-                        <a class="dropdown-item" href="#">kantoor Artikelen</a>
-                        <a class="dropdown-item" href="#">jeweetwel</a>
+    <nav class="navbar navbar-expand-lg bg-primary">
+        <div class="container">
+            <img src="../Images/logo.png" style="width: 40px; height: 40px;" alt="Logo WWI">
+            <a class="navbar-brand mb-0 h1 text-white ml-2 mr-5" href="#">WWI</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle text-white font-weight-bold" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Bekijk assortiment
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="#">Categorie 1</a>
+                            <a class="dropdown-item" href="#">Categorie 2</a>
+                            <a class="dropdown-item" href="#">Categorie 3</a>
+                            <a class="dropdown-item" href="#">Categorie 3</a>
+                        </div>
+                    </li>
+                    <form class="form-inline pl-5">
+                        <input class="form-control" type="search" placeholder="Zoeken..." aria-label="Search">
+                    </form>
+                    <div class="d-flex justify-content-end mr-auto text-white">
+                        <i class="fas fa-user" style="width: 40px; height: 40px;"></i>
+                        <i class="fas fa-shopping-cart"></i>
                     </div>
-                </li>
-            </ul>
-            <form class="form-inline">
-                <input type="search" placeholder="Search" class="form-control mr-sm-2">
-                <button class="btn bg-secondary btn-outline-secondary my-2 my-sm-0" type="submit">Zoeken</button>
-            </form>
-            <button>
-                <i class="fas fa-shopping-basket"></i>
-            </button>
-            <button>
-                <i class="fas fa-user-circle"></i>
-            </button>
+                </ul>
+            </div>
         </div>
     </nav>
-</div>
+
