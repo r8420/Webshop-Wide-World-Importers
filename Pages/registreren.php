@@ -67,7 +67,7 @@ include '../Modules/header.php'
             </div>
             <input type="password" class="form-control" id="InputWachtwoord2" placeholder="Voer het wachtwoord opnieuw in" required>
         </div>
-        <button type="submit" id="registreerbutton" class="btn btn-success mb-13px">Registreren</button>
+        <button type="submit" id="inlogbutton" class="btn btn-success mb-13px">Registreren</button>
     </form>
     <p>
         Heeft u al een account?<br>
