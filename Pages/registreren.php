@@ -71,7 +71,7 @@
     </form>
     <p>
         Heeft u al een account?<br>
-        <a href="../Modules/inlog.php">Log hier in</a>
+        <a href="inlog.php">Log hier in</a>
     </p>
 </div>
 
