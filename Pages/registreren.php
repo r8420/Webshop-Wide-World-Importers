@@ -35,8 +35,8 @@
 <body>
 
 <?php
-//include '../Modules/Navbar.php'
-//?>
+include '../Modules/header.php'
+?>
 <!-- Begin page content -->
 <div class="container">
     <div class="mb-5">
@@ -76,7 +76,7 @@
 </div>
 
 <?php
-//include '../Modules/footer.php'
-//?>
+include '../Modules/footer.php'
+?>
 </body>
 </html>
