@@ -7,7 +7,7 @@
     <!--    <link type="text/css" rel="stylesheet" href="/css/bootstrap.css">-->
     <!--    <link type="text/css" rel="stylesheet" href="/css/bootstrap-grid.css">-->
     <!--    <link type="text/css" rel="stylesheet" href="/css/bootstrap-reboot.css">-->
-    <link rel="stylesheet" href="/css/imports.css">
+    <link rel="stylesheet" href="../css/imports.css">
     <script src="/js/imports-dist.js"></script>
     <title>WWI Webshop</title>
 </head>
