@@ -7,8 +7,8 @@
     <!--    <link type="text/css" rel="stylesheet" href="/css/bootstrap.css">-->
     <!--    <link type="text/css" rel="stylesheet" href="/css/bootstrap-grid.css">-->
     <!--    <link type="text/css" rel="stylesheet" href="/css/bootstrap-reboot.css">-->
-    <link rel="stylesheet" href="http://127.0.0.1/KBS2/css/imports.css">
-    <script src="http://127.0.0.1/KBS2/js/imports-dist.js"></script>
+    <link rel="stylesheet" href="css/imports.css">
+    <script src="js/imports-dist.js"></script>
     <title>WWI Webshop</title>
 </head>
 <body>
