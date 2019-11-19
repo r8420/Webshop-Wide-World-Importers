@@ -351,7 +351,7 @@
 </div>
 
 
-<footer class="text-white sticky-bottom bg-primary mt-5">
+<footer class="text-white bg-primary mt-5" >
     <div class="container">
         <div class="row">
             <div class="col-sm-6 pt-3 pb-4">
