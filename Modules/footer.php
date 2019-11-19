@@ -1,4 +1,5 @@
-<footer class="text-white fixed-footer1 bg-primary mt-5">
+</div>
+<footer class="text-white bg-primary mt-5" id="fixed-footer">
     <div class="container">
         <div class="row">
             <div class="col-sm-6 pt-3 pb-4">
@@ -21,5 +22,6 @@
         </div>
     </div>
 </footer>
+</div >
 </body>
 </html>
