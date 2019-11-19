@@ -1,0 +1,10 @@
+SCSS/CSS:
+
+Font awesome: 5.11.2
+
+
+
+JS:
+
+font awesome: 5.11.2
+jquery: 3.4.1
