@@ -1,9 +1,16 @@
-<?php
-include "Modules/header.php";
-?>
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="css/imports.css">
+    <script src="js/imports-dist.js"></script>
+    <title>WWI Webshop</title>
+</head>
 
 <div class="container">
-<div id="carouselExampleIndicators" class="carousel slide mt-5 " data-ride="carousel">
+<div id="carouselExampleIndicators" class="carousel slide mt-5" data-ride="carousel">
     <ol class="carousel-indicators rounded">
         <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
         <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
