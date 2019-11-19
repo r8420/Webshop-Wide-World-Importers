@@ -8,7 +8,49 @@
     <script src="js/imports-dist.js"></script>
     <title>WWI Webshop</title>
 </head>
+<body>
 
+<nav class="navbar navbar-expand-lg bg-primary">
+    <div class="container">
+
+        <div class="col-2">
+            <img src="Images/logo.png" style="width: 40px; height: 40px;" alt="Logo WWI">
+            <a class="navbar-brand mb-0 h1 text-white ml-2 mr-5" href="#">WWI</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+        </div>
+
+        <div class="col-3">
+            <ul class="navbar-nav">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle text-white font-weight-bold" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Bekijk assortiment
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="#">Categorie 1</a>
+                        <a class="dropdown-item" href="#">Categorie 2</a>
+                        <a class="dropdown-item" href="#">Categorie 3</a>
+                        <a class="dropdown-item" href="#">Categorie 3</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+        <div class="col-4">
+            <form class="form-inline">
+                <input class="form-control w-100" type="search" placeholder="Zoeken..." aria-label="Search">
+            </form>
+        </div>
+
+        <div class="col-3 pl-5 align-middle d-flex">
+            <div class="text-white float-right ">
+                <i class="fas fa-user pr-4" style="font-size: 20px;"></i>
+                <i class="fas fa-shopping-cart" style="font-size: 20px;"></i>
+            </div>
+        </div>
+    </div>
+</nav>
 <div class="container">
 <div id="carouselExampleIndicators" class="carousel slide mt-5" data-ride="carousel">
     <ol class="carousel-indicators rounded">
@@ -304,6 +346,22 @@
 </div>
 
 
-<?php
-include "Modules/footer.php";
-?>
+<footer class="text-white bg-primary mt-5">
+    <div class="container">
+        <div class="row pt-3 pb-4 ">
+            <div class="col-6">
+                <img class="float-left mr-1" src="Images/logo.png" width="40px" height="40px"><h2>WWI</h2>
+                <p class="pt-2">Lorem sdsdsdsddsdipsum dolor sit amet, consectetur adipiscing elit. Morbi et nisl hendrerit, aliquet mi sed, scelerisque tortor. Aliquam eu scelerisque quam, ac tristique dolor. Aliquam nulla risus, fermentum feugiat tortor quis, facilisis cursus arcu. Sed eu purus placerat, aliquet augue nec, molestie felis. Fusce porta.</p>
+
+            </div>
+            <div class="col-6">
+                <h2>Klantenservice</h2>
+                <p class="pt-2">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi et nisl hendrerit, aliquet mi sed, scelerisque tortor. Aliquam eu scelerisque quam, ac tristique dolor. Aliquam nulla risus, fermentum feugiat tortor quis, facilisis cursus arcu. Sed eu purus placerat, aliquet augue nec, molestie felis. Fusce porta.</p>
+
+            </div>
+        </div>
+    </div>
+</footer>
+</body>
+</html>
+
