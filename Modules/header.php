@@ -13,6 +13,8 @@
     <title>WWI Webshop</title>
 </head>
 <body>
+<div id="page-container">
+    <div id="content-wrap">
 <nav class="navbar navbar-expand-lg bg-primary navbar-light">
     <div class="container">
         <a class="navbar-brand text-white mb-0 h1" href="#">
@@ -58,4 +60,5 @@
         </div>
     </div>
 </nav>
+
 
