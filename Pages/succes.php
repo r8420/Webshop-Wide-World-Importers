@@ -29,7 +29,7 @@ include '../Modules/header.php'
             <em>#bestelnummer</em>
         </p>
     </div>
-    <a class="btn btn-success" href="index.php">Terug naar de homepagina</a>
+    <a class="btn btn-success text-white" href="../index.php">Terug naar de homepagina</a>
 </div>
 
 <?php
