@@ -1,0 +1,28 @@
+.rating {
+    color: #FFC400;
+}
+
+.navbar-light .navbar-toggler {
+    color: rgb(255, 255, 255) !important;
+    border-color: rgb(255, 255, 255) !important;
+}
+
+.fas {
+    font-size: 24px;
+}
+
+#page-container {
+    position: relative;
+    min-height: 100vh !important;
+}
+
+#content-wrap {
+    padding-bottom: 15rem !important;
+}
+
+#fixed-footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 15rem !important;
+}
