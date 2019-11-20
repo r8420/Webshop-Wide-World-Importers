@@ -1,4 +1,9 @@
 <?php
+session_start();
+if (isset($_SESSION['loggedin']) || $_SESSION['loggedin'] == FALSE ){
+    header("Refresh: 0; url=login.php");
+    exit();
+}
 include '../Modules/head.php';
 include '../Modules/header.php';
 ?>
