@@ -1,5 +1,6 @@
 <?php
-include '../Modules/header.php'
+include '../Modules/head.php';
+include '../Modules/header.php';
 ?>
 <!-- Begin page content -->
 <div class="container col-sm-3">
@@ -41,5 +42,5 @@ include '../Modules/header.php'
     </p>
 </div>
 <?php
-include '../Modules/footer.php'
+include '../Modules/footer.php';
 ?>
