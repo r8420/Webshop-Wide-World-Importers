@@ -3,7 +3,7 @@
     <div class="container">
         <div class="row">
             <div class="col-sm-6 pt-3 pb-4">
-                <img class="float-left mr-1" src="Images/logo.png" width="40px" height="40px">
+                <img class="float-left mr-1" src="../Images/logo.png" width="40px" height="40px">
                 <h2>WWI</h2>
                 <p class="pt-2">Lorem sdsdsdsddsdipsum dolor sit amet, consectetur adipiscing elit. Morbi et nisl
                     hendrerit, aliquet mi sed, scelerisque tortor. Aliquam eu scelerisque quam, ac tristique dolor.
