@@ -1,5 +1,6 @@
 <?php
-include "../Modules/header.php"
+include '../Modules/head.php';
+include '../Modules/header.php';
 ?>
     <div class="container">
         <div class="m-5">
