@@ -10,7 +10,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $username = $_POST["username"];
     $password = $_POST["password"];
 } else {
-    header("Refresh: 0; url=login.php");
+    header("Refresh: 0; url=../Pages/login.php");
     exit();
 }
 

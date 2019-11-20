@@ -12,25 +12,31 @@ include '../Modules/header.php';
             <div class="input-group-prepend">
                 <div class="input-group-text"><i class="fas fa-at"></i></div>
             </div>
-            <input type="text" class="form-control rounded" placeholder="Voer uw emailadress in" name="email" required>
+            <input type="text" class="form-control rounded" placeholder="E-mailadres" name="email" required>
         </div>
         <div class="input-group mb-3">
             <div class="input-group-prepend">
                 <div class="input-group-text"><i class="fas fa-user"></i></div>
             </div>
-            <input type="text" class="form-control rounded" placeholder="Voer uw naam in" name="name"  required>
+            <input type="text" class="form-control rounded" placeholder="Voledige naam" name="name"  required>
+        </div>
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <div class="input-group-text"><i class="fas fa-phone"></i></div>
+            </div>
+            <input type="text" class="form-control rounded" placeholder="Telefoonnummer" name="telefoonnummer"  required>
         </div>
         <div class="input-group mb-3">
             <div class="input-group-prepend">
                 <div class="input-group-text"><i class="fas fa-lock"></i></div>
             </div>
-            <input type="password" class="form-control rounded" placeholder="Voer een wachtwoord in" name="password" required>
+            <input type="password" class="form-control rounded" placeholder="wachtwoord" name="password" required>
         </div>
         <div class="input-group mb-3">
             <div class="input-group-prepend">
                 <div class="input-group-text"><i class="fas fa-lock"></i></div>
             </div>
-            <input type="password" class="form-control rounded" placeholder="Voer het wachtwoord opnieuw in" name="password_validation" required>
+            <input type="password" class="form-control rounded" placeholder="wachtwoord opnieuw" name="password_validation" required>
         </div>
         <div class="row justify-content-center">
             <button type="submit" class="btn btn-success pl-4 px-4 mb-3">Registreren</button>
