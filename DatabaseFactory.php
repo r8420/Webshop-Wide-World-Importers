@@ -15,7 +15,7 @@ class DatabaseFactory
         try {
             $connection = mysqli_connect($this->host, $this->databasename, $this->user, $this->password, $this->port);
             return $connection;
-        } catch (mysqli_sql_exception $exception){
+        } catch (mysqli_sql_exception $exception) {
             print $exception;
             return "Error";
         }
