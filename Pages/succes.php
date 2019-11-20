@@ -1,23 +1,13 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Page title</title>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="../css/imports.css">
-</head>
-<body>
-
 <?php
-include '../Modules/header.php'
+include '../Modules/head.php';
+include '../Modules/header.php';
 ?>
 <!-- Begin page content -->
 <div class="container" align="center" style="margin-top: 100px; margin-bottom: 100px">
     <div>
         <img src="../Images/checkmark.png" class="mb-3" style="width: 199px; height: 188px>
     </div>
-    <div class="mb-3">
+    <div class=" mb-3">
         <h1>Bestelling succesvol</h1>
     </div>
     <div class="container mb-4" align="center" style="width: 400px">

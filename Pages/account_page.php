@@ -1,8 +1,6 @@
-<!--<head>-->
-<!--    <link rel="stylesheet" href="/css/imports.css">-->
-<!--</head>-->
 <?php
-include '../Modules/header.php'
+include '../Modules/head.php';
+include '../Modules/header.php';
 ?>
 <div class="container">
     <div class="col-sm-10 mt-5">

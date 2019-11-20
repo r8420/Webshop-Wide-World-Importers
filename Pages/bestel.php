@@ -1,16 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Page title</title>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="../css/imports.css">
-</head>
-<body>
-
 <?php
-include '../Modules/header.php'
+include '../Modules/head.php';
+include '../Modules/header.php';
 ?>
 <!-- Begin page content -->
 <div class="container">
