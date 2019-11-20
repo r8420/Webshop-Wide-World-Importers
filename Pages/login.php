@@ -7,7 +7,7 @@ include '../Modules/header.php';
     <div class="m-5 text-center">
         <h1>Login</h1>
     </div>
-    <form>
+    <form action="../BackgroundCode/login_validation.php" method="post">
         <div class="input-group  mb-3">
             <div class="input-group-prepend">
                 <div class="input-group-text"><i class="fas fa-user"></i></div>
