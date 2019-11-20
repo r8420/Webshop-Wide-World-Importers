@@ -1,6 +1,5 @@
 <?php
 
-
 class DatabaseFactory
 {
 
@@ -19,9 +18,7 @@ class DatabaseFactory
             print $exception;
             return "Error";
         }
-
     }
-
 }
 
 ?>
