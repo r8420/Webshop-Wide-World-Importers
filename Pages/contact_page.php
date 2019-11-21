@@ -37,7 +37,7 @@ include "../Modules/header.php";
                     E-mailadres*: <input class="form-control float-right" type="email" name="email" required><br>
                     Bericht*:<br> <textarea name="bericht" class="form-control" rows="7" cols="60"
                                             required></textarea><br>
-                    <div class="row justify-content-center"><input type="submit" class="btn btn-success pl-4 px-4"
+                    <div class="row justify-content-center"><input type="submit" class="btn btn-success text-white pl-4 px-4"
                                                                    value="Verzenden"></div>
                 </form>
             </div>
