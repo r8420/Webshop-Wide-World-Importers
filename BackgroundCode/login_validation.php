@@ -30,7 +30,7 @@ if ($stmt->num_rows === 0) {
         session_start();
         $_SESSION['loggedin'] = TRUE;
         $_SESSION['userNr'] = $PersonID;
-        header("Refresh: 0; url=../pages/account_page.php");
+        header("Refresh: 0; url=../Pages/account_page.php");
         exit();
     } else {
         returnToLogin();
@@ -41,7 +41,7 @@ function returnToLogin()
 {
     session_start();
     $_SESSION['errorcode'] = "login_error";
-    header("Refresh: 0; url=../pages/login.php");
+    header("Refresh: 0; url=../Pages/login.php");
     exit();
 }
 
