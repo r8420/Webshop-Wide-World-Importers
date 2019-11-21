@@ -23,7 +23,8 @@ if ($email == $email_validation) {
     $stmtselect = $connection->prepare($selectquery);
     $stmtselect->bind_param("s", $email);
     $stmtselect->execute();
-    if ($stmtselect->num_rows == 0) {
+    $result = $stmtselect->get_result
+    if ($result->num_rows == 0) {
         if ($password == $password_validation) {
 
             $primaryKey = getLastPrimaryId($dbName, $connection) + 1;
