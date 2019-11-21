@@ -1,6 +1,7 @@
 <?php
-include '../Modules/head.php';
-include '../Modules/header.php';
+session_start();
+include "../Modules/functions.php";
+print_header();
 ?>
 <!-- Begin page content -->
 <div class="container col-sm-3 ">
@@ -8,13 +9,13 @@ include '../Modules/header.php';
         <h1>Login</h1>
     </div>
     <?php
-    session_start();
     if (isset($_SESSION['errorcode']) && $_SESSION['errorcode'] == "login_error") {
         ?>
         <div class="text-danger text-center pb-3">
             Gebruikersnaam of wachtwoord is verkeerd ingegeven.
         </div>
         <?php
+        unset ($_SESSION["errorcode"]);
     }
     ?>
     <form action="../BackgroundCode/login_validation.php" method="POST">
@@ -30,6 +31,7 @@ include '../Modules/header.php';
             </div>
             <input type="password" class="form-control rounded" placeholder="Wachtwoord" name="password" required>
         </div>
+
         <div class=" row justify-content-center">
             <button type="submit" id="inlogbutton" class="btn btn-success pl-4 px-4 mb-3">Inloggen</button>
         </div>
@@ -41,5 +43,7 @@ include '../Modules/header.php';
 </div>
 
 <?php
-include '../Modules/footer.php'
+print_footer();
 ?>
+
+
