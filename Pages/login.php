@@ -17,12 +17,12 @@ include '../Modules/header.php';
         <?php
     }
     ?>
-    <form action="../BackgroundCode/login_validation.php" method="post">
+    <form action="../BackgroundCode/login_validation.php" method="POST">
         <div class="input-group  mb-3">
             <div class="input-group-prepend">
                 <div class="input-group-text"><i class="fas fa-user"></i></div>
             </div>
-            <input type="text" class="form-control rounded" placeholder="Gebruikersnaam" name="username" required>
+            <input type="text" class="form-control rounded" placeholder="E-Mail" name="email" required>
         </div>
         <div class="input-group  mb-3">
             <div class="input-group-prepend">
