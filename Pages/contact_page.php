@@ -32,13 +32,13 @@ include "../Modules/header.php";
             <img src="../Images/Map.jpg">
             <div class="w-60 float-center mt-2">
                 <form>
-                    Naam: <input class="form-control float-right" type="text" name="naam"><br><br>
+                    Naam*: <input class="form-control float-right" type="text" name="naam" required><br><br>
                     Ordernummer: <input class="form-control float-right" type="text" name="ordernummer"><br><br>
-                    E-mailadres: <input class="form-control float-right" type="text" name="email"><br>
-                    Bericht:<br> <textarea name="bericht" class="form-control" rows="7" cols="60"></textarea><br>
+                    E-mailadres*: <input class="form-control float-right" type="email" name="email" required><br>
+                    Bericht*:<br> <textarea name="bericht" class="form-control" rows="7" cols="60"
+                                            required></textarea><br>
                     <div class="row justify-content-center"><input type="submit" class="btn btn-success pl-4 px-4"
-                                onclick="alert('Uw bericht is verzonden')"
-                                value="Verzenden"></div>
+                                                                   value="Verzenden"></div>
                 </form>
             </div>
         </div>
