@@ -20,8 +20,8 @@ $selectSQL = "SELECT PersonID, LogonName, HashedPassword FROM $tblName WHERE Log
 $stmt = $connection->prepare($selectSQL);
 $stmt->bind_param("s", $email);
 $stmt->execute();
-$result = $stmt->get_result();
-$row = $result->fetch_assoc();
+$stmt->bind_result($PersonID, $LogonName, $HashedPassword);
+$stmt->fetch();
 if ($stmt->num_rows == 0) {
     returnToLogin();
 } else {

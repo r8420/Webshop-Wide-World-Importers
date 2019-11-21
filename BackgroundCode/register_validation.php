@@ -19,12 +19,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     exit();
 }
 if ($email == $email_validation) {
-    $selectquery = "SELECT * FROM $dbName WHERE LogonName = ?";
+    $selectquery = "SELECT LogonName FROM $dbName WHERE LogonName = ?";
     $stmtselect = $connection->prepare($selectquery);
     $stmtselect->bind_param("s", $email);
     $stmtselect->execute();
-    $result = $stmtselect->get_result
-    if ($result->num_rows == 0) {
+    $stmtselect->bind_result($LogonName)
+    $stmtselect->fetch();
+    if ($stmtselect->num_rows == 0) {
         if ($password == $password_validation) {
 
             $primaryKey = getLastPrimaryId($dbName, $connection) + 1;
