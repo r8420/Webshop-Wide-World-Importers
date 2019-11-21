@@ -56,7 +56,7 @@ function returnToRegister($errorNumber)
     } elseif ($errorNumber == 2) {
         $_SESSION['errorcode'] = "register_password_error";
     } elseif ($errorNumber == 3) {
-        header("Refresh: 0; url=../Pages/login.php");
+        header("Refresh: 0; url=../Pages/registreer_succes.php");
         exit();
     } elseif ($errorNumber == 4) {
         $_SESSION['errorcode'] = "register_different_email_error";
