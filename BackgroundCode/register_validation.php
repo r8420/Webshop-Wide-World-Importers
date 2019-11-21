@@ -23,7 +23,6 @@ if ($email == $email_validation) {
     $stmtselect = $connection->prepare($selectquery);
     $stmtselect->bind_param("s", $email);
     $stmtselect->execute();
-    $result = $stmtselect->get_result();
     if ($stmtselect->num_rows == 0) {
         if ($password == $password_validation) {
 
