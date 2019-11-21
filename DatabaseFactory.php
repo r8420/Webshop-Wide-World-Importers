@@ -3,8 +3,8 @@
 class DatabaseFactory
 {
 
-    private $host = "localhost";
-    // private $host = "wwiproject.ml";
+    //private $host = "localhost";
+    private $host = "wwiproject.ml";
     private $databasename = "***REMOVED***_wwi";
     private $user = "***REMOVED***_wwi";
     private $dbpassword = "1Ik0iDKy2JNo";

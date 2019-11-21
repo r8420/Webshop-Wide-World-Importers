@@ -1,7 +1,7 @@
 <?php
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
+//ini_set('display_errors', 1);
+//ini_set('display_startup_errors', 1);
+//error_reporting(E_ALL);
 require "../DatabaseFactory.php";
 $username = "";
 $password = "";
@@ -21,16 +21,15 @@ $stmt = $connection->prepare($selectSQL);
 $stmt->bind_param("s", $email);
 $stmt->execute();
 $stmt->bind_result($PersonID, $LogonName, $HashedPassword);
+$stmt->store_result();
 $stmt->fetch();
-if ($stmt->num_rows == 0) {
+if ($stmt->num_rows === 0) {
     returnToLogin();
 } else {
-    $hash = $row['HashedPassword'];
-
-    if (password_verify($password, $row['HashedPassword'])) {
+    if (password_verify($password, $HashedPassword)) {
         session_start();
         $_SESSION['loggedin'] = TRUE;
-        $_SESSION['userNr'] = $row['PersonID'];
+        $_SESSION['userNr'] = $PersonID;
         header("Refresh: 0; url=../pages/account_page.php");
         exit();
     } else {
@@ -42,7 +41,7 @@ function returnToLogin()
 {
     session_start();
     $_SESSION['errorcode'] = "login_error";
-    header("Refresh: 20; url=../pages/login.php");
+    header("Refresh: 0; url=../pages/login.php");
     exit();
 }
 
