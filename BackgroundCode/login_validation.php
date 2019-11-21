@@ -2,41 +2,44 @@
 require "../DatabaseFactory.php";
 $username = "";
 $password = "";
-$Connection = new DatabaseFactory();
-$connection = $Connection->getConnection();
-$tbl_name = "people_archive";
+$connectionObject = new DatabaseFactory();
+$connection = $connectionObject->getConnection();
+$tblName = "people";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $username = $_POST["username"];
-    $password = $_POST["password"];
+    $email = $_POST['email'];
+    $password = $_POST['password'];
 } else {
     header("Refresh: 0; url=../Pages/login.php");
     exit();
 }
-
-$sql = "SELECT PersonID, LogonName, HashedPassword FROM $tbl_name WHERE LogonName=$username";
-$result = mysqli_query($connection, $sql);
-if ($result == null) {
-    returntologin();
+$selectSQL = "SELECT PersonID, LogonName, HashedPassword FROM $tblName WHERE LogonName = ?";
+$stmt = $connection->prepare($selectSQL);
+$stmt->bind_param("s", $email);
+$stmt->execute();
+$result = $stmt->get_result();
+$row = $result->fetch_assoc();
+if ($result->num_rows == 0) {
+    returnToLogin();
 } else {
-    $count = mysqli_num_rows($result);
-    if ($count == 1) {
-        $hash = $result[2];
-        if (password_verify($password, $hash)) {
-            session_start();
-            $_SESSION['logedin'] = true;
-            $_SESSION['userNr'] = $result[0];
+    $hash = $row['HashedPassword'];
 
-        } else {
-            returntologin();
-        }
+    if (password_verify($password, $row['HashedPassword'])) {
+        session_start();
+        $_SESSION['loggedin'] = TRUE;
+        $_SESSION['userNr'] = $row['PersonID'];
+        header("Refresh: 0; url=../pages/account_page.php");
+        exit();
+    } else {
+        returnToLogin();
     }
+
 }
-function returntologin()
+function returnToLogin()
 {
     session_start();
-    $_SESSION['errorcode'] =  "login_error";
-    header("Refresh: 0; url=../Pages/login.php");
+    $_SESSION['errorcode'] = "login_error";
+    header("Refresh: 20; url=../pages/login.php");
     exit();
 }
 

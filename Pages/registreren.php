@@ -16,6 +16,12 @@ include '../Modules/header.php';
         </div>
         <div class="input-group mb-3">
             <div class="input-group-prepend">
+                <div class="input-group-text"><i class="fas fa-at"></i></div>
+            </div>
+            <input type="text" class="form-control rounded" placeholder="E-mailadres" name="email_validation" required>
+        </div>
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
                 <div class="input-group-text"><i class="fas fa-user"></i></div>
             </div>
             <input type="text" class="form-control rounded" placeholder="Voledige naam" name="name"  required>
@@ -24,7 +30,7 @@ include '../Modules/header.php';
             <div class="input-group-prepend">
                 <div class="input-group-text"><i class="fas fa-phone"></i></div>
             </div>
-            <input type="text" class="form-control rounded" placeholder="Telefoonnummer" name="telefoonnummer"  required>
+            <input type="text" class="form-control rounded" placeholder="Telefoonnummer" name="telephone"  required>
         </div>
         <div class="input-group mb-3">
             <div class="input-group-prepend">
@@ -44,7 +50,7 @@ include '../Modules/header.php';
     </form>
     <p class="text-center">
         Heeft u al een account?<br>
-        <a href="inlog.php">Log hier in</a>
+        <a href="login.php">Log hier in</a>
     </p>
 </div>
 <?php
