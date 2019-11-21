@@ -3,25 +3,20 @@ include '../Modules/head.php';
 include '../Modules/header.php';
 ?>
 <!-- Begin page content -->
-<div class="container" align="center" style="margin-top: 100px; margin-bottom: 100px">
+<div class="container margin100" align="center">
     <div>
-        <img src="../Images/checkmark.png" class="mb-3" style="width: 199px; height: 188px>
-    </div>
-    <div class=" mb-3">
+        <img src="../Images/checkmark.png" class="mb-3 vinkje">
         <h1>Registratie voltooid</h1>
     </div>
-    <div class="container mb-4" align="center" style="width: 400px">
+    <div class="container mb-4 w-400" align="center">
         <p>
-           Het aanmaken van uw account is gelukt.
-        </p>
-        <p style="color: blue">
-
+            Het aanmaken van uw account is gelukt. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi et nisl hendrerit,
+            aliquet mi sed, scelerisque tortor.
         </p>
     </div>
-    <a class="btn btn-success text-white" href="../index.php">Mijn account</a>
+    <a class="btn btn-success" href="../index.php">Mijn account</a>
     <br>
-    <br>
-    <a class="btn btn-success text-white" href="../index.php">Terug naar de homepagina</a>
+    <a class="btn btn-success mt-3" href="../index.php">Terug naar de homepagina</a>
 </div>
 
 <?php
