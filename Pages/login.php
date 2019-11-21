@@ -1,6 +1,6 @@
 <?php
-include '../Modules/head.php';
-include '../Modules/header.php';
+include "../Modules/functions.php";
+print_header();
 ?>
 <!-- Begin page content -->
 <div class="container col-sm-3 ">
@@ -30,10 +30,10 @@ include '../Modules/header.php';
             </div>
             <input type="password" class="form-control rounded" placeholder="Wachtwoord" name="password" required>
         </div>
-        <div class=" row justify-content-center">
-            <button type="submit" id="inlogbutton" class="btn btn-success pl-4 px-4 mb-3">Inloggen</button>
-        </div>
     </form>
+        <div class=" row justify-content-center">
+            <a href="account_page.php"><button type="submit" id="inlogbutton" class="btn btn-success pl-4 px-4 mb-3">Inloggen</button></a>
+        </div>
     <p class="text-center">
         Nog geen account?<br>
         <a href="registreren.php">Maak hier een account aan</a>
@@ -41,5 +41,7 @@ include '../Modules/header.php';
 </div>
 
 <?php
-include '../Modules/footer.php'
+print_footer();
 ?>
+
+
