@@ -1,7 +1,7 @@
 <?php
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
+//ini_set('display_errors', 1);
+//ini_set('display_startup_errors', 1);
+//error_reporting(E_ALL);
 include "../DatabaseFactory.php";
 $connectionObject = new DatabaseFactory();
 $connection = $connectionObject->getConnection();
@@ -21,19 +21,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 if ($email == $email_validation) {
     $selectquery = "SELECT LogonName FROM $dbName WHERE LogonName = ?";
     $stmtselect = $connection->prepare($selectquery);
+
     $stmtselect->bind_param("s", $email);
     $stmtselect->execute();
-    $stmtselect->bind_result($LogonName)
+    $stmtselect->bind_result($LogonName);
+    $stmtselect->store_result();
     $stmtselect->fetch();
-    if ($stmtselect->num_rows == 0) {
+    if ($stmtselect->num_rows === 0) {
         if ($password == $password_validation) {
-
-            $primaryKey = getLastPrimaryId($dbName, $connection) + 1;
             $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
-            $insertsql = "INSERT INTO $dbName (PersonID, FullName, LogonName, HashedPassword, PhoneNumber, EmailAddress) VALUES (?,?,?,?,?,?)";
+            $insertsql = "INSERT INTO people (PersonID, FullName, LogonName, HashedPassword, PhoneNumber, EmailAddress) SELECT (max(PersonID)+1),?,?,?,?,? FROM people";
             $stmtinsert = $connection->prepare($insertsql);
-            $stmtinsert->bind_param("isssss", $primaryKey, $name, $email, $hashedPassword, $tel, $email);
+            $stmtinsert->bind_param("sssss", $name, $email, $hashedPassword, $tel, $email);
             $stmtinsert->execute();
             $stmtinsert->close();
             $connection->close();
@@ -65,14 +65,5 @@ function returnToRegister($errorNumber)
     header("Refresh: 0; url=../Pages/registreren.php");
     exit();
 }
-
-function getLastPrimaryId($dbName, $connection){
-    $sql = "SELECT max(PersonID) FROM $dbName";
-    $result = $connection->query($sql);
-    $row = $result->fetch_assoc();
-    $primaryKkey = $row['max(PersonID)'];
-    return $primaryKkey;
-}
-
 ?>
 
