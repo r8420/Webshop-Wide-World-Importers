@@ -1,8 +1,8 @@
 <?php
-function print_header($var)
+function print_header($var = false)
 {
 $prefix = "../";
-if ($var == "index") {
+if ($var === "index") {
     $prefix = "";
 }
 ?>
@@ -88,10 +88,10 @@ if ($var == "index") {
         <?php
         }
 
-        function print_footer($var)
+        function print_footer($var = false)
         {
         $prefix = "../";
-        if ($var == "index") {
+        if ($var === "index") {
             $prefix = "";
         }
         ?>
