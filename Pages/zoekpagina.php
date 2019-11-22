@@ -1,8 +1,7 @@
 <?php
-include '../Modules/head.php';
-include '../Modules/header.php';
+include "../Modules/functions.php";
+print_header();
 include '../DatabaseFactory.php';
-
 $connectionObject = new DatabaseFactory();
 $connection = $connectionObject->getConnection();
 if($connection == false) {
@@ -17,7 +16,6 @@ $stmt->bind_param("s", $searchSQL);
 
 $stmt->execute();
 $result = $stmt->get_result();
-
 ?>
     <main class="container">
         <div class="row">
@@ -110,5 +108,5 @@ $result = $stmt->get_result();
         </div>
     </main>
 <?php
-include('../Modules/footer.php');
+print_footer();
 ?>

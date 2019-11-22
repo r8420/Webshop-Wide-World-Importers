@@ -1,2 +1,6 @@
 Options +Indexes
 IndexOptions FancyIndexing FoldersFirst NameWidth=* DescriptionWidth=*
+<IfModule mod_speling.c>
+  CheckCaseOnly On
+  CheckSpelling On
+</IfModule>

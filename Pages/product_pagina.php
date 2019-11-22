@@ -1,6 +1,6 @@
 <?php
-include '../Modules/head.php';
-include '../Modules/header.php';
+include "../Modules/functions.php";
+print_header();
 ?>
 <div class="container">
     <div class="row">
@@ -65,5 +65,6 @@ include '../Modules/header.php';
     </div>
 </div>
 <?php
-include '../Modules/footer.php'
+print_footer();
 ?>
+

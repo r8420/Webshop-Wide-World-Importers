@@ -1,6 +1,6 @@
 <?php
-include '../Modules/head.php';
-include '../Modules/header.php';
+include "../Modules/functions.php";
+print_header();
 ?>
 <!-- Begin page content -->
 <div class="container">
@@ -36,10 +36,10 @@ include '../Modules/header.php';
                     <label for="InputEmailadres">E-mailadres*:</label>
                     <input type="text" class="form-control" id="InputEmailadres" placeholder="">
                 </div>
-                <div class="float-right">
-                    <button type="submit" id="inlogbutton" class="btn btn-success">Naar betalen</button>
-                </div>
             </form>
+                <div class="float-right">
+                    <a href="<?php echo $prefix; ?>Pages/succes.php"><button id="inlogbutton" class="btn btn-success">Naar betalen</button></a>
+                </div>
         </div>
 
         <div class="col-6">
@@ -65,9 +65,5 @@ include '../Modules/header.php';
     </div>
 </div>
 <?php
-include '../Modules/footer.php'
-//?>
-<!-- Placed at the end of the document so the pages load faster -->
-<script src="../js/imports-dist.js"></script>
-</body>
-</html>
+print_footer();
+?>
