@@ -1,10 +1,6 @@
 <?php
 include "Modules/functions.php";
-require "DatabaseFactory.php";
-$connectionObject = new DatabaseFactory();
-$connection = $connectionObject->getConnection();
 print_header("index");
-
 
 $product = "SELECT StockItemID, StockItemName, RecommendedRetailPrice, Photo
                 FROM stockitems ORDER BY RAND() LIMIT 12;";
