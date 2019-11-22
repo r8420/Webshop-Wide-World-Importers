@@ -11,18 +11,21 @@ if($connection == false) {
 $search = ISSET($_GET['search']) ? $_GET['search'] : '';
 $category = ISSET($_GET['category']) ? $_GET['category'] : null;
 
+$searchSQL = '%'.$search.'%';
+
 //Als de category niet gespecificeerd is
 if($category == null) {
-    $stmt = $connection->prepare("SELECT * FROM stockitems WHERE SearchDetails LIKE ?");
+    $stmt = $connection->prepare("SELECT StockItemName, RecommendedRetailPrice, Photo FROM stockitems WHERE SearchDetails LIKE ?");
+    $stmt->bind_param("s", $searchSQL);
 } else {
-    $stmt = $connection->prepare("SELECT * FROM stockitemstockgroups sisg JOIN stockitems si ON si.StockItemID = sisg.StockItemID WHERE si.SearchDetails LIKE ? AND sisg.StockGroupID LIKE ?");
+    $stmt = $connection->prepare("SELECT StockItemName, RecommendedRetailPrice, Photo, StockGroupName FROM stockitemstockgroups sisg JOIN stockitems si ON si.StockItemID = sisg.StockItemID JOIN stockgroups sg ON sg.StockGroupID = sisg.StockGroupID WHERE si.SearchDetails LIKE ? AND sisg.StockGroupID LIKE ?");
+    $stmt->bind_param("si", $searchSQL, $category);
 }
-
-$searchSQL = '%'.$search.'%';
-$stmt->bind_param("s", $searchSQL);
 
 $stmt->execute();
 $result = $stmt->get_result();
+if($category != null)
+    $categoryName = $result->fetch_assoc()['StockGroupName'];
 ?>
     <main class="container">
         <div class="row">
@@ -83,7 +86,11 @@ $result = $stmt->get_result();
                     <div class="card-body">
                         <?php
                         $numResults = $result->num_rows;
-                        print("<h5 class=\"float-left\">$numResults resultaten voor '$search'</h5>")
+                        if($category == null) {
+                            print("<h5 class=\"float-left\">$numResults resultaten voor '$search'</h5>");
+                        } else {
+                            print("<h5 class=\"float-left\">$numResults resultaten voor '$search' in category $categoryName</h5>");
+                        }
                         ?>
                         <select class="float-right custom-select w-25">
                             <option value="" disabled="" selected>Sorteer op</option>
@@ -102,8 +109,8 @@ $result = $stmt->get_result();
                         </li>
                         <?php
                         while($row = $result->fetch_assoc()) {
-                            $productName = $row['StockItemName'];
-                            $productPrice = $row['RecommendedRetailPrice'];
+                            $productName = strip_tags($row['StockItemName']);
+                            $productPrice = strip_tags($row['RecommendedRetailPrice']);
                             $productPhoto = base64_encode($row['Photo']);
                             print('<li class="list-group-item shadow"><img src="data:image/jpeg;base64,' . $productPhoto . '" width="100" height="100"><span class="col-8">'.$productName.'</span><span class="col-4">'. $productPrice.'</span></li>');
                         }
