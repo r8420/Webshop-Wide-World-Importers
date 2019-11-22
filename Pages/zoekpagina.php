@@ -1,9 +1,27 @@
 <?php
 include '../Modules/head.php';
 include '../Modules/header.php';
+include '../DatabaseFactory.php';
+
+$connectionObject = new DatabaseFactory();
+$connection = $connectionObject->getConnection();
+if($connection == false) {
+    die("Can't connect to database");
+}
+
+$search = ISSET($_GET['search']) ? $_GET['search'] : '';
+
+$stmt = $connection->prepare("SELECT * FROM stockitems WHERE SearchDetails LIKE ?");
+$searchSQL = '%'.$search.'%';
+$stmt->bind_param("s", $searchSQL);
+
+$stmt->execute();
+$result = $stmt->get_result();
+
 ?>
     <main class="container">
         <div class="row">
+            <!-- Voor nu niet nodig
             <form class="col-3 pr-0">
                 <div class="card" style="">
                     <div class="card-body form-row">
@@ -54,12 +72,13 @@ include '../Modules/header.php';
                     </ul>
                 </div>
             </form>
-            <div class="col-9 pl-0">
-                <div class="card border-left-0">
+            -->
+            <div class="col-11 pl-0">
+                <div class="card">
                     <div class="card-body">
                         <?php
-                        $search = ISSET($_GET['search']) ? $_GET['search'] : '';
-                        print("<h5 class=\"float-left\">x resultaten voor '$search'</h5>")
+                        $numResults = $result->num_rows;
+                        print("<h5 class=\"float-left\">$numResults resultaten voor '$search'</h5>")
                         ?>
                         <select class="float-right custom-select w-25">
                             <option value="" disabled="" selected>Sorteer op</option>
@@ -72,11 +91,19 @@ include '../Modules/header.php';
                     </div>
                     <ul class="list-group list-group-flush">
                         <li class="list-group-item">
-                            <!-- HIER KOMEN DE KAARTEN VAN DE ARTIKELEN-->
-                            <div class="container">
-                                Test
+                            <div>
+
                             </div>
                         </li>
+                        <?php
+                        while($row = $result->fetch_assoc()) {
+                            $productName = $row['StockItemName'];
+                            $productPrice = $row['RecommendedRetailPrice'];
+                            $productPhoto = base64_encode($row['Photo']);
+                            print('<li class="list-group-item shadow"><img src="data:image/jpeg;base64,' . $productPhoto . '" width="100" height="100"><span class="col-8">'.$productName.'</span><span class="col-4">'. $productPrice.'</span></li>');
+                        }
+                        ?>
+
                     </ul>
                 </div>
             </div>
