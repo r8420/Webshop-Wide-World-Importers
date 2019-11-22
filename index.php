@@ -1,6 +1,6 @@
 <?php
-include "Modules/head_index.php";
-include "Modules/header.php";
+include "Modules/functions.php";
+print_header("index");
 ?>
 <div class="container">
     <div id="carouselExampleIndicators" class="carousel slide mt-5 d-none d-md-block" data-ride="carousel">
@@ -19,7 +19,7 @@ include "Modules/header.php";
                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi et nisl hendrerit, aliquet
                         mi sed, scelerisque tortor. Aliquam eu scelerisque quam, ac tristique dolor. Aliquam
                         nulla risus, fermentum feugiat tortor quis, facilisis cursus arcu.</p>
-                    <button type="button" class="btn btn-success text-white">Bekijken</button>
+                    <a href="Pages/product_pagina.php"><button type="button" class="btn btn-success text-white">Bekijken</button></a>
                 </div>
             </div>
             <div class="carousel-item rounded">
@@ -31,7 +31,7 @@ include "Modules/header.php";
                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi et nisl hendrerit, aliquet
                         mi sed, scelerisque tortor. Aliquam eu scelerisque quam, ac tristique dolor. Aliquam
                         nulla risus, fermentum feugiat tortor quis, facilisis cursus arcu.</p>
-                    <button type="button" class="btn btn-success text-white">Bekijken</button>
+                    <a href="Pages/product_pagina.php"><button type="button" class="btn btn-success text-white">Bekijken</button></a>
                 </div>
             </div>
             <div class="carousel-item">
@@ -43,7 +43,7 @@ include "Modules/header.php";
                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi et nisl hendrerit, aliquet
                         mi sed, scelerisque tortor. Aliquam eu scelerisque quam, ac tristique dolor. Aliquam
                         nulla risus, fermentum feugiat tortor quis, facilisis cursus arcu.</p>
-                    <button type="button" class="btn btn-success text-white">Bekijken</button>
+                    <a href="Pages/product_pagina.php"><button type="button" class="btn btn-success text-white">Bekijken</button></a>
                 </div>
             </div>
         </div>
@@ -59,7 +59,7 @@ include "Modules/header.php";
 
     <div class="row mt-5">
         <div class="col-sm-3 col-md-3">
-            <a href="#" class="text-decoration-none">
+            <a href="Pages/product_pagina.php" class="text-decoration-none">
                 <div class="card border-0">
                     <img src="Images/product1.png" class="card-img-top w-75 mx-auto pt-3" alt="...">
                     <div class="card-body">
@@ -74,7 +74,7 @@ include "Modules/header.php";
             </a>
         </div>
         <div class="col-sm-3 col-md-3">
-            <a href="#" class="text-decoration-none">
+            <a href="Pages/product_pagina.php" class="text-decoration-none">
                 <div class="card border-0">
                     <img src="Images/product2.png" class="card-img-top w-75 mx-auto pt-3" alt="...">
                     <div class="card-body">
@@ -89,7 +89,7 @@ include "Modules/header.php";
             </a>
         </div>
         <div class="col-sm-3 col-md-3">
-            <a href="#" class="text-decoration-none">
+            <a href="Pages/product_pagina.php" class="text-decoration-none">
                 <div class="card border-0">
                     <img src="Images/product3.png" class="card-img-top w-75 mx-auto pt-3" alt="...">
                     <div class="card-body">
@@ -104,7 +104,7 @@ include "Modules/header.php";
             </a>
         </div>
         <div class="col-sm-3">
-            <a href="#" class="text-decoration-none">
+            <a href="Pages/product_pagina.php" class="text-decoration-none">
                 <div class="card border-0">
                     <img src="Images/product4.png" class="card-img-top w-75 mx-auto pt-3" alt="...">
                     <div class="card-body">
@@ -122,7 +122,7 @@ include "Modules/header.php";
 
     <div class="row mt-5">
         <div class="col-sm-3">
-            <a href="#" class="text-decoration-none">
+            <a href="Pages/product_pagina.php" class="text-decoration-none">
                 <div class="card border-0">
                     <img src="Images/product5.png" class="card-img-top w-75 mx-auto pt-3" alt="...">
                     <div class="card-body">
@@ -137,7 +137,7 @@ include "Modules/header.php";
             </a>
         </div>
         <div class="col-sm-3">
-            <a href="#" class="text-decoration-none">
+            <a href="Pages/product_pagina.php" class="text-decoration-none">
                 <div class="card border-0">
                     <img src="Images/product12.png" class="card-img-top w-75 mx-auto pt-3" alt="...">
                     <div class="card-body">
@@ -152,7 +152,7 @@ include "Modules/header.php";
             </a>
         </div>
         <div class="col-sm-3">
-            <a href="#" class="text-decoration-none">
+            <a href="Pages/product_pagina.php" class="text-decoration-none">
                 <div class="card border-0">
                     <img src="Images/product7.png" class="card-img-top w-75 mx-auto pt-3" alt="...">
                     <div class="card-body">
@@ -167,7 +167,7 @@ include "Modules/header.php";
             </a>
         </div>
         <div class="col-sm-3">
-            <a href="#" class="text-decoration-none">
+            <a href="Pages/product_pagina.php" class="text-decoration-none">
                 <div class="card border-0">
                     <img src="Images/product8.png" class="card-img-top w-75 mx-auto pt-3" alt="...">
                     <div class="card-body">
@@ -185,7 +185,7 @@ include "Modules/header.php";
 
     <div class="row mt-5">
         <div class="col-sm-3">
-            <a href="#" class="text-decoration-none">
+            <a href="Pages/product_pagina.php" class="text-decoration-none">
                 <div class="card border-0">
                     <img src="Images/product9.png" class="card-img-top w-75 mx-auto pt-3" alt="...">
                     <div class="card-body">
@@ -200,7 +200,7 @@ include "Modules/header.php";
             </a>
         </div>
         <div class="col-sm-3">
-            <a href="#" class="text-decoration-none">
+            <a href="Pages/product_pagina.php" class="text-decoration-none">
                 <div class="card border-0">
                     <img src="Images/product10.png" class="card-img-top w-75 mx-auto pt-3" alt="...">
                     <div class="card-body">
@@ -215,7 +215,7 @@ include "Modules/header.php";
             </a>
         </div>
         <div class="col-sm-3">
-            <a href="#" class="text-decoration-none">
+            <a href="Pages/product_pagina.php" class="text-decoration-none">
                 <div class="card border-0">
                     <img src="Images/product11.png" class="card-img-top w-75 mx-auto pt-3" alt="...">
                     <div class="card-body">
@@ -230,7 +230,7 @@ include "Modules/header.php";
             </a>
         </div>
         <div class="col-sm-3">
-            <a href="#" class="text-decoration-none">
+            <a href="Pages/product_pagina.php" class="text-decoration-none">
                 <div class="card border-0">
                     <img src="Images/product12.png" class="card-img-top w-75 mx-auto pt-3" alt="...">
                     <div class="card-body">
@@ -248,7 +248,7 @@ include "Modules/header.php";
 
     <div class="row mt-5">
         <div class="col-sm-3">
-            <a href="#" class="text-decoration-none">
+            <a href="Pages/zoekpagina.php?search=categorie1" class="text-decoration-none">
                 <div class="card align-items-center border-0">
                     <div class="card-body">
                         <h3 class="h4 text-dark">Categorie 1</h3>
@@ -262,7 +262,7 @@ include "Modules/header.php";
         </div>
 
         <div class="col-sm-3">
-            <a href="#" class="text-decoration-none">
+            <a href="Pages/zoekpagina.php?search=categorie2" class="text-decoration-none">
                 <div class="card align-items-center border-0">
                     <div class="card-body">
                         <h3 class="h4 text-dark">Categorie 2</h3>
@@ -276,7 +276,7 @@ include "Modules/header.php";
         </div>
 
         <div class="col-sm-3">
-            <a href="#" class="text-decoration-none">
+            <a href="Pages/zoekpagina.php?search=categorie3" class="text-decoration-none">
                 <div class="card align-items-center border-0">
                     <div class="card-body">
                         <h3 class="h4 text-dark">Categorie 3</h3>
@@ -290,7 +290,7 @@ include "Modules/header.php";
         </div>
 
         <div class="col-sm-3">
-            <a href="#" class="text-decoration-none">
+            <a href="Pages/zoekpagina.php?search=categorie4" class="text-decoration-none">
                 <div class="card align-items-center border-0">
                     <div class="card-body">
                         <h3 class="h4 text-dark">Categorie 4</h3>
@@ -308,8 +308,9 @@ include "Modules/header.php";
 
 </div>
 <?php
-include "Modules/footer.php";
-?>
 
+print_footer("index");
+
+?>
 
 
