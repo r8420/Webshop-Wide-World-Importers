@@ -1,6 +1,11 @@
 <?php
-include '../Modules/head.php';
-include '../Modules/header.php';
+session_start();
+if (isset($_SESSION['loggedin']) == FALSE || $_SESSION['loggedin'] == FALSE ){
+    header("Refresh: 0; url=login.php");
+    exit();
+}
+include "../Modules/functions.php";
+print_header();
 ?>
 <div class="container">
     <div class="col-sm-10 mt-5">
@@ -19,7 +24,7 @@ include '../Modules/header.php';
         </div>
         <div class="col-md-6 mt-5 mb-5 ">
             <p class="border p-3"><strong>Order geschiedenis</strong><br>
-                order:
+                order: <a href="bestelgeschiedenispagina.php">4046</a>
             </p>
         </div>
     </div>
@@ -38,6 +43,6 @@ include '../Modules/header.php';
     </div>
 </div>
 <?php
-include '../Modules/footer.php'
+print_footer();
 ?>
 
