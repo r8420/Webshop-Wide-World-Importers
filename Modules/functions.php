@@ -33,8 +33,8 @@ $result_categorie = mysqli_query($connection, $categorie_link);
         <nav class="navbar navbar-expand-lg bg-primary navbar-light">
             <div class="container">
                 <a class="navbar-brand text-white mb-0 h1" href="<?php echo $prefix; ?>index.php">
-                    <img src="<?php echo $prefix; ?>Images/logo.png" width="40" height="40" alt="">
-                    WWI</a>
+                    <img src="<?php echo $prefix; ?>Images/wide-world-importers-logo-small.png" width="175" height="57" alt="">
+                    </a>
                 <div class="my-2 my-lg-0 d-lg-none">
                     <div class="fas dropdown fa-user text-white ml-5 mr-4" id="navbarDropdown1" role="button"
                          data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
