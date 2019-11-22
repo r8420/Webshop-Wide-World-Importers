@@ -1,6 +1,6 @@
 <?php
-include '../Modules/head.php';
-include '../Modules/header.php';
+include "../Modules/functions.php";
+print_header();
 ?>
     <div class="container">
         <div class="m-5">
@@ -56,15 +56,15 @@ include '../Modules/header.php';
         <div class="row mt-5 mb-5">
             <div class="col-8"></div>
             <div class="col-2 ">
-                <button class="mb-2 btn-primary pt-1 pb-1 pl-2 px-2 rounded"><strong>Door winkelen</strong></button>
+                <a href="zoekpagina.php"><button class="mb-2 btn-primary pt-1 pb-1 pl-2 px-2 rounded"><strong>Door winkelen</strong></button></a>
             </div>
             <div class="col-2 ">
-                <button class="mb-2 btn-primary pt-1 pb-1 pl-2 px-2 rounded"><strong>Afrekenen</strong></button>
+                <a href="bestel.php"><button class="mb-2 btn-primary pt-1 pb-1 pl-2 px-2 rounded"><strong>Afrekenen</strong></button></a>
             </div>
         </div>
     </div>
 
 
 <?php
-include "../Modules/footer.php"
+print_footer();
 ?>

@@ -1,6 +1,6 @@
 <?php
-include "../Modules/head.php";
-include "../Modules/header.php"
+include "../Modules/functions.php";
+print_header();
 ?>
     <div class="container">
         <div class="m-5">
@@ -73,7 +73,7 @@ include "../Modules/header.php"
                 </tbody>
             </table>
         </div>
-
+    </div>
 <?php
-include "../Modules/footer.php"
+print_footer();
 ?>
