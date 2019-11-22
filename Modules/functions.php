@@ -6,6 +6,14 @@ global $prefix;
 if ($var === "index") {
     $prefix = "";
 }
+require $prefix . "DatabaseFactory.php";
+$connectionObject = new DatabaseFactory();
+global $connection;
+
+$connection = $connectionObject->getConnection();
+
+$categorie_link = "SELECT StockGroupID, StockGroupName FROM stockgroups;";
+$result_categorie = mysqli_query($connection, $categorie_link);
 ?>
 
     <!DOCTYPE html>
@@ -55,9 +63,18 @@ if ($var === "index") {
                                 Categorieën bekijken
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="<?php echo $prefix; ?>Pages/zoekpagina.php?search=categorie1">Categorie 1</a>
-                                <a class="dropdown-item" href="<?php echo $prefix; ?>Pages/zoekpagina.php?search=categorie2">Categorie 2</a>
-                                <a class="dropdown-item" href="<?php echo $prefix; ?>Pages/zoekpagina.php?search=categorie3">Categorie 3</a>
+                                <?php
+                                if (mysqli_num_rows($result_categorie) > 0) {
+                                while ($row = mysqli_fetch_assoc($result_categorie)) {
+                                ?>
+                                <a class="dropdown-item" href="<?php echo $prefix; ?>Pages/zoekpagina.php?category=<?php echo $row['StockGroupName']; ?>"><?php echo $row['StockGroupName']; ?></a>
+                                    <?php
+                                }
+                                } else {
+                                    echo "0 results";
+                                }
+
+                                ?>
                             </div>
                         </li>
                     </ul>
