@@ -10,8 +10,15 @@ if($connection == false) {
 }
 
 $search = ISSET($_GET['search']) ? $_GET['search'] : '';
+$category = ISSET($_GET['category']) ? $_GET['category'] : null;
 
-$stmt = $connection->prepare("SELECT * FROM stockitems WHERE SearchDetails LIKE ?");
+//Als de category niet gespecificeerd is
+if($category == null) {
+    $stmt = $connection->prepare("SELECT * FROM stockitems WHERE SearchDetails LIKE ?");
+} else {
+    $stmt = $connection->prepare("SELECT * FROM stockitemstockgroups sisg JOIN stockitems si ON si.StockItemID = sisg.StockItemID WHERE si.SearchDetails LIKE ? AND sisg.StockGroupID LIKE ?");
+}
+
 $searchSQL = '%'.$search.'%';
 $stmt->bind_param("s", $searchSQL);
 
