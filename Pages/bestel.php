@@ -14,27 +14,27 @@ print_header();
 
                 <div class="form-group">
                     <label for="InputNaam">Naam*:</label>
-                    <input type="text" class="form-control" id="InputNaam" placeholder="">
+                    <input type="text" class="form-control" id="InputNaam" placeholder="" required>
                 </div>
                 <div class="form-group">
                     <label for="InputStraatenhuisnummer">Straat en huisnummer*:</label>
-                    <input type="text" class="form-control" id="InputStraatenhuisnummer" placeholder="">
+                    <input type="text" class="form-control" id="InputStraatenhuisnummer" placeholder="" required>
                 </div>
                 <div class="form-group">
                     <label for="InputPlaats">Plaats*:</label>
-                    <input type="text" class="form-control" id="InputPlaats" placeholder="">
+                    <input type="text" class="form-control" id="InputPlaats" placeholder="" required>
                 </div>
                 <div class="form-group">
                     <label for="InputPostcode">Postcode*:</label>
-                    <input type="text" class="form-control" id="InputPostcode" placeholder="">
+                    <input type="text" class="form-control" id="InputPostcode" placeholder="" required>
                 </div>
                 <div class="form-group">
                     <label for="InputTelefoonnummer">Telefoonnummer*:</label>
-                    <input type="text" class="form-control" id="InputTelefoonnummer" placeholder="">
+                    <input type="text" class="form-control" id="InputTelefoonnummer" placeholder="" required>
                 </div>
                 <div class="form-group">
                     <label for="InputEmailadres">E-mailadres*:</label>
-                    <input type="text" class="form-control" id="InputEmailadres" placeholder="">
+                    <input type="text" class="form-control" id="InputEmailadres" placeholder="" required>
                 </div>
             </form>
                 <div class="float-right">
@@ -67,3 +67,4 @@ print_header();
 <?php
 print_footer();
 ?>
+
