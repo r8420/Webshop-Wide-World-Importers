@@ -6,6 +6,14 @@ global $prefix;
 if ($var === "index") {
     $prefix = "";
 }
+require $prefix . "DatabaseFactory.php";
+$connectionObject = new DatabaseFactory();
+global $connection;
+
+$connection = $connectionObject->getConnection();
+
+$categorie_link = "SELECT StockGroupID, StockGroupName FROM stockgroups;";
+$result_categorie = mysqli_query($connection, $categorie_link);
 ?>
 
     <!DOCTYPE html>
@@ -25,8 +33,8 @@ if ($var === "index") {
         <nav class="navbar navbar-expand-lg bg-primary navbar-light">
             <div class="container">
                 <a class="navbar-brand text-white mb-0 h1" href="<?php echo $prefix; ?>index.php">
-                    <img src="<?php echo $prefix; ?>Images/logo.png" width="40" height="40" alt="">
-                    WWI</a>
+                    <img src="<?php echo $prefix; ?>Images/wide-world-importers-logo-small.png" width="175" height="57" alt="">
+                    </a>
                 <div class="my-2 my-lg-0 d-lg-none">
                     <div class="fas dropdown fa-user text-white ml-5 mr-4" id="navbarDropdown1" role="button"
                          data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -55,9 +63,18 @@ if ($var === "index") {
                                 Categorieën bekijken
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="<?php echo $prefix; ?>Pages/zoekpagina.php?search=categorie1">Categorie 1</a>
-                                <a class="dropdown-item" href="<?php echo $prefix; ?>Pages/zoekpagina.php?search=categorie2">Categorie 2</a>
-                                <a class="dropdown-item" href="<?php echo $prefix; ?>Pages/zoekpagina.php?search=categorie3">Categorie 3</a>
+                                <?php
+                                if (mysqli_num_rows($result_categorie) > 0) {
+                                while ($row = mysqli_fetch_assoc($result_categorie)) {
+                                ?>
+                                <a class="dropdown-item" href="<?php echo $prefix; ?>Pages/zoekpagina.php?category=<?php echo $row['StockGroupName']; ?>"><?php echo $row['StockGroupName']; ?></a>
+                                    <?php
+                                }
+                                } else {
+                                    echo "0 results";
+                                }
+
+                                ?>
                             </div>
                         </li>
                     </ul>
