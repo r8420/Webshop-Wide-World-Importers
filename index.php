@@ -28,48 +28,29 @@ $result_categorie = mysqli_query($connection, $categorie);
             <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
         </ol>
         <div class="carousel-inner rounded">
-            <div class="carousel-item active">
+            <?php
+            if (mysqli_num_rows($result_product_slider) > 0) {
+               $active = 'active';
+            while ($row = mysqli_fetch_assoc($result_product_slider)) {
+            ?>
+            <div class="carousel-item <?php echo $active;$active=""; ?>">
                 <img class="d-block w-100"
                      src="https://socialbrothers.nl/wp-content/uploads/2016/11/r_atr-header-main.jpg"
                      alt="First slide">
-                <div class="carousel-caption justify-content-start">
-                    <h5>Productnaam1</h5>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi et nisl hendrerit, aliquet
-                        mi sed, scelerisque tortor. Aliquam eu scelerisque quam, ac tristique dolor. Aliquam
-                        nulla risus, fermentum feugiat tortor quis, facilisis cursus arcu.</p>
+                <div class="carousel-caption">
+                    <h5 class="mb-5"><?php echo $row['StockItemName'];?> </h5>
                     <a href="Pages/product_pagina.php">
-                        <button type="button" class="btn btn-success text-white">Bekijken</button>
+                        <button type="button" class="mt-5 mb-5 btn btn-success text-white">Bekijk product</button>
                     </a>
                 </div>
             </div>
-            <div class="carousel-item rounded">
-                <img class="d-block w-100"
-                     src="https://socialbrothers.nl/wp-content/uploads/2016/11/r_atr-header-main.jpg"
-                     alt="Second slide">
-                <div class="carousel-caption justify-content-start">
-                    <h5>Productnaam 2</h5>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi et nisl hendrerit, aliquet
-                        mi sed, scelerisque tortor. Aliquam eu scelerisque quam, ac tristique dolor. Aliquam
-                        nulla risus, fermentum feugiat tortor quis, facilisis cursus arcu.</p>
-                    <a href="Pages/product_pagina.php">
-                        <button type="button" class="btn btn-success text-white">Bekijken</button>
-                    </a>
-                </div>
-            </div>
-            <div class="carousel-item">
-                <img class="d-block w-100"
-                     src="https://socialbrothers.nl/wp-content/uploads/2016/11/r_atr-header-main.jpg"
-                     alt="Third slide">
-                <div class="carousel-caption justify-content-start">
-                    <h5>Productnaam 3</h5>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi et nisl hendrerit, aliquet
-                        mi sed, scelerisque tortor. Aliquam eu scelerisque quam, ac tristique dolor. Aliquam
-                        nulla risus, fermentum feugiat tortor quis, facilisis cursus arcu.</p>
-                    <a href="Pages/product_pagina.php">
-                        <button type="button" class="btn btn-success text-white">Bekijken</button>
-                    </a>
-                </div>
-            </div>
+                <?php
+            }
+            } else {
+                echo "0 results";
+            }
+
+            ?>
         </div>
         <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -88,7 +69,7 @@ $result_categorie = mysqli_query($connection, $categorie);
                 $prijs = $row['RecommendedRetailPrice'];
                 ?>
                 <div class="col-sm-3 col-md-3">
-                    <a href="Pages/product_pagina.php?id=<?php echo $row['StockItemID']; ?>" class="text-decoration-none">
+                    <a href="Pages/product_pagina.php?product=<?php echo $row['StockItemID']; ?>" class="text-decoration-none">
                         <div class="card border-0">
                             <img src="Images/product1.png" class="card-img-top w-75 mx-auto pt-3" alt="...">
                             <div class="card-body">
@@ -129,7 +110,7 @@ $result_categorie = mysqli_query($connection, $categorie);
             while ($row = mysqli_fetch_assoc($result_categorie)) {
                 ?>
                 <div class="col-sm-3">
-                    <a href="Pages/zoekpagina.php?search=<?php echo $row['StockGroupName'];?>" class="text-decoration-none">
+                    <a href="Pages/zoekpagina.php?category=<?php echo $row['StockGroupID'];?>" class="text-decoration-none">
                         <div class="card align-items-center border-0">
                             <div class="card-body">
                                 <h3 class="h4 text-dark"><?php echo $row['StockGroupName'];?></h3>
