@@ -66,9 +66,10 @@ function returnStatement($connection, $tblName, $usernamePassword)
  * @param $usernamePassword ['username', 'password']
  */
 function startvalidation($stmt, $usernamePassword)
+echo $stmt[3]
 {
     if ($stmt[0] == 0) {
-        returnToLogin();
+       // returnToLogin();
     } else {
         if (password_verify($usernamePassword[1], $stmt[3])) {
             session_start();
@@ -77,7 +78,7 @@ function startvalidation($stmt, $usernamePassword)
             header("Refresh: 0; url=../Pages/account_page.php");
             exit();
         } else {
-            returnToLogin();
+          //  returnToLogin();
         }
 
     }
