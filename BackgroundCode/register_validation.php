@@ -1,69 +1,123 @@
 <?php
-//ini_set('display_errors', 1);
-//ini_set('display_startup_errors', 1);
-//error_reporting(E_ALL);
 include "../DatabaseFactory.php";
-$connectionObject = new DatabaseFactory();
-$connection = $connectionObject->getConnection();
+
+// start database connectie
 $dbName = "people";
+$connection = startDBConnection();
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $email = $_POST['email'];
-    $email_validation = $_POST['email_validation'];
-    $name = $_POST['name'];
-    $tel = $_POST['telephone'];
-    $password = $_POST['password'];
-    $password_validation = $_POST['password_validation'];
-} else {
-    header("Refresh: 0; url=../Pages/registreren.php");
-    exit();
+// Haalt POST Request op
+$userRegistration = checkPOSTRequest();
+
+// voert emailvalidatie uit en een select query uit op de database
+$valid_login = emailValidation($connection, $dbName, $userRegistration);
+
+// insert account on people table
+insertionOnPeopleTable($connection, $valid_login, $userRegistration, $dbName);
+
+
+/**
+ * Checkt of er een valid post is gestuud met de Register pagina.
+ * Indien niet word de gebruiker terug verwezen naar de Register pagina
+ * De functie geeft een array terug met de email, email_valedatie, naam, telefoon, wachtwoord en wachtwoord_validatie
+ * @return array ['email', 'email_validation', 'name', 'tel', 'password', 'password_validation'] ;
+ */
+function checkPOSTRequest()
+{
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        $email = $_POST['email'];
+        $email_validation = $_POST['email_validation'];
+        $name = $_POST['name'];
+        $tel = $_POST['telephone'];
+        $password = $_POST['password'];
+        $password_validation = $_POST['password_validation'];
+    } else {
+        header("Refresh: 0; url=../Pages/registreren.php");
+        exit();
+    }
+    return array($email, $email_validation, $name, $tel, $password, $password_validation);
 }
-if ($email == $email_validation) {
-    $selectquery = "SELECT LogonName FROM $dbName WHERE LogonName = ?";
-    $stmtselect = $connection->prepare($selectquery);
 
-    $stmtselect->bind_param("s", $email);
-    $stmtselect->execute();
-    $stmtselect->bind_result($LogonName);
-    $stmtselect->store_result();
-    $stmtselect->fetch();
-    if ($stmtselect->num_rows === 0) {
-        if ($password == $password_validation) {
-            $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+/**
+ * controleert of de email  met elkaar overeenkomen
+ * voert met dat gegeven een query uit op de database
+ * @param $connection object voor connectie
+ * @param $dbName
+ * @param $userRegistration
+ * @return array met de numrows en loginnaam
+ */
+function emailValidation($connection, $dbName, $userRegistration)
+{
+    if ($userRegistration[0] == $userRegistration[1]) {
+        $selectquery = "SELECT LogonName FROM $dbName WHERE LogonName = ?";
+        $stmtselect = $connection->prepare($selectquery);
 
-            $insertsql = "INSERT INTO people (PersonID, FullName, LogonName, HashedPassword, PhoneNumber, EmailAddress) SELECT (max(PersonID)+1),?,?,?,?,? FROM people";
+        $stmtselect->bind_param("s", $userRegistration[0]);
+        $stmtselect->execute();
+        $stmtselect->bind_result($logonName);
+        $stmtselect->store_result();
+        $stmtselect->fetch();
+        $numRows = $stmtselect->num_rows;
+    } else {
+        returnToRegister(3);
+    }
+    return array($numRows, $logonName);
+}
+
+/**
+ * In deze functie word het account in de database gestopt indien de twee ingegeven wachtwoorden overeenkomen
+ * Het wachtwoord wordt vervolgens geëncrypt voordat er een sql prepared query word uitgevoerd op de database
+ * @param $connection object voor connectie
+ * @param $emailValidation
+ * @param $userRegistration
+ */
+function insertionOnPeopleTable($connection, $emailValidation, $userRegistration, $dbname)
+{
+
+    if ($emailValidation[0] == 0) {
+        if ($userRegistration[4] == $userRegistration[5]) {
+
+            /**
+             * Encrypt het wachtwoord met PASSWORD_DEFAULT
+             */
+            $hashedPassword = password_hash($userRegistration[4], PASSWORD_DEFAULT);
+
+
+            $insertsql = "INSERT INTO people (PersonID, FullName, LogonName, HashedPassword, PhoneNumber, EmailAddress) SELECT (max(PersonID)+1),?,?,?,?,? FROM $dbname";
             $stmtinsert = $connection->prepare($insertsql);
-            $stmtinsert->bind_param("sssss", $name, $email, $hashedPassword, $tel, $email);
+            $stmtinsert->bind_param("sssss", $userRegistration[2], $userRegistration[0], $hashedPassword, $userRegistration[3], $userRegistration[0]);
             $stmtinsert->execute();
             $stmtinsert->close();
             $connection->close();
 
-            returnToRegister(3);
+            header("Refresh: 0; url=../Pages/registreer_succes.php");
+            exit();
         } else {
             returnToRegister(2);
         }
     } else {
         returnToRegister(1);
     }
-} else {
-    returnToRegister(4);
 }
+
+/**
+ * bij elke fout in het registreer proces word er een code meegestuurd,
+ * deze code word meegegeven in de url als error code
+ * @param $errorNumber
+ */
 function returnToRegister($errorNumber)
 {
-    session_start();
+    session_start(); $errorCode = "";
     if ($errorNumber == 1) {
-        $_SESSION['errorcode'] = "register_exist_email_error";
+        $errorCode = "register_exist_email_error";
     } elseif ($errorNumber == 2) {
-        $_SESSION['errorcode'] = "register_password_error";
+        $errorCode = "register_different_password_error";
     } elseif ($errorNumber == 3) {
-        header("Refresh: 0; url=../Pages/registreer_succes.php");
-        exit();
-    } elseif ($errorNumber == 4) {
-        $_SESSION['errorcode'] = "register_different_email_error";
+        $errorCode = "register_different_email_error";
     }
 
-    header("Refresh: 0; url=../Pages/registreren.php");
+    header("Refresh: 0; url=../Pages/registreren.php?errorcode=".$errorCode);
     exit();
 }
+
 ?>
 
