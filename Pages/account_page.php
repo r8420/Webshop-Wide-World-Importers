@@ -1,9 +1,7 @@
 <?php
-session_start();
-if (isset($_SESSION['loggedin']) == FALSE || $_SESSION['loggedin'] == FALSE ){
-    header("Refresh: 0; url=login.php");
-    exit();
-}
+include "../BackgroundCode/SessionCode.php";
+checkSessionActive();
+
 include "../Modules/functions.php";
 print_header();
 ?>
