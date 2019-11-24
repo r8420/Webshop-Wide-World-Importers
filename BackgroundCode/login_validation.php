@@ -3,7 +3,7 @@ require "../DatabaseFactory.php";
 
 // start connectie database
 $tblName = "people";
-$connection = startDBConnection($tblName);
+$connection = startDBConnection();
 
 // Haalt POST Request op
 $usernamePassword = checkPOSTRequest();
