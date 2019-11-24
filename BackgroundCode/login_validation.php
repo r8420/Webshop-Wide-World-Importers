@@ -70,7 +70,7 @@ function startvalidation($stmt, $usernamePassword)
     if ($stmt[0] == 0) {
         returnToLogin();
     } else {
-        if (password_verify($usernamePassword[1], $stmt[2])) {
+        if (password_verify($usernamePassword[1], $stmt[3])) {
             session_start();
             $_SESSION['loggedin'] = TRUE;
             $_SESSION['userNr'] = $stmt[0];
