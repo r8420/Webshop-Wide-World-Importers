@@ -38,7 +38,7 @@ function checkPOSTRequest()
  * via prepared statements is het niet mogelijk om een sql-injectie te doen.
  * @param $connection object voor connectie
  * Dit object is gedefineerdt in DatabaseFactary.php
- * @param $tblName strin met de tablename
+ * @param $tblName string met de tablename
  * @param $usernamePassword ['username', 'password'] ;
  * Stuurt een array terug met de resultaten van de query
  * @return array ['stmtnumrows', 'id', 'logonName', 'hashedPassword'] ;
@@ -85,12 +85,13 @@ function startvalidation($stmt, $usernamePassword)
 
 /**
  * stuurt de gebruiker terug naar loginpagina
+ * met een error code in de url
  */
 function returnToLogin()
 {
     session_start();
-    $_SESSION['errorcode'] = "login_error";
-    header("Refresh: 0; url=../Pages/login.php");
+    $errorCode = "login_error";
+    header("Refresh: 0; url=../Pages/login.php?errorcode=".$errorCode);
     exit();
 }
 
