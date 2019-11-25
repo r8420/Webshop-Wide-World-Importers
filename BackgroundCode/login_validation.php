@@ -1,8 +1,4 @@
 <?php
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
-
 include "../DatabaseFactory.php";
 
 // start connectie database
@@ -72,7 +68,7 @@ function returnStatement($connection, $tblName, $usernamePassword)
 function startvalidation($stmt, $usernamePassword)
 {
     if ($stmt[0] == 0) {
-       // returnToLogin();
+        returnToLogin();
     } else {
         if (password_verify($usernamePassword[1], $stmt[3])) {
             session_start();
@@ -81,7 +77,7 @@ function startvalidation($stmt, $usernamePassword)
             header("Refresh: 0; url=../Pages/account_page.php");
             exit();
         } else {
-          //  returnToLogin();
+         returnToLogin();
         }
 
     }
