@@ -71,7 +71,6 @@ function returnStatement($connection, $tblName, $usernamePassword)
  */
 function startvalidation($stmt, $usernamePassword)
 {
-    echo $stmt[3]
     if ($stmt[0] == 0) {
        // returnToLogin();
     } else {
