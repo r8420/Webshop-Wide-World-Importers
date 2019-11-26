@@ -8,5 +8,9 @@ function checkSessionActive()
         exit();
     }
 }
+function getUserID(){
+    return $_SESSION['userNr'];
+
+}
 
 ?>

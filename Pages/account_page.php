@@ -1,9 +1,15 @@
 <?php
 include "../BackgroundCode/SessionCode.php";
+include "../BackgroundCode/account_background.php";
+include "../DatabaseFactory.php";
 checkSessionActive();
+$userID = getUserID();
+$dbConnection = startDBConnection();
+$currentUser = getUser($userID, $dbConnection);
 
-include "../Modules/functions.php";
-print_header();
+
+//include_once "../Modules/functions.php";
+//print_header();
 ?>
 <div class="container">
     <div class="col-sm-10 mt-5">
@@ -12,10 +18,10 @@ print_header();
     <div class="row">
         <div class="col-md-6 mt-5 mb-5 ">
             <p class="border p-3"><strong>Accountgegevens</strong><br>
-                AccountNr:<br>
-                Username:<br>
-                E-Mail:<br>
-                Geslacht:<br>
+                AccountNr:<?php echo $currentUser[0]?><br>
+                Voledige Naam:<?php echo $currentUser[1]?><br>
+                Telefoon: <?php echo $currentUser[2]?><br>
+                E-Mail:<?php echo $currentUser[3]?><br>
             </p>
             <button class="mb-2 btn-primary pt-1 pb-1 pl-2 px-2 rounded"><strong>Verander accountgegevens</strong>
             </button>
@@ -41,6 +47,6 @@ print_header();
     </div>
 </div>
 <?php
-print_footer();
+//print_footer();
 ?>
 
