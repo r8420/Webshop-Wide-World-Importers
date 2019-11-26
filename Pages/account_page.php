@@ -8,8 +8,8 @@ $dbConnection = startDBConnection();
 $currentUser = getUser($userID, $dbConnection);
 
 
-//include_once "../Modules/functions.php";
-//print_header();
+include_once "../Modules/functions.php";
+print_header();
 ?>
 <div class="container">
     <div class="col-sm-10 mt-5">
@@ -47,6 +47,6 @@ $currentUser = getUser($userID, $dbConnection);
     </div>
 </div>
 <?php
-//print_footer();
+print_footer();
 ?>
 
