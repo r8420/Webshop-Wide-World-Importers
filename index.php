@@ -1,6 +1,20 @@
 <?php
 include "Modules/functions.php";
 print_header("index");
+
+$product = "SELECT StockItemID, StockItemName, RecommendedRetailPrice, Photo
+                FROM stockitems ORDER BY RAND() LIMIT 12;";
+$product_slider = "SELECT StockItemID, StockItemName, RecommendedRetailPrice, Photo
+                FROM stockitems ORDER BY RAND() LIMIT 3;";
+
+$categorie = "SELECT i.StockItemName, i.Photo, sg.StockGroupName, g.StockGroupID
+                FROM stockitems i
+                JOIN stockitemstockgroups g ON i.StockItemID = g.StockItemID
+                JOIN stockgroups sg ON g.StockGroupID = sg.StockGroupID
+                group by sg.StockGroupName;";
+$result_product = mysqli_query($connection, $product);
+$result_product_slider = mysqli_query($connection, $product_slider);
+$result_categorie = mysqli_query($connection, $categorie);
 ?>
 <div class="container">
     <div id="carouselExampleIndicators" class="carousel slide mt-5 d-none d-md-block" data-ride="carousel">
@@ -10,42 +24,29 @@ print_header("index");
             <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
         </ol>
         <div class="carousel-inner rounded">
-            <div class="carousel-item active">
+            <?php
+            if (mysqli_num_rows($result_product_slider) > 0) {
+               $active = 'active';
+            while ($row = mysqli_fetch_assoc($result_product_slider)) {
+            ?>
+            <div class="carousel-item <?php echo $active;$active=""; ?>">
                 <img class="d-block w-100"
                      src="https://socialbrothers.nl/wp-content/uploads/2016/11/r_atr-header-main.jpg"
                      alt="First slide">
-                <div class="carousel-caption justify-content-start">
-                    <h5>Productnaam 1</h5>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi et nisl hendrerit, aliquet
-                        mi sed, scelerisque tortor. Aliquam eu scelerisque quam, ac tristique dolor. Aliquam
-                        nulla risus, fermentum feugiat tortor quis, facilisis cursus arcu.</p>
-                    <a href="Pages/product_pagina.php"><button type="button" class="btn btn-success text-white">Bekijken</button></a>
+                <div class="carousel-caption">
+                    <h5 class="mb-5"><?php echo $row['StockItemName'];?> </h5>
+                    <a href="Pages/product_pagina.php">
+                        <button type="button" class="mt-5 mb-5 btn btn-success text-white">Bekijk product</button>
+                    </a>
                 </div>
             </div>
-            <div class="carousel-item rounded">
-                <img class="d-block w-100"
-                     src="https://socialbrothers.nl/wp-content/uploads/2016/11/r_atr-header-main.jpg"
-                     alt="Second slide">
-                <div class="carousel-caption justify-content-start">
-                    <h5>Productnaam 2</h5>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi et nisl hendrerit, aliquet
-                        mi sed, scelerisque tortor. Aliquam eu scelerisque quam, ac tristique dolor. Aliquam
-                        nulla risus, fermentum feugiat tortor quis, facilisis cursus arcu.</p>
-                    <a href="Pages/product_pagina.php"><button type="button" class="btn btn-success text-white">Bekijken</button></a>
-                </div>
-            </div>
-            <div class="carousel-item">
-                <img class="d-block w-100"
-                     src="https://socialbrothers.nl/wp-content/uploads/2016/11/r_atr-header-main.jpg"
-                     alt="Third slide">
-                <div class="carousel-caption justify-content-start">
-                    <h5>Productnaam 3</h5>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi et nisl hendrerit, aliquet
-                        mi sed, scelerisque tortor. Aliquam eu scelerisque quam, ac tristique dolor. Aliquam
-                        nulla risus, fermentum feugiat tortor quis, facilisis cursus arcu.</p>
-                    <a href="Pages/product_pagina.php"><button type="button" class="btn btn-success text-white">Bekijken</button></a>
-                </div>
-            </div>
+                <?php
+            }
+            } else {
+                echo "0 results";
+            }
+
+            ?>
         </div>
         <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -58,250 +59,70 @@ print_header("index");
     </div>
 
     <div class="row mt-5">
-        <div class="col-sm-3 col-md-3">
-            <a href="Pages/product_pagina.php" class="text-decoration-none">
-                <div class="card border-0">
-                    <img src="Images/product1.png" class="card-img-top w-75 mx-auto pt-3" alt="...">
-                    <div class="card-body">
-                        <h3 class="card-title h5 text-dark">Productnaam</h3>
-                        <i class="fas fa-star rating"></i>
-                        <i class="fas fa-star rating"></i>
-                        <i class="fas fa-star rating"></i>
-                        <i class="fas fa-star rating"></i>
-                        <i class="fas fa-star-half-alt rating"></i>
-                    </div>
+        <?php
+        if (mysqli_num_rows($result_product) > 0) {
+            while ($row = mysqli_fetch_assoc($result_product)) {
+                $prijs = $row['RecommendedRetailPrice'];
+                ?>
+                <div class="col-sm-3 col-md-3">
+                    <a href="Pages/product_pagina.php?product=<?php echo $row['StockItemID']; ?>" class="text-decoration-none">
+                        <div class="card border-0">
+                            <img src="Images/product1.png" class="card-img-top w-75 mx-auto pt-3" alt="...">
+                            <div class="card-body">
+                                <h3 class="card-title h5 text-dark"><?php echo $row['StockItemName']; ?></h3>
+                                <h3 class="card-title h5 text-dark">€ <?php echo str_replace(".",",", "$prijs" ) ; ?></h3>
+                                <i class="fas fa-star rating"></i>
+                                <i class="fas fa-star rating"></i>
+                                <i class="fas fa-star rating"></i>
+                                <i class="fas fa-star rating"></i>
+                                <i class="fas fa-star-half-alt rating"></i>
+                            </div>
+                        </div>
+                    </a>
                 </div>
-            </a>
-        </div>
-        <div class="col-sm-3 col-md-3">
-            <a href="Pages/product_pagina.php" class="text-decoration-none">
-                <div class="card border-0">
-                    <img src="Images/product2.png" class="card-img-top w-75 mx-auto pt-3" alt="...">
-                    <div class="card-body">
-                        <h3 class="card-title h5 text-dark">Productnaam</h3>
-                        <i class="fas fa-star rating"></i>
-                        <i class="fas fa-star rating"></i>
-                        <i class="fas fa-star rating"></i>
-                        <i class="fas fa-star rating"></i>
-                        <i class="fas fa-star-half-alt rating"></i>
-                    </div>
-                </div>
-            </a>
-        </div>
-        <div class="col-sm-3 col-md-3">
-            <a href="Pages/product_pagina.php" class="text-decoration-none">
-                <div class="card border-0">
-                    <img src="Images/product3.png" class="card-img-top w-75 mx-auto pt-3" alt="...">
-                    <div class="card-body">
-                        <h3 class="card-title h5 text-dark">Productnaam</h3>
-                        <i class="fas fa-star rating"></i>
-                        <i class="fas fa-star rating"></i>
-                        <i class="fas fa-star rating"></i>
-                        <i class="fas fa-star rating"></i>
-                        <i class="fas fa-star-half-alt rating"></i>
-                    </div>
-                </div>
-            </a>
-        </div>
-        <div class="col-sm-3">
-            <a href="Pages/product_pagina.php" class="text-decoration-none">
-                <div class="card border-0">
-                    <img src="Images/product4.png" class="card-img-top w-75 mx-auto pt-3" alt="...">
-                    <div class="card-body">
-                        <h3 class="card-title h5 text-dark">Productnaam</h3>
-                        <i class="fas fa-star rating"></i>
-                        <i class="fas fa-star rating"></i>
-                        <i class="fas fa-star rating"></i>
-                        <i class="fas fa-star rating"></i>
-                        <i class="fas fa-star-half-alt rating"></i>
-                    </div>
-                </div>
-            </a>
+                <?php
+            }
+        } else {
+            echo "0 results";
+        }
+
+        ?>
+    </div>
+    <div class="row justify-content-end">
+        <div class="col-2">
+        <select class="custom-select">
+            <option selected value="12">12</option>
+            <option value="24">24</option>
+            <option value="48">48</option>
+            <option value="96">96</option>
+            <option value="194">194</option>
+        </select>
         </div>
     </div>
 
     <div class="row mt-5">
-        <div class="col-sm-3">
-            <a href="Pages/product_pagina.php" class="text-decoration-none">
-                <div class="card border-0">
-                    <img src="Images/product5.png" class="card-img-top w-75 mx-auto pt-3" alt="...">
-                    <div class="card-body">
-                        <h3 class="card-title h5 text-dark">Productnaam</h3>
-                        <i class="fas fa-star rating"></i>
-                        <i class="fas fa-star rating"></i>
-                        <i class="fas fa-star rating"></i>
-                        <i class="fas fa-star rating"></i>
-                        <i class="fas fa-star-half-alt rating"></i>
-                    </div>
+        <?php
+        if (mysqli_num_rows($result_categorie) > 0) {
+            while ($row = mysqli_fetch_assoc($result_categorie)) {
+                ?>
+                <div class="col-sm-3">
+                    <a href="Pages/zoekpagina.php?category=<?php echo $row['StockGroupID'];?>" class="text-decoration-none">
+                        <div class="card align-items-center border-0">
+                            <div class="card-body">
+                                <h3 class="h4 text-dark"><?php echo $row['StockGroupName'];?></h3>
+                            </div>
+                            <img src="<?php echo $row['StockItemName'];?>" class="card-img-top w-75 mx-auto pt-3" alt="...">
+                            <div class="card-body">
+                                <h3 class="card-title h5 text-primary font-weight-bold">Bekijk categorie</h3>
+                            </div>
+                        </div>
+                    </a>
                 </div>
-            </a>
-        </div>
-        <div class="col-sm-3">
-            <a href="Pages/product_pagina.php" class="text-decoration-none">
-                <div class="card border-0">
-                    <img src="Images/product12.png" class="card-img-top w-75 mx-auto pt-3" alt="...">
-                    <div class="card-body">
-                        <h3 class="card-title h5 text-dark">Productnaam</h3>
-                        <i class="fas fa-star rating"></i>
-                        <i class="fas fa-star rating"></i>
-                        <i class="fas fa-star rating"></i>
-                        <i class="fas fa-star rating"></i>
-                        <i class="fas fa-star-half-alt rating"></i>
-                    </div>
-                </div>
-            </a>
-        </div>
-        <div class="col-sm-3">
-            <a href="Pages/product_pagina.php" class="text-decoration-none">
-                <div class="card border-0">
-                    <img src="Images/product7.png" class="card-img-top w-75 mx-auto pt-3" alt="...">
-                    <div class="card-body">
-                        <h3 class="card-title h5 text-dark">Productnaam</h3>
-                        <i class="fas fa-star rating"></i>
-                        <i class="fas fa-star rating"></i>
-                        <i class="fas fa-star rating"></i>
-                        <i class="fas fa-star rating"></i>
-                        <i class="fas fa-star-half-alt rating"></i>
-                    </div>
-                </div>
-            </a>
-        </div>
-        <div class="col-sm-3">
-            <a href="Pages/product_pagina.php" class="text-decoration-none">
-                <div class="card border-0">
-                    <img src="Images/product8.png" class="card-img-top w-75 mx-auto pt-3" alt="...">
-                    <div class="card-body">
-                        <h3 class="card-title h5 text-dark">Productnaam</h3>
-                        <i class="fas fa-star rating"></i>
-                        <i class="fas fa-star rating"></i>
-                        <i class="fas fa-star rating"></i>
-                        <i class="fas fa-star rating"></i>
-                        <i class="fas fa-star-half-alt rating"></i>
-                    </div>
-                </div>
-            </a>
-        </div>
-    </div>
+                <?php
+            }
+        }
 
-    <div class="row mt-5">
-        <div class="col-sm-3">
-            <a href="Pages/product_pagina.php" class="text-decoration-none">
-                <div class="card border-0">
-                    <img src="Images/product9.png" class="card-img-top w-75 mx-auto pt-3" alt="...">
-                    <div class="card-body">
-                        <h3 class="card-title h5 text-dark">Productnaam</h3>
-                        <i class="fas fa-star rating"></i>
-                        <i class="fas fa-star rating"></i>
-                        <i class="fas fa-star rating"></i>
-                        <i class="fas fa-star rating"></i>
-                        <i class="fas fa-star-half-alt rating"></i>
-                    </div>
-                </div>
-            </a>
-        </div>
-        <div class="col-sm-3">
-            <a href="Pages/product_pagina.php" class="text-decoration-none">
-                <div class="card border-0">
-                    <img src="Images/product10.png" class="card-img-top w-75 mx-auto pt-3" alt="...">
-                    <div class="card-body">
-                        <h3 class="card-title h5 text-dark">Productnaam</h3>
-                        <i class="fas fa-star rating"></i>
-                        <i class="fas fa-star rating"></i>
-                        <i class="fas fa-star rating"></i>
-                        <i class="fas fa-star rating"></i>
-                        <i class="fas fa-star-half-alt rating"></i>
-                    </div>
-                </div>
-            </a>
-        </div>
-        <div class="col-sm-3">
-            <a href="Pages/product_pagina.php" class="text-decoration-none">
-                <div class="card border-0">
-                    <img src="Images/product11.png" class="card-img-top w-75 mx-auto pt-3" alt="...">
-                    <div class="card-body">
-                        <h3 class="card-title h5 text-dark">Productnaam</h3>
-                        <i class="fas fa-star rating"></i>
-                        <i class="fas fa-star rating"></i>
-                        <i class="fas fa-star rating"></i>
-                        <i class="fas fa-star rating"></i>
-                        <i class="fas fa-star-half-alt rating"></i>
-                    </div>
-                </div>
-            </a>
-        </div>
-        <div class="col-sm-3">
-            <a href="Pages/product_pagina.php" class="text-decoration-none">
-                <div class="card border-0">
-                    <img src="Images/product12.png" class="card-img-top w-75 mx-auto pt-3" alt="...">
-                    <div class="card-body">
-                        <h3 class="card-title h5 text-dark">Productnaam</h3>
-                        <i class="fas fa-star rating"></i>
-                        <i class="fas fa-star rating"></i>
-                        <i class="fas fa-star rating"></i>
-                        <i class="fas fa-star rating"></i>
-                        <i class="fas fa-star-half-alt rating"></i>
-                    </div>
-                </div>
-            </a>
-        </div>
-    </div>
-
-    <div class="row mt-5">
-        <div class="col-sm-3">
-            <a href="Pages/zoekpagina.php?search=categorie1" class="text-decoration-none">
-                <div class="card align-items-center border-0">
-                    <div class="card-body">
-                        <h3 class="h4 text-dark">Categorie 1</h3>
-                    </div>
-                    <img src="Images/Categorie14.png" class="card-img-top w-75 mx-auto pt-3" alt="...">
-                    <div class="card-body">
-                        <h3 class="card-title h5 text-primary font-weight-bold">Bekijk categorie</h3>
-                    </div>
-                </div>
-            </a>
-        </div>
-
-        <div class="col-sm-3">
-            <a href="Pages/zoekpagina.php?search=categorie2" class="text-decoration-none">
-                <div class="card align-items-center border-0">
-                    <div class="card-body">
-                        <h3 class="h4 text-dark">Categorie 2</h3>
-                    </div>
-                    <img src="Images/Categorie14.png" class="card-img-top w-75 mx-auto pt-3" alt="...">
-                    <div class="card-body">
-                        <h3 class="card-title h5 text-primary font-weight-bold">Bekijk categorie</h3>
-                    </div>
-                </div>
-            </a>
-        </div>
-
-        <div class="col-sm-3">
-            <a href="Pages/zoekpagina.php?search=categorie3" class="text-decoration-none">
-                <div class="card align-items-center border-0">
-                    <div class="card-body">
-                        <h3 class="h4 text-dark">Categorie 3</h3>
-                    </div>
-                    <img src="Images/Categorie14.png" class="card-img-top w-75 mx-auto pt-3" alt="...">
-                    <div class="card-body">
-                        <h3 class="card-title h5 text-primary font-weight-bold">Bekijk categorie</h3>
-                    </div>
-                </div>
-            </a>
-        </div>
-
-        <div class="col-sm-3">
-            <a href="Pages/zoekpagina.php?search=categorie4" class="text-decoration-none">
-                <div class="card align-items-center border-0">
-                    <div class="card-body">
-                        <h3 class="h4 text-dark">Categorie 4</h3>
-                    </div>
-                    <img src="Images/Categorie14.png" class="card-img-top w-75 mx-auto pt-3" alt="...">
-                    <div class="card-body">
-                        <h3 class="card-title h5 text-primary font-weight-bold">Bekijk categorie</h3>
-                    </div>
-                </div>
-            </a>
-        </div>
+        ?>
 
     </div>
 
