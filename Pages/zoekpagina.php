@@ -8,70 +8,13 @@ if($connection == false) {
     die("Can't connect to database");
 }
 
-$search = ISSET($_GET['search']) ? $_GET['search'] : '';
-$category = ISSET($_GET['category']) ? $_GET['category'] : null;
-$orderBy = ISSET($_GET['order']) ? $_GET['order'] : 'nameAZ';
+$search = getIfExists('search', '');
+$category = getIfExists('category', 0);
+$orderBy = getIfExists('order', 'nameAZ');
+$itemsPerPage = getIfExists('itemsPerPage', 10);
 
-$searchSQL = '%'.$search.'%';
-
-//PAGINATION CODE
-$page = ISSET($_GET['page']) ? $_GET['page'] : 1;
-$numOfItemsPerPage = ISSET($_GET['itemsPerPage']) ? $_GET['itemsPerPage'] : 10;
-$offset = ($page - 1) * $numOfItemsPerPage;
-
-//Order by code
-$orderSQL = "ORDER BY StockItemName";
-switch ($orderBy) {
-    case 'nameAZ':
-        $orderSQL = "ORDER BY StockItemName";
-        break;
-    case 'nameZA':
-        $orderSQL = "ORDER BY StockItemName DESC";
-        break;
-    case 'priceHighLow':
-        $orderSQL = "ORDER BY RecommendedRetailPrice DESC";
-        break;
-    case 'priceLowHigh':
-        $orderSQL = "ORDER BY RecommendedRetailPrice";
-        break;
-}
-
-/**
- * @param string $parameter The parameter to change
- * @param string $parameterValue The value the parameter should have
- * @return string The url with the changed parameter
-*/
-function change_url_parameter($parameter,$parameterValue) {
-    $url=parse_url($_SERVER['REQUEST_URI']);
-    parse_str($url["query"],$parameters);
-    unset($parameters[$parameter]);
-    $parameters[$parameter]=$parameterValue;
-    return  $url["path"]."?".http_build_query($parameters);
-}
-
-//Als de category niet gespecificeerd is
-if($category == null) {
-    $stmt = $connection->prepare("SELECT StockItemName, RecommendedRetailPrice, Photo FROM stockitems WHERE SearchDetails LIKE ? $orderSQL LIMIT $offset, $numOfItemsPerPage");
-    $stmt->bind_param("s", $searchSQL);
-
-    $paginationSTMT = $connection->prepare("SELECT COUNT(*) FROM stockitems WHERE SearchDetails LIKE ? ");
-    $paginationSTMT->bind_param("s", $searchSQL);
-} else {
-    $stmt = $connection->prepare("SELECT StockItemName, RecommendedRetailPrice, Photo, StockGroupName FROM stockitemstockgroups sisg JOIN stockitems si ON si.StockItemID = sisg.StockItemID JOIN stockgroups sg ON sg.StockGroupID = sisg.StockGroupID WHERE si.SearchDetails LIKE ? AND sisg.StockGroupID LIKE ? $orderSQL LIMIT $offset, $numOfItemsPerPage");
-    $stmt->bind_param("si", $searchSQL, $category);
-
-    $paginationSTMT = $connection->prepare("SELECT COUNT(*) FROM stockitemstockgroups sisg JOIN stockitems si ON si.StockItemID = sisg.StockItemID JOIN stockgroups sg ON sg.StockGroupID = sisg.StockGroupID WHERE si.SearchDetails LIKE ? AND sisg.StockGroupID LIKE ?");
-    $paginationSTMT->bind_param("si", $searchSQL, $category);
-}
-
-$stmt->execute();
-$result = $stmt->get_result();
-if($category != null)
-    $categoryName = $result->fetch_assoc()['StockGroupName'];
-
-$paginationSTMT->execute();
-$numResults = $paginationSTMT->get_result()->fetch_array()[0];
-$totalPages = ceil($numResults / $numOfItemsPerPage);
+$numResults = getNumberResults($search, $category);
+$totalPages = ceil($numResults / $itemsPerPage);
 ?>
     <main class="container">
         <div class="row">
@@ -131,7 +74,7 @@ $totalPages = ceil($numResults / $numOfItemsPerPage);
                 <div class="card">
                     <div class="card-body">
                         <?php
-                        if($category == null) {
+                        if($category == 0) {
                             print("<h5 class=\"float-left\">$numResults resultaten voor '$search'</h5>");
                         } else {
                             print("<h5 class=\"float-left\">$numResults resultaten voor '$search' in category $categoryName</h5>");
@@ -154,10 +97,10 @@ $totalPages = ceil($numResults / $numOfItemsPerPage);
                         </script>
                         <select class="float-right custom-select w-25" onchange="setParam('order', this.value);">
                             <option value="" disabled="" selected>Sorteer op</option>
-                            <option value="nameAZ" <?php if(ISSET($_GET['order']) && $_GET['order'] == "nameAZ") print("selected");?>>Naam: A-Z</option>
-                            <option value="nameZA" <?php if(ISSET($_GET['order']) && $_GET['order'] == "nameZA") print("selected");?>>Naam: Z-A</option>
-                            <option value="priceLowHigh" <?php if(ISSET($_GET['order']) && $_GET['order'] == "priceLowHigh") print("selected");?>>Prijs: Laag-Hoog</option>
-                            <option value="priceHighLow" <?php if(ISSET($_GET['order']) && $_GET['order'] == "priceHighLow") print("selected");?>>Prijs: Hoog-Laag</option>
+                            <option value="nameAZ" <?php setSelected('order', 'nameAZ');?>>Naam: A-Z</option>
+                            <option value="nameZA" <?php setSelected('order', 'nameZA');?>>Naam: Z-A</option>
+                            <option value="priceLowHigh" <?php setSelected('order', 'priceLowHigh');?>>Prijs: Laag-Hoog</option>
+                            <option value="priceHighLow" <?php setSelected('order', 'priceHighLow');?>>Prijs: Hoog-Laag</option>
                         </select>
                     </div>
                     <ul class="list-group list-group-flush" id="productList">
@@ -206,11 +149,11 @@ $totalPages = ceil($numResults / $numOfItemsPerPage);
                             </ul>
                             <select class="float-right custom-select w-25" onchange="setParam('itemsPerPage', this.value)">
                                 <option value="" disabled="" selected>Resultaten per pagina</option>
-                                <option value="12" <?php if(ISSET($_GET['itemsPerPage']) && $_GET['itemsPerPage'] == "12") print("selected");?>>12</option>
-                                <option value="24" <?php if(ISSET($_GET['itemsPerPage']) && $_GET['itemsPerPage'] == "24") print("selected");?>>24</option>
-                                <option value="32" <?php if(ISSET($_GET['itemsPerPage']) && $_GET['itemsPerPage'] == "32") print("selected");?>>32</option>
-                                <option value="48" <?php if(ISSET($_GET['itemsPerPage']) && $_GET['itemsPerPage'] == "48") print("selected");?>>48</option>
-                                <option value="64" <?php if(ISSET($_GET['itemsPerPage']) && $_GET['itemsPerPage'] == "64") print("selected");?>>64</option>
+                                <option value="12" <?php setSelected('itemsPerPage', 12);?>>12</option>
+                                <option value="24" <?php setSelected('itemsPerPage', 24);?>>24</option>
+                                <option value="32" <?php setSelected('itemsPerPage', 32);?>>32</option>
+                                <option value="48" <?php setSelected('itemsPerPage', 48);?>>48</option>
+                                <option value="64" <?php setSelected('itemsPerPage', 64);?>>64</option>
                             </select>
                         </li>
                     </ul>
