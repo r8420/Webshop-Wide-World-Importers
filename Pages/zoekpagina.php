@@ -16,7 +16,7 @@ $searchSQL = '%'.$search.'%';
 
 //PAGINATION CODE
 $page = ISSET($_GET['page']) ? $_GET['page'] : 1;
-$numOfItemsPerPage = 10;
+$numOfItemsPerPage = ISSET($_GET['itemsPerPage']) ? $_GET['itemsPerPage'] : 10;
 $offset = ($page - 1) * $numOfItemsPerPage;
 
 //Order by code
@@ -29,11 +29,24 @@ switch ($orderBy) {
         $orderSQL = "ORDER BY StockItemName DESC";
         break;
     case 'priceHighLow':
-        $orderSQL = "ORDER BY RecommendedRetailPrice";
-        break;
-    case 'priceLowHigh':
         $orderSQL = "ORDER BY RecommendedRetailPrice DESC";
         break;
+    case 'priceLowHigh':
+        $orderSQL = "ORDER BY RecommendedRetailPrice";
+        break;
+}
+
+/**
+ * @param string $parameter The parameter to change
+ * @param string $parameterValue The value the parameter should have
+ * @return string The url with the changed parameter
+*/
+function change_url_parameter($parameter,$parameterValue) {
+    $url=parse_url($_SERVER['REQUEST_URI']);
+    parse_str($url["query"],$parameters);
+    unset($parameters[$parameter]);
+    $parameters[$parameter]=$parameterValue;
+    return  $url["path"]."?".http_build_query($parameters);
 }
 
 //Als de category niet gespecificeerd is
@@ -125,8 +138,13 @@ $totalPages = ceil($numResults / $numOfItemsPerPage);
                         }
                         ?>
                         <script>
+                            /***
+                             * Zet de parameter in de url
+                             * @param {String} key the parameter key
+                             * @param {String} value the parameter value
+                             * @returns {URL} the url with the changed parameter
+                             */
                             function setParam(key, value) {
-                                //Check if current key already exists
                                 let url = new window.URL(window.location.href);
                                 let searchParams = url.searchParams;
                                 searchParams.set(key, value);
@@ -135,11 +153,11 @@ $totalPages = ceil($numResults / $numOfItemsPerPage);
                             }
                         </script>
                         <select class="float-right custom-select w-25" onchange="setParam('order', this.value);">
-                            <option value="" disabled="" >Sorteer op</option>
-                            <option value="nameAZ" <?php if($_GET['order'] == "nameAZ") print("selected");?>>Naam: A-Z</option>
-                            <option value="nameZA" <?php if($_GET['order'] == "nameZA") print("selected");?>>Naam: Z-A</option>
-                            <option value="priceLowHigh" <?php if($_GET['order'] == "priceLowHigh") print("selected");?>>Prijs: Laag-Hoog</option>
-                            <option value="priceHighLow" <?php if($_GET['order'] == "priceHighLow") print("selected");?>>Prijs: Hoog-Laag</option>
+                            <option value="" disabled="" selected>Sorteer op</option>
+                            <option value="nameAZ" <?php if(ISSET($_GET['order']) && $_GET['order'] == "nameAZ") print("selected");?>>Naam: A-Z</option>
+                            <option value="nameZA" <?php if(ISSET($_GET['order']) && $_GET['order'] == "nameZA") print("selected");?>>Naam: Z-A</option>
+                            <option value="priceLowHigh" <?php if(ISSET($_GET['order']) && $_GET['order'] == "priceLowHigh") print("selected");?>>Prijs: Laag-Hoog</option>
+                            <option value="priceHighLow" <?php if(ISSET($_GET['order']) && $_GET['order'] == "priceHighLow") print("selected");?>>Prijs: Hoog-Laag</option>
                         </select>
                     </div>
                     <ul class="list-group list-group-flush" id="productList">
@@ -171,6 +189,30 @@ $totalPages = ceil($numResults / $numOfItemsPerPage);
                                 ?>];
                             console.log(arrayObjects);
                         </script>
+                        <li class="list-group-item">
+                            <ul class="pagination">
+                                <li class="page-item <?php if($page <= 1){ print 'disabled'; } ?>">
+                                    <a class="page-link" href="<?php if($page <= 1){ print '#'; } else { print change_url_parameter("page", $page - 1); } ?>" tabindex="-1">Vorige</a>
+                                </li>
+                                <?php
+                                    for($i = $page - 2; $i <= $page + 2; $i++) {
+                                        if($i < 1 || $i > $totalPages) continue;
+                                        print('<li class="page-item"><a class="page-link" href="'.change_url_parameter("page", $i).'">'.$i.'</a></li>');
+                                    }
+                                ?>
+                                <li class="page-item <?php if($page >= $totalPages){ print 'disabled'; } ?>">
+                                    <a class="page-link" href="<?php if($page >= $totalPages){ print '#'; } else { print change_url_parameter("page", $page + 1); } ?>">Volgende</a>
+                                </li>
+                            </ul>
+                            <select class="float-right custom-select w-25" onchange="setParam('itemsPerPage', this.value)">
+                                <option value="" disabled="" selected>Resultaten per pagina</option>
+                                <option value="12" <?php if(ISSET($_GET['itemsPerPage']) && $_GET['itemsPerPage'] == "12") print("selected");?>>12</option>
+                                <option value="24" <?php if(ISSET($_GET['itemsPerPage']) && $_GET['itemsPerPage'] == "24") print("selected");?>>24</option>
+                                <option value="32" <?php if(ISSET($_GET['itemsPerPage']) && $_GET['itemsPerPage'] == "32") print("selected");?>>32</option>
+                                <option value="48" <?php if(ISSET($_GET['itemsPerPage']) && $_GET['itemsPerPage'] == "48") print("selected");?>>48</option>
+                                <option value="64" <?php if(ISSET($_GET['itemsPerPage']) && $_GET['itemsPerPage'] == "64") print("selected");?>>64</option>
+                            </select>
+                        </li>
                     </ul>
                 </div>
             </div>
