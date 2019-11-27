@@ -11,21 +11,21 @@ if(!function_exists('startDBConnection')) {
  * @param string $search The search term
  * @param int $category The category id
  * @param string $orderBy What to sort the items by: can be ["nameAZ", "nameZA", "priceHighLow", "priceLowHigh"]
+ * @param int $page The page number
  * @param int $itemsPerPage The amount of items per page to return
  * @return array
  */
-function getSearchResults($search, $category, $orderBy, $itemsPerPage) {
+function getSearchResults($search, $category, $orderBy, $page, $itemsPerPage) {
     global $connection;
     $searchSQL = "%$search%";
     $orderSQL = getOrderBy($orderBy);
-    $page = getIfExists('page', 1);
     $offset = ($page - 1) * $itemsPerPage;
 
     if($category == null || $category == 0) {
         $stmt = $connection->prepare("SELECT StockItemName, RecommendedRetailPrice, Photo FROM stockitems WHERE SearchDetails LIKE ? $orderSQL LIMIT $offset, $itemsPerPage");
         $stmt->bind_param("s", $searchSQL);
     } else {
-        $stmt = $connection->prepare("SELECT StockItemName, RecommendedRetailPrice, Photo, StockGroupName FROM stockitemstockgroups sisg JOIN stockitems si ON si.StockItemID = sisg.StockItemID JOIN stockgroups sg ON sg.StockGroupID = sisg.StockGroupID WHERE si.SearchDetails LIKE ? AND sisg.StockGroupID LIKE ? $orderSQL LIMIT $offset, $itemsPerPage");
+        $stmt = $connection->prepare("SELECT StockItemName, RecommendedRetailPrice, Photo FROM stockitemstockgroups sisg JOIN stockitems si ON si.StockItemID = sisg.StockItemID JOIN stockgroups sg ON sg.StockGroupID = sisg.StockGroupID WHERE si.SearchDetails LIKE ? AND sisg.StockGroupID = ? $orderSQL LIMIT $offset, $itemsPerPage");
         $stmt->bind_param("si", $searchSQL, $category);
     }
 
@@ -36,11 +36,25 @@ function getSearchResults($search, $category, $orderBy, $itemsPerPage) {
     while($row = $result->fetch_assoc()) {
         $resultArray[] = $row;
     }
+    $stmt->close();
     return $resultArray;
 }
 
+/***
+ * A function to get the category name when provided with an ID
+ * @param int $category The category ID
+ * @return string
+ */
 function getCategoryName($category) {
-
+    if($category == 0)
+        return '';
+    global $connection;
+    $stmt = $connection->prepare("SELECT StockGroupName FROM stockgroups WHERE StockGroupID LIKE ?");
+    $stmt->bind_param("i", $category);
+    $stmt->execute();
+    $result = $stmt->get_result()->fetch_array()[0];
+    $stmt->close();
+    return $result;
 }
 
 /***
@@ -84,7 +98,9 @@ function getNumberResults($search, $category) {
         $stmt->bind_param("si", $searchSQL, $category);
     }
     $stmt->execute();
-    return $stmt->get_result()->fetch_array()[0];
+    $result = $stmt->get_result()->fetch_array()[0];
+    $stmt->close();
+    return $result;
 }
 
 /***

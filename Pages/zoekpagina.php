@@ -1,20 +1,22 @@
 <?php
 include "../Modules/functions.php";
 print_header();
-include '../DatabaseFactory.php';
-$connectionObject = new DatabaseFactory();
-$connection = $connectionObject->getConnection();
-if($connection == false) {
-    die("Can't connect to database");
-}
+include "../BackgroundCode/zoekfunctie_backcode.php";
 
 $search = getIfExists('search', '');
 $category = getIfExists('category', 0);
 $orderBy = getIfExists('order', 'nameAZ');
 $itemsPerPage = getIfExists('itemsPerPage', 10);
+$page = getIfExists('page', 1);
+
+$categoryName = getCategoryName($category);
 
 $numResults = getNumberResults($search, $category);
 $totalPages = ceil($numResults / $itemsPerPage);
+
+//Als de gegeven pagina buiten de hoogste pagina valt, zet de pagina naar de hoogst mogelijke
+if($page > $totalPages)
+    $page = $totalPages;
 ?>
     <main class="container">
         <div class="row">
@@ -110,41 +112,37 @@ $totalPages = ceil($numResults / $itemsPerPage);
                             </div>
                         </li>
                         <?php
-                        $resultArray = array();
-                        while($row = $result->fetch_assoc()) {
-                            $resultArray[] = $row;
-                        }
-                        for($i = 0; $i < $numOfItemsPerPage; $i++) {
-                            $productName = strip_tags($resultArray[$i]['StockItemName']);
-                            $productPrice = strip_tags($resultArray[$i]['RecommendedRetailPrice']);
-                            $productPhoto = base64_encode($resultArray[$i]['Photo']);
-                            print('<li class="list-group-item shadow"><img src="data:image/jpeg;base64,' . $productPhoto . '" width="100" height="100"><span class="col-8">'.$productName.'</span><span class="col-4">'. $productPrice.'</span></li>');
+                        if($numResults > 0) {
+                            $resultArray = getSearchResults($search, $category, $orderBy, $page, $itemsPerPage);
+                            for ($i = 0; $i < $itemsPerPage && $i < abs(($page - 1) * $itemsPerPage - $numResults); $i++) {
+                                $productName = strip_tags($resultArray[$i]['StockItemName']);
+                                $productPrice = strip_tags($resultArray[$i]['RecommendedRetailPrice']);
+                                $productPhoto = base64_encode($resultArray[$i]['Photo']);
+                                print('<li class="list-group-item shadow"><img src="data:image/jpeg;base64,' . $productPhoto . '" width="100" height="100"><span class="col-8">' . $productName . '</span><span class="col-4">' . $productPrice . '</span></li>');
+                            }
                         }
                         ?>
-                        <script>
-                            //now put it into the javascript
-                            let arrayObjects = [<?php
-                                    foreach ($resultArray as $item) {
-                                        $productName = $item['StockItemName'];
-                                        $productPrice = $item['RecommendedRetailPrice'];
-                                        print("{'StockItemName':`$productName`, 'RecommendedRetailPrice': `$productPrice`},");
-                                    }
-                                ?>];
-                            console.log(arrayObjects);
-                        </script>
-                        <li class="list-group-item">
-                            <ul class="pagination">
+                    </ul>
+                    <div class="card">
+                        <div class="card-body align-content-center">
+                            <ul class="pagination float-left w-75">
                                 <li class="page-item <?php if($page <= 1){ print 'disabled'; } ?>">
-                                    <a class="page-link" href="<?php if($page <= 1){ print '#'; } else { print change_url_parameter("page", $page - 1); } ?>" tabindex="-1">Vorige</a>
+                                    <a class="page-link" href="<?php if($page <= 1){ print '#'; } else { print change_url_parameter("page", 1); } ?>" tabindex="-1">&lt;&lt;</a>
+                                </li>
+                                <li class="page-item <?php if($page <= 1){ print 'disabled'; } ?>">
+                                    <a class="page-link" href="<?php if($page <= 1){ print '#'; } else { print change_url_parameter("page", $page - 1); } ?>" tabindex="-1">&lt;</a>
                                 </li>
                                 <?php
-                                    for($i = $page - 2; $i <= $page + 2; $i++) {
-                                        if($i < 1 || $i > $totalPages) continue;
-                                        print('<li class="page-item"><a class="page-link" href="'.change_url_parameter("page", $i).'">'.$i.'</a></li>');
-                                    }
+                                for($i = $page - 2; $i <= $page + 2; $i++) {
+                                    if($i < 1 || $i > $totalPages) continue;
+                                    print('<li class="page-item"><a class="page-link" href="'.change_url_parameter("page", $i).'">'.$i.'</a></li>');
+                                }
                                 ?>
                                 <li class="page-item <?php if($page >= $totalPages){ print 'disabled'; } ?>">
-                                    <a class="page-link" href="<?php if($page >= $totalPages){ print '#'; } else { print change_url_parameter("page", $page + 1); } ?>">Volgende</a>
+                                    <a class="page-link" href="<?php if($page >= $totalPages){ print '#'; } else { print change_url_parameter("page", $page + 1); } ?>">&gt;</a>
+                                </li>
+                                <li class="page-item <?php if($page >= $totalPages){ print 'disabled'; } ?>">
+                                    <a class="page-link" href="<?php if($page >= $totalPages){ print '#'; } else { print change_url_parameter("page", $totalPages); } ?>">&gt;&gt;</a>
                                 </li>
                             </ul>
                             <select class="float-right custom-select w-25" onchange="setParam('itemsPerPage', this.value)">
@@ -155,8 +153,8 @@ $totalPages = ceil($numResults / $itemsPerPage);
                                 <option value="48" <?php setSelected('itemsPerPage', 48);?>>48</option>
                                 <option value="64" <?php setSelected('itemsPerPage', 64);?>>64</option>
                             </select>
-                        </li>
-                    </ul>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
