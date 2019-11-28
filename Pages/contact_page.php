@@ -20,7 +20,9 @@ if (isset($_POST['naam']) && isset($_POST['bericht']) && isset($_POST['email']))
         // More headers
         $headers .= 'From: <admin@wwiproject.ml>' . "\r\n";
 
-        mail('admin@wwiproject.ml', 'Nieuw bericht vanuit contact form', $finalmessage, $headers);
+        if (mail('admin@wwiproject.ml', 'Nieuw bericht vanuit contact form', $finalmessage, $headers)) {
+            echo "<script>alert('Uw bericht is verzonden')</script>";
+        }
     }
 }
 ?>
@@ -53,7 +55,7 @@ if (isset($_POST['naam']) && isset($_POST['bericht']) && isset($_POST['email']))
         <div class="col mt-1">
             <img src="../Images/Map.jpg">
             <div class="w-60 float-center mt-2">
-                <form>
+                <form method="post">
                     Naam*: <input class="form-control float-right" type="text" name="naam" required><br><br>
                     Ordernummer: <input class="form-control float-right" type="text" name="ordernummer"><br><br>
                     E-mailadres*: <input class="form-control float-right" type="email" name="email" required><br>
