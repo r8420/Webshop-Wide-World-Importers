@@ -22,10 +22,10 @@ function getSearchResults($search, $category, $orderBy, $page, $itemsPerPage) {
     $offset = ($page - 1) * $itemsPerPage;
 
     if($category == null || $category == 0) {
-        $stmt = $connection->prepare("SELECT StockItemID, StockItemName, RecommendedRetailPrice, Photo FROM stockitems WHERE SearchDetails LIKE ? $orderSQL LIMIT $offset, $itemsPerPage");
+        $stmt = $connection->prepare("SELECT StockItemID, StockItemName, UnitPrice, Photo FROM stockitems WHERE SearchDetails LIKE ? $orderSQL LIMIT $offset, $itemsPerPage");
         $stmt->bind_param("s", $searchSQL);
     } else {
-        $stmt = $connection->prepare("SELECT StockItemID, StockItemName, RecommendedRetailPrice, Photo FROM stockitemstockgroups sisg JOIN stockitems si ON si.StockItemID = sisg.StockItemID JOIN stockgroups sg ON sg.StockGroupID = sisg.StockGroupID WHERE si.SearchDetails LIKE ? AND sisg.StockGroupID = ? $orderSQL LIMIT $offset, $itemsPerPage");
+        $stmt = $connection->prepare("SELECT StockItemID, StockItemName, UnitPrice, Photo FROM stockitemstockgroups sisg JOIN stockitems si ON si.StockItemID = sisg.StockItemID JOIN stockgroups sg ON sg.StockGroupID = sisg.StockGroupID WHERE si.SearchDetails LIKE ? AND sisg.StockGroupID = ? $orderSQL LIMIT $offset, $itemsPerPage");
         $stmt->bind_param("si", $searchSQL, $category);
     }
 
