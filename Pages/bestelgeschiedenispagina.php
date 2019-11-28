@@ -1,7 +1,11 @@
 <?php
 include "../Modules/functions.php";
+include "../BackgroundCode/SessionCode.php";
+include "../BackgroundCode/Bestelgeschiedenis_functionali.php";
 print_header();
-
+//getSqlResults(OrderID, );
+$itemlist = getSqlResults(2, 3003);
+echo $connection;
 ?>
 <div class="container">
     <div class="m-5">
@@ -20,18 +24,17 @@ print_header();
             </thead>
             <tbody>
             <?php
-            foreach ()
-            ?>
+            foreach ($itemlist as $item) { ?>
             <tr>
-                <td>
-                    <img src="../Images/logo.png">
-                </td>
-                <td>"The Gu" red shirt XML tag t-shirt (White) S</td>
-                <?php print "<td>" . $getal1 . "</td>";
-                print   "<td>" . $getal2 . "</td>";
-                print  "<td>" . $getal3 . "</td>";
-                ?>
+                <td><img src="../Images/logo.png"></td>
+                <td><?php echo $item[4] ?></td>
+                <td><?php echo $item[2] ?></td>
+                <td><?php echo $item[3] ?></td>
+                <td><?php echo $item[2] * $item[4] ?></td>
             </tr>
+            <?php
+            }
+            ?>
             <tr class="bg-dark text-white">
                 <td></td>
                 <th scope="row">Totaal</th>
@@ -46,3 +49,4 @@ print_header();
 <?php
 print_footer();
 ?>
+
