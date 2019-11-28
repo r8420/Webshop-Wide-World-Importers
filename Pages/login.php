@@ -9,13 +9,12 @@ print_header();
         <h1>Login</h1>
     </div>
     <?php
-    if (isset($_SESSION['errorcode']) && $_SESSION['errorcode'] == "login_error") {
+    if (isset($_GET['errorcode']) && $_GET['errorcode'] == "login_error") {
         ?>
         <div class="text-danger text-center pb-3">
             Gebruikersnaam of wachtwoord is verkeerd ingegeven.
         </div>
         <?php
-        unset ($_SESSION["errorcode"]);
     }
     ?>
     <form action="../BackgroundCode/login_validation.php" method="POST">
