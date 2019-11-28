@@ -1,6 +1,36 @@
 <?php
 include "../Modules/functions.php";
 print_header();
+
+//stuurt mail mits ingevuld en beveiligd door strip_tagz.
+if (isset($_POST['naam']) && isset($_POST['bericht']) && isset($_POST['email'])) {
+
+    $name = strip_tags($_POST['naam']);
+    $message = strip_tags($_POST['bericht']);
+    $message = nl2br($message);
+    $email = strip_tags($_POST['email']);
+    $ordernummer = strip_tags($_POST['ordernummer']);
+    $finalmessage = 'Een nieuw bericht ontvangen van ' . $name . ' (' . $email . ')<br>';
+    if (isset($ordernummer) && !empty($ordernummer)) {
+        $finalmessage .= '<b>Ordernummer:</b> ' . $ordernummer . '<br>';
+    }
+    $finalmessage .= '<b>Bericht:</b><br>';
+    $finalmessage .= $message;
+    if (!empty($name) && !empty($message) && !empty($email)) {
+        // Always set content-type when sending HTML email
+        $headers = "MIME-Version: 1.0" . "\r\n";
+        $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
+
+        // More headers
+        $headers .= 'From: Wide World Importers <admin@wwiproject.ml>' . "\r\n";
+        $headers .= 'Reply-To: ' . $email . "\r\n";
+
+        if (mail('admin@wwiproject.ml', 'Nieuw bericht vanuit contact form', $finalmessage, $headers)) {
+            echo "<script>alert('Uw bericht is verzonden')</script>";
+        }
+
+    }
+}
 ?>
 <div class="container mt-5 mb-5">
     <div class="row">
@@ -31,7 +61,7 @@ print_header();
         <div class="col mt-1">
             <img src="../Images/Map.jpg">
             <div class="w-60 float-center mt-2">
-                <form>
+                <form method="post">
                     Naam*: <input class="form-control float-right" type="text" name="naam" required><br><br>
                     Ordernummer: <input class="form-control float-right" type="text" name="ordernummer"><br><br>
                     E-mailadres*: <input class="form-control float-right" type="email" name="email" required><br>
@@ -47,5 +77,3 @@ print_header();
 <?php
 print_footer();
 ?>
-
-
