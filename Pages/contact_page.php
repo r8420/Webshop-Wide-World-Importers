@@ -4,25 +4,31 @@ print_header();
 
 //stuurt mail mits ingevuld en beveiligd door strip_tagz.
 if (isset($_POST['naam']) && isset($_POST['bericht']) && isset($_POST['email'])) {
+
     $name = strip_tags($_POST['naam']);
     $message = strip_tags($_POST['bericht']);
+    $message = nl2br($message);
     $email = strip_tags($_POST['email']);
+    $ordernummer = strip_tags($_POST['ordernummer']);
     $finalmessage = 'Een nieuw bericht ontvangen van ' . $name . ' (' . $email . ')<br>';
-    if (isset($_POST['ordernummer']) && !empty($_POST['ordernummer'])) {
-        $finalmessage .= 'Ordernummer: ' . $_POST['ordernummer'] . '<br>';
+    if (isset($ordernummer) && !empty($ordernummer)) {
+        $finalmessage .= '<b>Ordernummer:</b> ' . $ordernummer . '<br>';
     }
+    $finalmessage .= '<b>Bericht:</b><br>';
     $finalmessage .= $message;
-    if (!empty($naam) && !empty($bericht) && !empty($email)) {
+    if (!empty($name) && !empty($message) && !empty($email)) {
         // Always set content-type when sending HTML email
         $headers = "MIME-Version: 1.0" . "\r\n";
         $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
 
         // More headers
-        $headers .= 'From: <admin@wwiproject.ml>' . "\r\n";
+        $headers .= 'From: Wide World Importers <admin@wwiproject.ml>' . "\r\n";
+        $headers .= 'Reply-To: ' . $email . "\r\n";
 
         if (mail('admin@wwiproject.ml', 'Nieuw bericht vanuit contact form', $finalmessage, $headers)) {
             echo "<script>alert('Uw bericht is verzonden')</script>";
         }
+
     }
 }
 ?>
@@ -71,5 +77,3 @@ if (isset($_POST['naam']) && isset($_POST['bericht']) && isset($_POST['email']))
 <?php
 print_footer();
 ?>
-
-
