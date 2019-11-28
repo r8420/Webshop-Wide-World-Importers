@@ -110,7 +110,7 @@ function getNumberResults($search, $category) {
  * @return string|int The value of the parameter
  */
 function getIfExists($param, $default) {
-    return ISSET($_GET[$param]) ? $_GET[$param] : $default;
+    return ISSET($_GET[$param]) ? strip_tags(htmlspecialchars($_GET[$param])) : $default;
 }
 
 /***
