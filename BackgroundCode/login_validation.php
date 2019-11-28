@@ -73,7 +73,7 @@ function startvalidation($stmt, $usernamePassword)
         if (password_verify($usernamePassword[1], $stmt[3])) {
             session_start();
             $_SESSION['loggedin'] = TRUE;
-            $_SESSION['userNr'] = $stmt[0];
+            $_SESSION['userNr'] = $stmt[1];
             header("Refresh: 0; url=../Pages/account_page.php");
             exit();
         } else {
