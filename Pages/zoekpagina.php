@@ -73,7 +73,7 @@ if($page > $totalPages)
             </form>
             -->
             <div class="col-11 pl-0">
-                <div class="card">
+                <div class="card bg-dark text-white">
                     <div class="card-body">
                         <?php
                         if($category == 0) {
@@ -105,7 +105,7 @@ if($page > $totalPages)
                             <option value="priceHighLow" <?php setSelected('order', 'priceHighLow');?>>Prijs: Hoog-Laag</option>
                         </select>
                     </div>
-                    <ul class="list-group list-group-flush" id="productList">
+                    <ul class="list-group list-group-flush text-dark" id="productList">
                         <li class="list-group-item">
                             <div>
 
@@ -118,33 +118,13 @@ if($page > $totalPages)
                                 $productName = strip_tags($resultArray[$i]['StockItemName']);
                                 $productPrice = strip_tags($resultArray[$i]['RecommendedRetailPrice']);
                                 $productPhoto = base64_encode($resultArray[$i]['Photo']);
-                                print('<li class="list-group-item shadow"><img src="data:image/jpeg;base64,' . $productPhoto . '" width="100" height="100"><span class="col-8">' . $productName . '</span><span class="col-4">' . $productPrice . '</span></li>');
+                                print('<li class="list-group-item shadow"><img src="data:image/jpeg;base64,' . $productPhoto . '" width="190" height="120"><span class="col-8">' . $productName . '</span><span class="col-4">' . $productPrice . '</span></li>');
                             }
                         }
                         ?>
                     </ul>
                     <div class="card">
                         <div class="card-body align-content-center">
-                            <ul class="pagination float-left w-75">
-                                <li class="page-item <?php if($page <= 1){ print 'disabled'; } ?>">
-                                    <a class="page-link" href="<?php if($page <= 1){ print '#'; } else { print change_url_parameter("page", 1); } ?>" tabindex="-1">&lt;&lt;</a>
-                                </li>
-                                <li class="page-item <?php if($page <= 1){ print 'disabled'; } ?>">
-                                    <a class="page-link" href="<?php if($page <= 1){ print '#'; } else { print change_url_parameter("page", $page - 1); } ?>" tabindex="-1">&lt;</a>
-                                </li>
-                                <?php
-                                for($i = $page - 2; $i <= $page + 2; $i++) {
-                                    if($i < 1 || $i > $totalPages) continue;
-                                    print('<li class="page-item"><a class="page-link" href="'.change_url_parameter("page", $i).'">'.$i.'</a></li>');
-                                }
-                                ?>
-                                <li class="page-item <?php if($page >= $totalPages){ print 'disabled'; } ?>">
-                                    <a class="page-link" href="<?php if($page >= $totalPages){ print '#'; } else { print change_url_parameter("page", $page + 1); } ?>">&gt;</a>
-                                </li>
-                                <li class="page-item <?php if($page >= $totalPages){ print 'disabled'; } ?>">
-                                    <a class="page-link" href="<?php if($page >= $totalPages){ print '#'; } else { print change_url_parameter("page", $totalPages); } ?>">&gt;&gt;</a>
-                                </li>
-                            </ul>
                             <select class="float-right custom-select w-25" onchange="setParam('itemsPerPage', this.value)">
                                 <option value="" disabled="" selected>Resultaten per pagina</option>
                                 <option value="12" <?php setSelected('itemsPerPage', 12);?>>12</option>
@@ -153,6 +133,36 @@ if($page > $totalPages)
                                 <option value="48" <?php setSelected('itemsPerPage', 48);?>>48</option>
                                 <option value="64" <?php setSelected('itemsPerPage', 64);?>>64</option>
                             </select>
+                            <ul class="pagination float-left w-75">
+                                <?php
+                                if($page > 1) {
+                                    //Print "Vorige" pagina link
+                                    print('<li class="page-item"><a class="page-link" href = "'.change_url_parameter("page", $page - 1).'" tabindex = "-1" >&lt;</a ></li >');
+                                }
+                                if($page > 3) {
+                                    //Print de eerste pagina link
+                                    print('<li class="page-item"><a class="page-link" href="'.change_url_parameter("page", 1).'" tabindex="-1">1</a></li>');
+                                    print('<li class="page-item"><a class="page-link disabled text-dark">...</a></li>');
+                                }
+                                for($i = $page - 2; $i <= $page + 2; $i++) {
+                                    //print the vorige 2, en volgende 2 pagina links
+                                    if($i < 1 || $i > $totalPages) continue;
+                                    $currentPageHighlight = "";
+                                    if($page == $i)
+                                        $currentPageHighlight = " bg-dark text-white";
+                                    print('<li class="page-item"><a class="page-link'.$currentPageHighlight.'" href="'.change_url_parameter("page", $i).'">'.$i.'</a></li>');
+                                }
+                                if($page < $totalPages - 2) {
+                                    //Print de laatste pagina link
+                                    print('<li class="page-item"><a class="page-link disabled text-dark">...</a></li>');
+                                    print('<li class="page-item"><a class="page-link" href="'.change_url_parameter("page", $totalPages).'">'.$totalPages.'</a></li>');
+                                }
+                                if($page != $totalPages) {
+                                    //print de "Volgende" pagina link
+                                    print('<li class="page-item"><a class="page-link" href = "'.change_url_parameter("page", $page + 1).'">&gt;</a></li>');
+                                }
+                                ?>
+                            </ul>
                         </div>
                     </div>
                 </div>
