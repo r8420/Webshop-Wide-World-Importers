@@ -2,9 +2,9 @@
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
-include "../DatabaseFactory.php";
 
-$connection = startDBConnection();
+
+
 
 include "../Modules/functions.php";
 print_header();
@@ -50,13 +50,13 @@ $tags = json_decode($row['CustomFields'], true);
             <div class="mt-5">
                 <h1><?php echo $row['StockItemName']?></h1>
             </div>
-            <div class="card-body text-warning">
-                <i class="fas fa-star rating"></i>
-                <i class="fas fa-star rating"></i>
-                <i class="fas fa-star rating"></i>
-                <i class="fas fa-star rating"></i>
-                <i class="fas fa-star-half-alt rating"></i>
-            </div>
+<!--            <div class="card-body text-danger">-->
+<!--                <i class="fas fa-star rating"></i>-->
+<!--                <i class="fas fa-star rating"></i>-->
+<!--                <i class="fas fa-star rating"></i>-->
+<!--                <i class="fas fa-star rating"></i>-->
+<!--                <i class="fas fa-star-half-alt rating"></i>-->
+<!--            </div>-->
             <div>
                 <p>
                     <?php
