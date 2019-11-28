@@ -14,7 +14,7 @@ $categorie = "SELECT i.StockItemName, i.Photo, sg.StockGroupName, g.StockGroupID
                 FROM stockitems i
                 JOIN stockitemstockgroups g ON i.StockItemID = g.StockItemID
                 JOIN stockgroups sg ON g.StockGroupID = sg.StockGroupID
-                group by sg.StockGroupName ORDER BY RAND();";
+                group by sg.StockGroupName;";
 
 //De query wordt hier uitgevoerd
 $result_product = mysqli_query($connection, $product);
