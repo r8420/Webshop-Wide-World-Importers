@@ -1,9 +1,7 @@
 <?php
 include "../Modules/functions.php";
 print_header();
-$getal1 = 75;
-$getal2 = 2.74;
-$getal3 = $getal1 * $getal2;
+
 ?>
 <div class="container">
     <div class="m-5">
@@ -21,47 +19,9 @@ $getal3 = $getal1 * $getal2;
             </tr>
             </thead>
             <tbody>
-            <tr>
-                <td>
-                    <img src="../Images/logo.png">
-                </td>
-                <td>Shipping carton (Brown) 480x270x320mm</td>
-                <?php print "<td>" . $getal1 . "</td>";
-                print  "<td>" . $getal2 . "</td>";
-                print   "<td>" . $getal3 . "</td>";
-                ?>
-            </tr>
-            <tr>
-                <td>
-                    <img src="../Images/logo.png">
-                </td>
-                <td>Shipping carton (Brown) 305x305x305mm</td>
-                <?php print "<td>" . $getal1 . "</td>";
-                print  "<td>" . $getal2 . "</td>";
-                print  "<td>" . $getal3 . "</td>";
-                ?>
-            </tr>
-            <tr>
-                <td>
-                    <img src="../Images/logo.png">
-                </td>
-                <td>Shipping carton (Brown) 279x254x217mm</td>
-                <?php print "<td>" . $getal1 . "</td>";
-                print "<td>" . $getal2 . "</td>";
-                print  "<td>" . $getal3 . "</td>";
-                ?>
-            </tr>
-            <tr>
-                <td>
-                    <img src="../Images/logo.png">
-                </td>
-                <td>Halloween skull mask (Gray) S</td>
-                <?php print "<td>" . $getal1 . "</td>";
-                print "<td>" . $getal2 . "</td>";
-                print  "<td>" . $getal3 . "</td>";
-                ?>
-
-            </tr>
+            <?php
+            foreach ()
+            ?>
             <tr>
                 <td>
                     <img src="../Images/logo.png">
