@@ -1,13 +1,33 @@
 <?php
+
 function getUser($userId, $connection){
-    $tbName = "people";
-    $sql = "SELECT PersonID, FullName, PhoneNumber, EmailAddress FROM $tbName WHERE PersonID = ?";
+
+    $sql = "CALL getUser(?)";
     $stmt = $connection->prepare($sql);
-    $stmt->bind_param("s",$userId);
+    $stmt->bind_param("i", $userId);
     $stmt->execute();
-    $stmt->bind_result($PersonID, $FullName, $PhoneNumber, $EmailAddress);
+    $stmt->bind_result($personId, $fullName, $phoneNumber, $emailAddress);
     $stmt->store_result();
     $stmt->fetch();
-    return array($PersonID, $FullName, $PhoneNumber, $EmailAddress);
+
+    return array($personId, $fullName, $phoneNumber, $emailAddress);
+}
+function getAssociatedOrders($userId, $connection){
+    $orders = array();
+
+    $sql = "CALL getAssociatedOrders(?)";
+    $stmt = $connection->prepare($sql);
+    $stmt->bind_param("i", $userId);
+    $stmt->execute();
+    $stmt->bind_result($orderId);
+    $stmt->store_result();
+    while ($stmt->fetch()){
+        $orders[] = $orderId;
+    }
+    return $orders;
+
+
+
 }
 ?>
+
