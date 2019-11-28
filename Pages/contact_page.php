@@ -1,6 +1,28 @@
 <?php
 include "../Modules/functions.php";
 print_header();
+
+//stuurt mail mits ingevuld en beveiligd door strip_tagz.
+if (isset($_POST['naam']) && isset($_POST['bericht']) && isset($_POST['email'])) {
+    $name = strip_tags($_POST['naam']);
+    $message = strip_tags($_POST['bericht']);
+    $email = strip_tags($_POST['email']);
+    $finalmessage = 'Een nieuw bericht ontvangen van ' . $name . ' (' . $email . ')<br>';
+    if (isset($_POST['ordernummer']) && !empty($_POST['ordernummer'])) {
+        $finalmessage .= 'Ordernummer: ' . $_POST['ordernummer'] . '<br>';
+    }
+    $finalmessage .= $message;
+    if (!empty($naam) && !empty($bericht) && !empty($email)) {
+        // Always set content-type when sending HTML email
+        $headers = "MIME-Version: 1.0" . "\r\n";
+        $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
+
+        // More headers
+        $headers .= 'From: <admin@wwiproject.ml>' . "\r\n";
+
+        mail('admin@wwiproject.ml', 'Nieuw bericht vanuit contact form', $finalmessage, $headers);
+    }
+}
 ?>
 <div class="container mt-5 mb-5">
     <div class="row">
