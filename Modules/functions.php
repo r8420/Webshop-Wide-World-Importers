@@ -6,11 +6,12 @@ global $prefix;
 if ($var === "index") {
     $prefix = "";
 }
-require $prefix . "DatabaseFactory.php";
-$connectionObject = new DatabaseFactory();
-global $connection;
+if (!function_exists('startDBConnection')) {
+    include $prefix . "DatabaseFactory.php";
+    global $connection;
+    $connection = startDBConnection();
+}
 
-$connection = $connectionObject->getConnection();
 
 $categorie_link = "SELECT StockGroupID, StockGroupName FROM stockgroups;";
 $result_categorie = mysqli_query($connection, $categorie_link);
