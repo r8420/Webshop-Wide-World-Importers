@@ -118,7 +118,7 @@ if($page > $totalPages)
                                 $productName = strip_tags($resultArray[$i]['StockItemName']);
                                 $productPrice = strip_tags($resultArray[$i]['RecommendedRetailPrice']);
                                 $productPhoto = base64_encode($resultArray[$i]['Photo']);
-                                print('<li class="list-group-item shadow"><img src="data:image/jpeg;base64,' . $productPhoto . '" width="190" height="120"><span class="col-8">' . $productName . '</span><span class="col-4">' . $productPrice . '</span></li>');
+                                print('<li class="list-group-item shadow"><a href="product_pagina.php?product='.$resultArray[$i]["StockItemID"].'"><img src="data:image/jpeg;base64,' . $productPhoto . '" width="190" height="120"><span class="col-8">' . $productName . '</span><span class="col-4">' . $productPrice . '</span></a></li>');
                             }
                         }
                         ?>
