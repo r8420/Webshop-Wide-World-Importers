@@ -14,7 +14,7 @@ $categorie = "SELECT i.StockItemName, i.Photo, sg.StockGroupName, g.StockGroupID
                 FROM stockitems i
                 JOIN stockitemstockgroups g ON i.StockItemID = g.StockItemID
                 JOIN stockgroups sg ON g.StockGroupID = sg.StockGroupID
-                group by sg.StockGroupName;";
+                group by sg.StockGroupName ORDER BY RAND();";
 
 //De query wordt hier uitgevoerd
 $result_product = mysqli_query($connection, $product);
@@ -37,13 +37,12 @@ $result_categorie = mysqli_query($connection, $categorie);
                 $active = 'active';
                 while ($row = mysqli_fetch_assoc($result_product_slider)) {
                     ?>
-                    <div class="carousel-item <?php echo $active;
+                    <div class="carousel-item w-100 slider <?php echo $active;
                     $active = ""; ?>">
-                        <img class="d-block w-100"
-                             src="https://socialbrothers.nl/wp-content/uploads/2016/11/r_atr-header-main.jpg"
-                             alt="First slide">
+                        <img class="d-block slider mx-auto"
+                             src="data:image/png;base64,<?php echo base64_encode($row['Photo']) ?>">
                         <div class="carousel-caption">
-                            <h5 class="mb-5"><?php echo $row['StockItemName']; ?> </h5>
+                            <h5 class="slider-text"><?php echo $row['StockItemName']; ?> </h5>
                             <a href="Pages/product_pagina.php?product=<?php echo $row['StockItemID']; ?>">
                                 <button type="button" class="mt-5 mb-5 btn btn-success text-white">Bekijk product
                                 </button>
@@ -78,7 +77,7 @@ $result_categorie = mysqli_query($connection, $categorie);
                     <a href="Pages/product_pagina.php?product=<?php echo $row['StockItemID']; ?>"
                        class="text-decoration-none">
                         <div class="card border-0">
-                            <img src="Images/product1.png" class="card-img-top w-75 mx-auto pt-3" alt="...">
+                            <img src="data:image/png;base64,<?php echo base64_encode($row['Photo']) ?>" class="card-img-top w-75 mx-auto pt-3" alt="...">
                             <div class="card-body">
                                 <h3 class="card-title h5 text-dark"><?php echo $row['StockItemName']; ?></h3>
                                 <h3 class="card-title h5 text-dark">
@@ -122,7 +121,7 @@ $result_categorie = mysqli_query($connection, $categorie);
                             <div class="card-body">
                                 <h3 class="h4 text-dark"><?php echo $row['StockGroupName']; ?></h3>
                             </div>
-                            <img src="<?php echo $row['StockItemName']; ?>" class="card-img-top w-75 mx-auto pt-3"
+                            <img src="data:image/png;base64,<?php echo base64_encode($row['Photo']) ?>" class="card-img-top w-75 mx-auto pt-3"
                                  alt="...">
                             <div class="card-body">
                                 <h3 class="card-title h5 text-primary font-weight-bold">Bekijk categorie</h3>
