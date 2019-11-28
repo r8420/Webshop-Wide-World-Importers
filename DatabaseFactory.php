@@ -1,15 +1,32 @@
 <?php
+/**
+ * Deze functie initialed de database connectie via een opject
+ * @return false|mysqli|string
+ */
+function startDBConnection(){
+    $connectionObject = new DatabaseFactory();
+    $connection = $connectionObject->getConnection();
+    return $connection;
+}
 
+/**
+ * Class DatabaseFactory
+ * Object met dataBaseconnectie
+ */
 class DatabaseFactory
 {
 
-    //private $host = "localhost";
     private $host = "wwiproject.ml";
     private $databasename = "***REMOVED***_wwi";
     private $user = "***REMOVED***_wwi";
     private $dbpassword = "1Ik0iDKy2JNo";
     private $port = 3306;
 
+    /**
+     * start de connectie
+     * indien het mis gaat is er een error handeling
+     * @return false|mysqli|string
+     */
     public function getConnection()
     {
         try {

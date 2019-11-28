@@ -9,14 +9,14 @@ print_header();
         <h1>Registreren</h1>
     </div>
     <?php
-    if (isset($_SESSION['errorcode'])) {
-        switch ($_SESSION['errorcode']) {
+    if (isset($_GET['errorcode'])) {
+        switch ($_GET['errorcode']) {
             case "register_exist_email_error":?>
                 <div class="text-danger text-center pb-3">
                     Er bestaat al een account met dit e-mailadres.
                 </div>
                 <?php break;
-            case "register_password_error":?>
+            case "register_different_password_error":?>
                 <div class="text-danger text-center pb-3">
                     Wachtwoorden komen niet overeen met elkaar.
                 </div>
@@ -27,7 +27,6 @@ print_header();
                 </div>
                 <?php break;
         }
-        unset ($_SESSION["errorcode"]);
     }
     ?>
     <form action="../BackgroundCode/register_validation.php" method="POST">
