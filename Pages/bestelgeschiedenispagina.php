@@ -4,8 +4,10 @@ include "../BackgroundCode/SessionCode.php";
 include "../BackgroundCode/Bestelgeschiedenis_functionali.php";
 print_header();
 //getSqlResults(OrderID, );
-$itemlist = getSqlResults(2, 3003);
-echo $connection;
+$itemlist = getSqlResults(2, 3003, $connection);
+$totaal = 0;
+
+
 ?>
 <div class="container">
     <div class="m-5">
@@ -24,13 +26,16 @@ echo $connection;
             </thead>
             <tbody>
             <?php
-            foreach ($itemlist as $item) { ?>
+            foreach ($itemlist
+
+            as $item) { ?>
             <tr>
                 <td><img src="../Images/logo.png"></td>
-                <td><?php echo $item[4] ?></td>
-                <td><?php echo $item[2] ?></td>
                 <td><?php echo $item[3] ?></td>
-                <td><?php echo $item[2] * $item[4] ?></td>
+                <td><?php echo $item[2] ?></td>
+                <td><?php echo "€" . $item[4] ?></td>
+                <td><?php echo "€" . $item[2] * $item[4] ?></td>
+                <?php $totaal += $item[2] * $item[4] ?>
             </tr>
             <?php
             }
@@ -40,7 +45,7 @@ echo $connection;
                 <th scope="row">Totaal</th>
                 <td></td>
                 <td></td>
-                <th scope="row">2614.75</th>
+                <th scope="row"><?php echo "€" . $totaal ?></th>
             </tr>
             </tbody>
         </table>
