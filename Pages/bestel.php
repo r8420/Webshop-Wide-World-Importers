@@ -37,16 +37,18 @@ print_header();
                     <input type="text" class="form-control" id="InputEmailadres" placeholder="" required>
                 </div>
             </form>
-                <div class="float-right">
-                    <a href="<?php echo $prefix; ?>Pages/succes.php"><button id="inlogbutton" class="btn btn-success">Naar betalen</button></a>
-                </div>
+            <div class="float-right">
+                <a href="<?php echo $prefix; ?>Pages/succes.php">
+                    <button id="inlogbutton" class="btn btn-success">Naar betalen</button>
+                </a>
+            </div>
         </div>
 
         <div class="col-6">
             <div class="mb-5 mt-3 w-75">
                 <h3>Besteloverzicht</h3>
-                <p>Aantal artikelen: 4 <span class="text-primary float-right">WINKELWAGEN AANPASSEN
-                    </span>
+                <p>Aantal artikelen: 4 <span class="text-primary float-right"><a href="winkelwagen.php">WINKELWAGEN AANPASSEN
+                </a>    </span>
                 </p>
                 <ul>
                     <li>Productnaam1</li>
