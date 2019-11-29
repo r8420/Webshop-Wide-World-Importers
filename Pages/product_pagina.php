@@ -1,56 +1,116 @@
 <?php
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
+if (!isset($_GET['product']) || !filter_var($_GET['product'], FILTER_VALIDATE_INT)){
+    header("Location: ../");
+    die();
+} else{
+    $productId = $_GET['product'];
+}
+
+if (isset($_POST['amount']) && filter_var($_POST['amount'], FILTER_VALIDATE_INT)){
+    $amount = $_POST['amount'];
+}
+
+session_start();
+
+if(isset($amount) && isset($_POST['addToCart'])){
+    echo 'productID:'. $productId.'<BR>';
+    echo 'amount:'. $amount.'<BR>';
+    if(!isset($_SESSION["shoppingCart"])){
+        $_SESSION["shoppingCart"] = array();
+    }
+    if(isset($_SESSION["shoppingCart"][$productId])){
+        $_SESSION["shoppingCart"][$productId] += $amount;
+    } else{
+        $_SESSION["shoppingCart"][$productId] = $amount;
+    }
+}
+if(isset($_SESSION["shoppingCart"])){
+    print_r($_SESSION["shoppingCart"]);
+}
+
 include "../Modules/functions.php";
 print_header();
+
+
+
+
+$stmt = $connection->prepare("SELECT *, REPLACE(CAST(stockitems.UnitPrice AS CHAR), '.', ',') as price FROM stockitems WHERE StockItemID = ?");
+$stmt->bind_param("i", $productId);
+$stmt->execute();
+$result = $stmt->get_result();
+$row = $result->fetch_assoc();
+$stmt->close();
+$tags = json_decode($row['CustomFields'], true);
+
 ?>
 <div class="container">
     <div class="row">
         <div class="col-md-8">
             <div class="m-5">
-                <img src="../Images/logo.png" class="w-60">
+                <img src="data:image/jpeg;base64, <?php echo base64_encode($row['Photo'])?>" class="w-60"  onerror="this.src='https://source.unsplash.com/1600x900/?<?php echo $row['StockItemName']?>'" />
+                <img type= src= class="w-60">
             </div>
             <div class="m5">
                 <h3><strong>Productbeschrijving</strong></h3>
-                <p>Gebruik de 15 inch Laptop S340-15IWL 81N800JTMH voor al je photoshop skills of om mee te multitasken.
-                    Door de razendsnelle videokaart is fotobewerking geen grote klus meer. Moet je het apparaat een keer
-                    meenemen, dan maak je het niet te zwaar voor jezelf. De laptop weegt namelijk maar 1.8 kilogram. En
-                    welk programma je ook gebruikt, binnen enkele seconden start je hem op via de 256 GB SSD. Ook in het
-                    donker werken vormt geen enkel probleem, want op het verlichte toetsenbord is het niet moeilijk om
-                    de juiste toetsen te vinden.</p>
+                <?php
+                if(!isset($tags['Tags'][0])){
+                    $tags['Tags'][0] = '';
+                }
+                ?>
+                <?php print('<p>Gebruik de '.$row['StockItemName'].' voor al je '.strtolower($tags['Tags'][0]).' skills.
+                    Door de super goede '.$row['StockItemName'].' is '.strtolower($tags['Tags'][0]).' geen grote klus meer. Moet je het product een keer
+                    meenemen, dan maak je het niet te zwaar voor jezelf. Deze '.$row['StockItemName'].' weegt namelijk maar '.$row['TypicalWeightPerUnit'].' gram. Ook in het
+                    donker werken vormt geen enkel probleem, want met deze '.$row['StockItemName'].' is het niet moeilijk om
+                    de juiste weg te vinden.</p>')?>
             </div>
         </div>
         <div class="col-md-4">
             <div class="mt-5">
-                <h1>Product Naam</h1>
+                <h1><?php echo $row['StockItemName']?></h1>
             </div>
-            <div class="card-body text-warning">
-                <i class="fas fa-star rating"></i>
-                <i class="fas fa-star rating"></i>
-                <i class="fas fa-star rating"></i>
-                <i class="fas fa-star rating"></i>
-                <i class="fas fa-star-half-alt rating"></i>
-            </div>
+<!--            <div class="card-body text-danger">-->
+<!--                <i class="fas fa-star rating"></i>-->
+<!--                <i class="fas fa-star rating"></i>-->
+<!--                <i class="fas fa-star rating"></i>-->
+<!--                <i class="fas fa-star rating"></i>-->
+<!--                <i class="fas fa-star-half-alt rating"></i>-->
+<!--            </div>-->
             <div>
-                <p>Tag1, Tag2, tag3</p>
-            </div>
-            <div>
-                <p>Marketing comments. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi et nisl
-                    hendrerit, aliquet mi sed, scelerisque tortor.
+                <p>
+                    <?php
+
+                    for ($i=0;$i<count($tags['Tags']);$i++){
+                        echo $tags['Tags'][$i];
+                        if($i != count($tags['Tags'])-1){
+                            echo ', ';
+                        }
+                    }
+
+                    ?>
                 </p>
             </div>
             <div>
-                <h2>€10.99</h2>
+                <p><?php echo $row['MarketingComments']?>
+                </p>
             </div>
             <div>
-                <p><i class="fas fa-circle text-success"> </i>In voorraad</p>
+                <h2>€<?php echo $row['price']?></h2>
             </div>
             <div>
-                <form>
+                <p><i class="fas fa-circle text-success"> </i> In voorraad</p>
+            </div>
+            <div>
+                <form method="post">
                     <div class="row">
                         <div class="col-4">
-                            <input type="number" min="0" class="form-control" id="aantal" placeholder="2">
+                            <input name="amount" type="number" min="0" class="form-control" id="aantal" value="1">
                         </div>
                         <div class="col-8">
-                            <button type="submit" class="btn btn-success">In winkelwagen</button>
+                            <button name="addToCart" type="submit" class="btn btn-success">In winkelwagen</button>
                         </div>
                     </div>
                 </form>
