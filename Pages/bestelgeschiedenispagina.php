@@ -4,6 +4,7 @@ include "../BackgroundCode/SessionCode.php";
 include "../BackgroundCode/Bestelgeschiedenis_functionali.php";
 print_header();
 //getSqlResults(OrderID, );
+//checkSessionActive();
 $itemlist = getSqlResults(2, 3003, $connection);
 $totaal = 0;
 
