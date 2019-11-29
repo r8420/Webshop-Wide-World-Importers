@@ -3,17 +3,39 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
-
-
-
-include "../Modules/functions.php";
-print_header();
-
-if (!filter_var($_GET['product'], FILTER_VALIDATE_INT)){
+if (!isset($_GET['product']) || !filter_var($_GET['product'], FILTER_VALIDATE_INT)){
+    header("Location: ../");
     die();
 } else{
     $productId = $_GET['product'];
 }
+
+if (isset($_POST['amount']) && filter_var($_POST['amount'], FILTER_VALIDATE_INT)){
+    $amount = $_POST['amount'];
+}
+
+session_start();
+
+if(isset($amount) && isset($_POST['addToCart'])){
+    echo 'productID:'. $productId.'<BR>';
+    echo 'amount:'. $amount.'<BR>';
+    if(!isset($_SESSION["shoppingCart"])){
+        $_SESSION["shoppingCart"] = array();
+    }
+    if(isset($_SESSION["shoppingCart"][$productId])){
+        $_SESSION["shoppingCart"][$productId] += $amount;
+    } else{
+        $_SESSION["shoppingCart"][$productId] = $amount;
+    }
+}
+if(isset($_SESSION["shoppingCart"])){
+    print_r($_SESSION["shoppingCart"]);
+}
+
+include "../Modules/functions.php";
+print_header();
+
+
 
 
 $stmt = $connection->prepare("SELECT *, REPLACE(CAST(stockitems.UnitPrice AS CHAR), '.', ',') as price FROM stockitems WHERE StockItemID = ?");
@@ -22,8 +44,8 @@ $stmt->execute();
 $result = $stmt->get_result();
 $row = $result->fetch_assoc();
 $stmt->close();
-//print_r($row);
 $tags = json_decode($row['CustomFields'], true);
+
 ?>
 <div class="container">
     <div class="row">
@@ -79,16 +101,16 @@ $tags = json_decode($row['CustomFields'], true);
                 <h2>€<?php echo $row['price']?></h2>
             </div>
             <div>
-                <p><i class="fas fa-circle text-success"> </i>In voorraad</p>
+                <p><i class="fas fa-circle text-success"> </i> In voorraad</p>
             </div>
             <div>
-                <form>
+                <form method="post">
                     <div class="row">
                         <div class="col-4">
-                            <input type="number" min="0" class="form-control" id="aantal" value="1">
+                            <input name="amount" type="number" min="0" class="form-control" id="aantal" value="1">
                         </div>
                         <div class="col-8">
-                            <button type="submit" class="btn btn-success">In winkelwagen</button>
+                            <button name="addToCart" type="submit" class="btn btn-success">In winkelwagen</button>
                         </div>
                     </div>
                 </form>
