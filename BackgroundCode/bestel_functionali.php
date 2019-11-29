@@ -1,6 +1,6 @@
 <?php
 
-function BestelGegevens($CustomerName, $DeliveryCityID, $Phonenumber, $DeliveryAdressLine, $DeliveryPostalCode, $connection)
+function BestelGegevens($CustomerName,$DeliveryAdressLine, $DeliveryCityID, $DeliveryPostalCode, $Phonenumber, $connection)
 {
     $return = false;
     try {
