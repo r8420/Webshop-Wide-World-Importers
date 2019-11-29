@@ -25,7 +25,7 @@ if (isset($_POST['naam']) && isset($_POST['bericht']) && isset($_POST['email']))
         $headers .= 'From: Wide World Importers <admin@wwiproject.ml>' . "\r\n";
         $headers .= 'Reply-To: ' . $email . "\r\n";
 
-        if (mail('admin@wwiproject.ml', 'Nieuw bericht vanuit contact form', $finalmessage, $headers)) {
+        if (mail('admin@wwiproject.ml', 'Nieuw contact form bericht van ' . $name, $finalmessage, $headers)) {
             echo "<script>alert('Uw bericht is verzonden')</script>";
         }
 
