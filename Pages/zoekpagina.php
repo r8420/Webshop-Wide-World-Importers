@@ -6,7 +6,7 @@ include "../BackgroundCode/zoekfunctie_backcode.php";
 $search = getIfExists('search', '');
 $category = getIfExists('category', 0);
 $orderBy = getIfExists('order', 'nameAZ');
-$itemsPerPage = getIfExists('itemsPerPage', 10);
+$itemsPerPage = getIfExists('itemsPerPage', 12);
 $page = getIfExists('page', 1);
 
 $categoryName = getCategoryName($category);
@@ -114,7 +114,7 @@ if($page > $totalPages)
                         <?php
                         if($numResults > 0) {
                             $resultArray = getSearchResults($search, $category, $orderBy, $page, $itemsPerPage);
-                            for ($i = 0; $i < $itemsPerPage && $i < abs(($page - 1) * $itemsPerPage - $numResults); $i++) {
+                            for ($i = 0; $i < count($resultArray) && $i < abs(($page - 1) * $itemsPerPage - $numResults); $i++) {
                                 $productName = strip_tags($resultArray[$i]['StockItemName']);
                                 $productPrice = strip_tags($resultArray[$i]['UnitPrice']);
                                 $productPhoto = base64_encode($resultArray[$i]['Photo']);
