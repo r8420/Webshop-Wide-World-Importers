@@ -4,7 +4,7 @@ print_header("index");
 
 //Selecteerd random de prodcut id, product naam, product prijs en de foto van de database table stockitems.
 $product = "SELECT StockItemID, StockItemName, RecommendedRetailPrice, Photo
-                FROM stockitems ORDER BY RAND() LIMIT 12;";
+                FROM stockitems ORDER BY RAND() LIMIT 10;";
 //Selecteerd random de prodcut id, product naam, product prijs en de foto van de database table stockitems en wordt gelimiteerd op 3.
 $product_slider = "SELECT StockItemID, StockItemName, RecommendedRetailPrice, Photo
                 FROM stockitems ORDER BY RAND() LIMIT 3;";
@@ -88,23 +88,26 @@ $result_categorie = mysqli_query($connection, $categorie);
                 </div>
                 <?php
             }
-        } else {
-            echo "0 results";
         }
-
         ?>
+
     </div>
-    <div class="row justify-content-end">
-        <div class="col-2">
-            <select class="custom-select">
-                <option selected value="12">12</option>
-                <option value="24">24</option>
-                <option value="48">48</option>
-                <option value="96">96</option>
-                <option value="194">194</option>
-            </select>
-        </div>
+</div>
+<div class="card border-0">
+    <div class="card-body align-content-center">
+        <select class="float-right custom-select w-25">
+            <option value="" disabled="" selected>Resultaten per pagina</option>
+            <option value="12" >12</option>
+            <option value="24" >24</option>
+            <option value="32" >32</option>
+            <option value="48" >48</option>
+            <option value="64" >64</option>
+        </select>
+        <ul class="pagination float-left w-75">
+
+        </ul>
     </div>
+</div>
 
     <div class="row mt-5">
         <?php
