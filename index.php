@@ -22,13 +22,15 @@ $result_product_slider = mysqli_query($connection, $product_slider);
 $result_categorie = mysqli_query($connection, $categorie);
 ?>
 <div class="container">
-    <div id="carouselExampleIndicators" class="carousel slide mt-5 d-none d-md-block" data-ride="carousel">
-        <ol class="carousel-indicators rounded">
+
+    <! –– Product slider -->
+    <div id="carouselExampleIndicators" class="carousel slide d-none d-md-block" data-ride="carousel">
+        <ol class="carousel-indicators">
             <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
             <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
             <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
         </ol>
-        <div class="carousel-inner rounded">
+        <div class="carousel-inner">
             <?php
             //De slider wordt aangemaakt zodra er meer dan 0 rows zijn in de query.
             //De slider word maximaal 3x getoond op de homepagina met de productnaam en de foto.
@@ -56,14 +58,16 @@ $result_categorie = mysqli_query($connection, $categorie);
         </div>
         <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="sr-only">Previous</span>
+            <span class="sr-only">Vorige</span>
         </a>
         <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
             <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="sr-only">Next</span>
+            <span class="sr-only">Volgende</span>
         </a>
     </div>
+    <! –– Einde Product slider -->
 
+    <! –– Producten -->
     <div class="row mt-5">
         <?php
         //De product wordt aangemaakt zodra er meer dan 0 rows zijn in de query.
@@ -77,11 +81,12 @@ $result_categorie = mysqli_query($connection, $categorie);
                     <a href="Pages/product_pagina.php?product=<?php echo $row['StockItemID']; ?>"
                        class="text-decoration-none">
                         <div class="card border-0">
-                            <img src="data:image/png;base64,<?php echo base64_encode($row['Photo']) ?>" class="card-img-top w-75 mx-auto pt-3" alt="...">
+                            <img src="data:image/png;base64,<?php echo base64_encode($row['Photo']) ?>"
+                                 class="card-img-top w-75 mx-auto">
                             <div class="card-body">
-                                <h3 class="card-title h5 text-dark"><?php echo $row['StockItemName']; ?></h3>
-                                <h3 class="card-title h5 text-dark">
-                                    € <?php echo str_replace(".", ",", "$prijs"); ?></h3>
+                                <h5 class="card-title text-dark"><?php echo $row['StockItemName']; ?></h5>
+                                <h5 class="card-title text-dark">
+                                    € <?php echo str_replace(".", ",", "$prijs"); ?></h5>
                             </div>
                         </div>
                     </a>
@@ -92,23 +97,41 @@ $result_categorie = mysqli_query($connection, $categorie);
         ?>
 
     </div>
-</div>
-<div class="card border-0">
-    <div class="card-body align-content-center">
-        <select class="float-right custom-select w-25">
-            <option value="" disabled="" selected>Resultaten per pagina</option>
-            <option value="12" >12</option>
-            <option value="24" >24</option>
-            <option value="32" >32</option>
-            <option value="48" >48</option>
-            <option value="64" >64</option>
-        </select>
-        <ul class="pagination float-left w-75">
+    <! –– Einde producten -->
 
-        </ul>
+    <! –– Paginering -->
+    <div class="row mt-5">
+        <nav aria-label="Page navigation example" class="float-left w-75">
+            <ul class="pagination">
+                <li class="page-item">
+                    <a class="page-link" href="#" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+                <li class="page-item"><a class="page-link" href="#">1</a></li>
+                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                <li class="page-item">
+                    <a class="page-link" href="#" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+        <label class="w-25 float-right">
+            <select class="custom-select">
+                <option value="" disabled="" selected>Resultaten per pagina</option>
+                <option value="12">12</option>
+                <option value="24">24</option>
+                <option value="32">32</option>
+                <option value="48">48</option>
+                <option value="64">64</option>
+            </select>
+        </label>
     </div>
-</div>
+    <! –– Einde paginering -->
 
+    <! –– Categorie -->
     <div class="row mt-5">
         <?php
         //De categorie wordt aangemaakt zodra er meer dan 0 rows zijn in de query.
@@ -124,7 +147,8 @@ $result_categorie = mysqli_query($connection, $categorie);
                             <div class="card-body">
                                 <h3 class="h4 text-dark"><?php echo $row['StockGroupName']; ?></h3>
                             </div>
-                            <img src="data:image/png;base64,<?php echo base64_encode($row['Photo']) ?>" class="card-img-top w-75 mx-auto pt-3"
+                            <img src="data:image/png;base64,<?php echo base64_encode($row['Photo']) ?>"
+                                 class="card-img-top w-75 mx-auto pt-3"
                                  alt="...">
                             <div class="card-body">
                                 <h3 class="card-title h5 text-primary font-weight-bold">Bekijk categorie</h3>
@@ -137,11 +161,12 @@ $result_categorie = mysqli_query($connection, $categorie);
         }
         ?>
     </div>
+    <! –– Einde categorie -->
+
 </div>
+
 <?php
-
 print_footer("index");
-
 ?>
 
 
