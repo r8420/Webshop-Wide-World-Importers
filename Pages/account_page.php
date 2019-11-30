@@ -1,12 +1,14 @@
 <?php
 include "../BackgroundCode/SessionCode.php";
 checkSessionActive();
-include_once "../Modules/functions.php";
+include "../Modules/functions.php";
 print_header();
 include "../BackgroundCode/account_background.php";
 $userID = $_SESSION['userNr'];
 $currentUser = getUser($userID, $connection);
 $currentUserAddress = getUserAddress($userID, $connection);
+print_r($currentUser);
+print_r($currentUserAddress);
 $orders = getAssociatedOrders($userID, $connection)
 
 ?>
