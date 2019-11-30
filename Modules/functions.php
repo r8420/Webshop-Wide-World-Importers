@@ -6,10 +6,13 @@ global $prefix;
 if ($var === "index") {
     $prefix = "";
 }
-if (!function_exists('startDBConnection')){
+if (!function_exists('startDBConnection')) {
     include $prefix . "DatabaseFactory.php";
+    global $connection;
     $connection = startDBConnection();
 }
+
+
 
 
 
