@@ -3,9 +3,8 @@ include "../Modules/functions.php";
 include "../BackgroundCode/SessionCode.php";
 include "../BackgroundCode/Bestelgeschiedenis_functionali.php";
 print_header();
-//getSqlResults(OrderID, );
-//checkSessionActive();
-$itemlist = getSqlResults(2, 3003, $connection);
+checkSessionActive();
+$itemlist = getSqlResults($_GET['orderId'], $_SESSION['userNr'], $connection);
 $totaal = 0;
 
 
@@ -27,9 +26,7 @@ $totaal = 0;
             </thead>
             <tbody>
             <?php
-            foreach ($itemlist
-
-            as $item) { ?>
+            foreach ($itemlist as $item) { ?>
             <tr>
                 <td><img src="../Images/logo.png"></td>
                 <td><?php echo $item[3] ?></td>
