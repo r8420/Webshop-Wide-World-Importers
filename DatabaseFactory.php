@@ -1,8 +1,9 @@
 <?php
 /**
- * Deze functie initialed de database connectie via een opject
+ * Deze functie initialed de database connectie via een object
  * @return false|mysqli|string
  */
+
 function startDBConnection(){
     $connectionObject = new DatabaseFactory();
     $connection = $connectionObject->getConnection();
