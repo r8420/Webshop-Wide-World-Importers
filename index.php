@@ -2,9 +2,23 @@
 include "Modules/functions.php";
 print_header("index");
 
+if (isset($_GET['pagina'])) {
+    $pagina = $_GET['pagina'];
+} else {
+    $pagina = 1;
+}
+
+$aantal_producten = getIfExists('itemsPerPage', 12);
+$offset = ($pagina-1) * $aantal_producten;
+$aantal_pagina_sql = "SELECT COUNT(*) FROM stockitems";
+$result = mysqli_query($connection,$aantal_pagina_sql);
+$aantal_rows = mysqli_fetch_array($result)[0];
+$aantal_paginas = ceil($aantal_rows / $aantal_producten);
+
+
 //Selecteerd random de prodcut id, product naam, product prijs en de foto van de database table stockitems.
 $product = "SELECT StockItemID, StockItemName, RecommendedRetailPrice, Photo
-                FROM stockitems ORDER BY RAND() LIMIT 10;";
+                FROM stockitems LIMIT $offset, $aantal_producten;";
 //Selecteerd random de prodcut id, product naam, product prijs en de foto van de database table stockitems en wordt gelimiteerd op 3.
 $product_slider = "SELECT StockItemID, StockItemName, RecommendedRetailPrice, Photo
                 FROM stockitems ORDER BY RAND() LIMIT 3;";
@@ -20,6 +34,16 @@ $categorie = "SELECT i.StockItemName, i.Photo, sg.StockGroupName, g.StockGroupID
 $result_product = mysqli_query($connection, $product);
 $result_product_slider = mysqli_query($connection, $product_slider);
 $result_categorie = mysqli_query($connection, $categorie);
+
+function getIfExists($param, $default) {
+    return ISSET($_GET[$param]) ? $_GET[$param] : $default;
+}
+
+function setSelected($param, $valueToCheck) {
+    if(getIfExists($param, '') == $valueToCheck) {
+        print("selected");
+    }
+}
 ?>
 <div class="container">
 
@@ -39,7 +63,7 @@ $result_categorie = mysqli_query($connection, $categorie);
                 $active = 'active';
                 while ($row = mysqli_fetch_assoc($result_product_slider)) {
                     ?>
-                    <div class="carousel-item w-100 slider <?php echo $active;
+                    <div class="carousel-item w-100  <?php echo $active;
                     $active = ""; ?>">
                         <img class="d-block slider mx-auto"
                              src="data:image/png;base64,<?php echo base64_encode($row['Photo']) ?>">
@@ -100,34 +124,82 @@ $result_categorie = mysqli_query($connection, $categorie);
     <! –– Einde producten -->
 
     <! –– Paginering -->
+    <script>
+        /***
+         * Zet de parameter in de url
+         * @param {String} key the parameter key
+         * @param {String} value the parameter value
+         * @returns {URL} the url with the changed parameter
+         */
+        function setParam(key, value) {
+            let url = new window.URL(window.location.href);
+            let searchParams = url.searchParams;
+            searchParams.set(key, value);
+            url.searchParams = searchParams;
+            return window.location = url;
+        }
+
+    </script>
     <div class="row mt-5">
         <nav aria-label="Page navigation example" class="float-left w-75">
-            <ul class="pagination">
-                <li class="page-item">
-                    <a class="page-link" href="#" aria-label="Previous">
-                        <span aria-hidden="true">&laquo;</span>
-                    </a>
-                </li>
-                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                <li class="page-item">
-                    <a class="page-link" href="#" aria-label="Next">
-                        <span aria-hidden="true">&raquo;</span>
-                    </a>
-                </li>
+            <ul class="pagination float-left w-75">
+                <?php
+
+                if($pagina > 1) {
+                    $query = $_GET;
+                    $query['pagina'] = $pagina - 1;
+                    $link = http_build_query($query);
+                    //Print "Vorige" pagina link
+                    print('<li class="page-item"><a class="page-link" href="?'. $link .  '" tabindex = "-1" >&lt;</a ></li >');
+                }
+                if($pagina > 3) {
+                    $query = $_GET;
+                    $query['pagina'] = 1;
+                    $link = http_build_query($query);
+                    //Print de eerste pagina link
+                    print('<li class="page-item"><a class="page-link" href="?'.$link.'" tabindex="-1">1</a></li>');
+                    print('<li class="page-item"><a class="page-link disabled text-dark">...</a></li>');
+                }
+                for($i = $pagina - 2; $i <= $pagina + 2; $i++) {
+                    //print the vorige 2, en volgende 2 pagina links
+                    if($i < 1 || $i > $aantal_paginas) continue;
+                    $currentPageHighlight = "";
+                    if($pagina == $i)
+                        $currentPageHighlight = " bg-dark text-white";
+                    $query = $_GET;
+                    $query['pagina'] = $i;
+                    $link = http_build_query($query);
+                    print('<li class="page-item"><a class="page-link'.$currentPageHighlight.'" href="?'. $link . '">'.$i.'</a></li>');
+                }
+                if($pagina < $aantal_paginas - 2) {
+                    $query = $_GET;
+                    $query['pagina'] = $aantal_paginas;
+                    $link = http_build_query($query);
+                    //Print de laatste pagina link
+                    print('<li class="page-item"><a class="page-link disabled text-dark">...</a></li>');
+                    print('<li class="page-item"><a class="page-link" href="?'.$link.'">'.$aantal_paginas.'</a></li>');
+                }
+                if($pagina != $aantal_paginas) {
+                    $query = $_GET;
+                    $query['pagina'] = $pagina + 1;
+                    $link = http_build_query($query);
+                    //print de "Volgende" pagina link
+                    print('<li class="page-item"><a class="page-link" href="?'.$link.'">&gt;</a></li>');
+                }
+                ?>
             </ul>
         </nav>
         <label class="w-25 float-right">
-            <select class="custom-select">
+            <select class="custom-select" onchange="setParam('itemsPerPage', this.value)">
                 <option value="" disabled="" selected>Resultaten per pagina</option>
-                <option value="12">12</option>
-                <option value="24">24</option>
-                <option value="32">32</option>
-                <option value="48">48</option>
-                <option value="64">64</option>
+                <option value="12" <?php setSelected('itemsPerPage', 12);?>>12</option>
+                <option value="24" <?php setSelected('itemsPerPage', 24);?>>24</option>
+                <option value="32" <?php setSelected('itemsPerPage', 32);?>>32</option>
+                <option value="48" <?php setSelected('itemsPerPage', 48);?>>48</option>
+                <option value="64" <?php setSelected('itemsPerPage', 64);?>>64</option>
             </select>
         </label>
+
     </div>
     <! –– Einde paginering -->
 
