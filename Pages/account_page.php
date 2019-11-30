@@ -6,6 +6,7 @@ print_header();
 include "../BackgroundCode/account_background.php";
 $userID = $_SESSION['userNr'];
 $currentUser = getUser($userID, $connection);
+$currentUserAddress = getUserAddress($userID, $connection);
 $orders = getAssociatedOrders($userID, $connection)
 
 ?>
@@ -50,10 +51,11 @@ $orders = getAssociatedOrders($userID, $connection)
                 <div class="col-6 p-0 border-top border-right border-bottom">
                     <p class=" pt-3">
                         <br>
-                        <?php echo $currentUser[0] ?><br>
-                        <?php echo $currentUser[1] ?><br>
-                        <?php echo $currentUser[2] ?><br>
-                        <?php echo $currentUser[3] ?>
+                        <?php echo $currentUserAddress[0] ?><br>
+                        <?php echo $currentUserAddress[1] ?><br>
+                        <?php echo $currentUserAddress[2] ?><br>
+                        <?php echo $currentUserAddress[3] ?><br>
+                        <?php echo $currentUserAddress[4] ?>
                     </p>
                 </div>
                 <button class="mb-2 btn-primary mt-5 pt-1 pb-1 pl-2 px-2 rounded"><strong>Verander
@@ -64,10 +66,10 @@ $orders = getAssociatedOrders($userID, $connection)
         <div class="col-md-6 mt-5 mb-5 ">
             <div class=" m-1 ">
                 <?php if ($orders != null) { ?>
-                    <p class="border col-12 pt-3"><strong>Order geschiedenis</strong><br>
+                    <p class="border col-12 pt-3 pb-3"><strong>Order geschiedenis</strong><br>
                         <?php foreach ($orders as $order) { ?>
                             <a href="bestelgeschiedenispagina.php?orderId=<?php echo $order ?>">
-                                Order: <?php echo $order ?></a>
+                                Order: <?php echo $order ?></a><br>
                         <?php } ?>
                     </p>
                 <?php } ?>
