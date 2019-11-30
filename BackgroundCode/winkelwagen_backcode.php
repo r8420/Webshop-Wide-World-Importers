@@ -33,8 +33,8 @@ function getProductInformation($productID) {
 }
 
 /***
- * @param $productID De product ID
- * @param $amount De hoeveelheid
+ * @param int $productID De product ID
+ * @param int $amount De hoeveelheid
  */
 function updateCart($productID, $amount) {
     if($amount == 0) {
