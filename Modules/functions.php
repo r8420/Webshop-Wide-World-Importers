@@ -13,10 +13,6 @@ if (!function_exists('startDBConnection')) {
 }
 
 
-
-
-
-
 $categorie_link = "SELECT StockGroupID, StockGroupName FROM stockgroups;";
 $result_categorie = mysqli_query($connection, $categorie_link);
 ?>
