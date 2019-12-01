@@ -67,7 +67,7 @@ $result_categorie = mysqli_query($connection, $categorie_link);
                                 if (mysqli_num_rows($result_categorie) > 0) {
                                 while ($row = mysqli_fetch_assoc($result_categorie)) {
                                 ?>
-                                <a class="dropdown-item" href="<?php echo $prefix; ?>Pages/zoekpagina.php?category=<?php echo $row['StockGroupName']; ?>"><?php echo $row['StockGroupName']; ?></a>
+                                <a class="dropdown-item" href="<?php echo $prefix; ?>Pages/zoekpagina.php?category=<?php echo $row['StockGroupID']; ?>"><?php echo $row['StockGroupName']; ?></a>
                                     <?php
                                 }
                                 } else {
