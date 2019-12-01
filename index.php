@@ -44,6 +44,12 @@ function setSelected($param, $valueToCheck) {
         print("selected");
     }
 }
+
+function getParam($default){
+    $query = $_GET;
+    $query['pagina'] = $default;
+    return http_build_query($query);
+}
 ?>
 <div class="container">
 
@@ -146,18 +152,12 @@ function setSelected($param, $valueToCheck) {
                 <?php
 
                 if($pagina > 1) {
-                    $query = $_GET;
-                    $query['pagina'] = $pagina - 1;
-                    $link = http_build_query($query);
                     //Print "Vorige" pagina link
-                    print('<li class="page-item"><a class="page-link" href="?'. $link .  '" tabindex = "-1" >&lt;</a ></li >');
+                    print('<li class="page-item"><a class="page-link" href="?'. getParam($pagina - 1) .  '" tabindex = "-1" >&lt;</a ></li >');
                 }
                 if($pagina > 3) {
-                    $query = $_GET;
-                    $query['pagina'] = 1;
-                    $link = http_build_query($query);
                     //Print de eerste pagina link
-                    print('<li class="page-item"><a class="page-link" href="?'.$link.'" tabindex="-1">1</a></li>');
+                    print('<li class="page-item"><a class="page-link" href="?'.getParam(1).'" tabindex="-1">1</a></li>');
                     print('<li class="page-item"><a class="page-link disabled text-dark">...</a></li>');
                 }
                 for($i = $pagina - 2; $i <= $pagina + 2; $i++) {
@@ -166,25 +166,16 @@ function setSelected($param, $valueToCheck) {
                     $currentPageHighlight = "";
                     if($pagina == $i)
                         $currentPageHighlight = " bg-dark text-white";
-                    $query = $_GET;
-                    $query['pagina'] = $i;
-                    $link = http_build_query($query);
-                    print('<li class="page-item"><a class="page-link'.$currentPageHighlight.'" href="?'. $link . '">'.$i.'</a></li>');
+                    print('<li class="page-item"><a class="page-link'.$currentPageHighlight.'" href="?'. getParam($i) . '">'.$i.'</a></li>');
                 }
                 if($pagina < $aantal_paginas - 2) {
-                    $query = $_GET;
-                    $query['pagina'] = $aantal_paginas;
-                    $link = http_build_query($query);
                     //Print de laatste pagina link
                     print('<li class="page-item"><a class="page-link disabled text-dark">...</a></li>');
-                    print('<li class="page-item"><a class="page-link" href="?'.$link.'">'.$aantal_paginas.'</a></li>');
+                    print('<li class="page-item"><a class="page-link" href="?'.getParam($aantal_paginas).'">'.$aantal_paginas.'</a></li>');
                 }
                 if($pagina != $aantal_paginas) {
-                    $query = $_GET;
-                    $query['pagina'] = $pagina + 1;
-                    $link = http_build_query($query);
                     //print de "Volgende" pagina link
-                    print('<li class="page-item"><a class="page-link" href="?'.$link.'">&gt;</a></li>');
+                    print('<li class="page-item"><a class="page-link" href="?'.getParam($pagina + 1).'">&gt;</a></li>');
                 }
                 ?>
             </ul>
