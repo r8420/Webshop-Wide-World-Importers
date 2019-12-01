@@ -1,9 +1,10 @@
 <?php
-include "../Modules/functions.php";
 include "../BackgroundCode/SessionCode.php";
-include "../BackgroundCode/Bestelgeschiedenis_functionali.php";
-print_header();
+session_start();
 checkSessionActive();
+include "../Modules/functions.php";
+print_header();
+include "../BackgroundCode/Bestelgeschiedenis_functionali.php";
 $itemlist = getSqlResults($_GET['orderId'], $_SESSION['userNr'], $connection);
 $totaal = 0;
 
@@ -26,9 +27,10 @@ $totaal = 0;
             </thead>
             <tbody>
             <?php
-            foreach ($itemlist as $item) { ?>
+            foreach ($itemlist as $item) {
+                $productPhoto = base64_encode($item[5]);?>
             <tr>
-                <td><img src="../Images/logo.png"></td>
+                <td><img src="data:image/jpeg;base64,' . $productPhoto .'" ></td>
                 <td><?php echo $item[3] ?></td>
                 <td><?php echo $item[2] ?></td>
                 <td><?php echo "€" . $item[4] ?></td>
