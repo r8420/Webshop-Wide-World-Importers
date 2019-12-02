@@ -44,6 +44,14 @@ if ($page > $totalPages)
     $page = $totalPages;
 ?>
     <main class="container">
+        <?php if (isset($_POST['id']) && isset($_POST['addToCart'])) {
+            ?>
+            <div id="updateCartAlert" class="alert alert-success" role="alert">
+                <?php echo "Dit item is toegevoegd aan uw winkelwagen. U heeft dit product nu " . $_SESSION["shoppingCart"][$cartProductID] . " keer in uw winkelwagen."; ?>
+            </div>
+            <?php
+        }
+        ?>
         <div class="row">
             <!-- Voor nu niet nodig
             <form class="col-3 pr-0">
