@@ -15,7 +15,6 @@ session_start();
 
 function addToCart($productId, $amount)
 {
-
     if (!isset($_SESSION["shoppingCart"])) {
         $_SESSION["shoppingCart"] = array();
     }
@@ -49,6 +48,14 @@ $tags = json_decode($row['CustomFields'], true);
 
 ?>
 <div class="container">
+    <?php if (isset($amount) && isset($_POST['addToCart'])) {
+        ?>
+        <div id="updateCartAlert" class="alert alert-success" role="alert">
+            <?php echo "Dit item is toegevoegd aan uw winkelwagen. U heeft dit product nu " . $_SESSION["shoppingCart"][$productId] . " keer in uw winkelwagen."; ?>
+        </div>
+        <?php
+    }
+    ?>
     <div class="row">
         <div class="col-md-8">
             <div class="m-5">
