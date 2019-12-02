@@ -121,29 +121,37 @@ if ($page > $totalPages)
                             </option>
                         </select>
                     </div>
-                    <ul class="list-group list-group-flush text-dark" id="productList">
-                        <li class="list-group-item">
-                            <div>
+                    <li class="list-group list-group-flush text-dark" id="productList">
+                    <li class="list-group-item">
+                        <div>
 
-                            </div>
-                        </li>
-                        <?php
-                        if ($numResults > 0) {
-                            $resultArray = getSearchResults($search, $category, $orderBy, $page, $itemsPerPage);
-                            for ($i = 0; $i < count($resultArray) && $i < abs(($page - 1) * $itemsPerPage - $numResults); $i++) {
-                                $productName = strip_tags($resultArray[$i]['StockItemName']);
-                                $productPrice = strip_tags($resultArray[$i]['UnitPrice']);
-                                $productPhoto = base64_encode($resultArray[$i]['Photo']);
-                                $productPrijs = str_replace(".", ",", "$productPrice");
-                                print('<li class="list-group-item shadow"><a href="product_pagina.php?product=' . $resultArray[$i]["StockItemID"] . '">
-                                <img src="data:image/jpeg;base64,' . $productPhoto . '" width="190" height="120"><span class="col-4">' . $productName . '</span>
-                                <span class="col-4">' . "€ " . $productPrijs . '</span></a><span class="col-4">
-                                <button   name="addToCart" type="submit" class="btn btn-success">In winkelwagen</button></span>
-                                </li>');
-                            }
+                        </div>
+                    </li>
+                    <?php
+                    if ($numResults > 0) {
+                        $resultArray = getSearchResults($search, $category, $orderBy, $page, $itemsPerPage);
+                        for ($i = 0; $i < count($resultArray) && $i < abs(($page - 1) * $itemsPerPage - $numResults); $i++) {
+                            $productName = strip_tags($resultArray[$i]['StockItemName']);
+                            $productPrice = strip_tags($resultArray[$i]['UnitPrice']);
+                            $productPhoto = base64_encode($resultArray[$i]['Photo']);
+                            print('<li class="list-group-item shadow"><a href="product_pagina.php?product=' . $resultArray[$i]["StockItemID"] . '"><img src="data:image/jpeg;base64,' . $productPhoto . '" width="190" height="120"><span class="col-8">' . $productName . '</span><span class="col-4">' . $productPrice . '</span></a>');
+                            ?>
+                            <form method="post" style="display: inline;">
 
+                                        <input name="id" type="hidden" min="0" class="form-control w-10 hide" id="aantal"
+                                               value="<?php echo $resultArray[$i]["StockItemID"] ?>" style="display: inline;">
+
+                                        <button name="addToCart" type="submit" class="btn btn-success float-right">In
+                                            winkelwagen
+                                        </button>
+
+
+                            </form>
+                            </li>
+                            <?php
                         }
-                        ?>
+                    }
+                    ?>
                     </ul>
                     <div class="card">
                         <div class="card-body align-content-center">
