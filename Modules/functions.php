@@ -31,7 +31,7 @@ $result_categorie = mysqli_query($connection, $categorie_link);
 <body>
 <div id="page-container">
     <div id="content-wrap">
-        <nav class="navbar navbar-expand-lg bg-primary navbar-light">
+        <nav class="navbar navbar-expand-lg bg-primary navbar-light mb-5">
             <div class="container">
                 <a class="navbar-brand text-white mb-0 h1" href="<?php echo $prefix; ?>index.php">
                     <img src="<?php echo $prefix; ?>Images/wide-world-importers-logo-small.png" width="175" height="57" alt="">
@@ -68,7 +68,7 @@ $result_categorie = mysqli_query($connection, $categorie_link);
                                 if (mysqli_num_rows($result_categorie) > 0) {
                                 while ($row = mysqli_fetch_assoc($result_categorie)) {
                                 ?>
-                                <a class="dropdown-item" href="<?php echo $prefix; ?>Pages/zoekpagina.php?category=<?php echo $row['StockGroupName']; ?>"><?php echo $row['StockGroupName']; ?></a>
+                                <a class="dropdown-item" href="<?php echo $prefix; ?>Pages/zoekpagina.php?category=<?php echo $row['StockGroupID']; ?>"><?php echo $row['StockGroupName']; ?></a>
                                     <?php
                                 }
                                 } else {
