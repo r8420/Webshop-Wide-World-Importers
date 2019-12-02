@@ -2,9 +2,9 @@
  * Deze functie stuurt een POST request naar de winkelwagen_backcode.php met de POST-waarden:
  * updateCart=true, productID=productID, amount=amount.
  * Deze gegevens worden gebruikt om de sessie aan te passen.
- * @param productID Het productID om aan te passen
- * @param amount De huidige hoeveelheid van het product
- * @param productPrice De UnitPrice, de standaardprijs per product
+ * @param {Number} productID Het productID om aan te passen
+ * @param {Number} amount De huidige hoeveelheid van het product
+ * @param {Number} productPrice De UnitPrice, de standaardprijs per product
  */
 function sendPostRequest(productID, amount, productPrice) {
     $.post('../BackgroundCode/winkelwagen_backcode.php', {
@@ -36,7 +36,7 @@ function updatePrices(productID, amount, productPrice) {
     let currentTotalPrice = previousTotalPrice - difference;
 
     document.getElementById(`productPrice${productID}`).innerText=`€${formatToString(amount*productPrice)}`;
-    if(amount === 0) {
+    if(amount == 0) {
         document.getElementById(`row${productID}`).remove();
     }
     document.getElementById(`totalPrice`).innerText=`€${formatToString(currentTotalPrice)}`;
