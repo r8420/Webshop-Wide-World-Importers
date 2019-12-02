@@ -62,7 +62,8 @@ include "../BackgroundCode/winkelwagen_backcode.php";
                 ?>
                 </tbody>
             </table>
-            <button class="btn btn-success float-right" onclick="window.location.href='bestel.php'">Bestellen</button>
+            <button class="btn btn-success float-right" onclick="window.location.href='#'">Bestellen</button>
+            <button class="btn btn-success float-right mr-1" onclick="window.location.href='../index.php'">Terug naar homepagina</button>
         </div>
     </div>
 <script src="../js/winkelwagen_ajax.js"></script>

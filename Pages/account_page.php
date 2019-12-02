@@ -38,7 +38,7 @@ $orders = getAssociatedOrders($userID, $connection)
 <!--                        accountgegevens</strong>-->
 <!--                </button>-->
             </div>
-            <div class="row m-2">
+            <div class="row m-2 mt-5 mb-5">
                 <div class="col-6 p-0 pl-2 border-top border-left border-bottom">
                     <p class=" pt-3"><strong>Adresgegevens</strong><br>
                         Straatnaam:<br>
