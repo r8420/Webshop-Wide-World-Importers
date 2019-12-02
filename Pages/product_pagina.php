@@ -30,9 +30,10 @@ if (isset($amount) && isset($_POST['addToCart'])) {
     addToCart($productId, $amount);
 }
 
-if (isset($_SESSION["shoppingCart"])) {
-    print_r($_SESSION["shoppingCart"]);
-}
+
+//if (isset($_SESSION["shoppingCart"])) {
+//    print_r($_SESSION["shoppingCart"]);
+//}
 
 include "../Modules/functions.php";
 print_header();
