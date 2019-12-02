@@ -136,7 +136,7 @@ $result_categorie = mysqli_query($connection, $categorie_link);
                     <p class="pt-2">Heeft u vragen over één van de producten die wij verkopen of heeft u eenprobleem met uw
                     bestelling? Om een antwoord op deze en andere vragen te krijgen kunt u ons op maandag t/m vrijdag bereiken via onze telefonische klantenservice
                     <br>
-                        <b> 3311 TP, Amsterdam<br>
+                        <b> 1017 CA, Amsterdam<br>
                             +31 9404393940 || wwi@wwi.nl</b>
                     </p>
 
