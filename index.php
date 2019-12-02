@@ -17,7 +17,7 @@ $aantal_paginas = ceil($aantal_rows / $aantal_producten);
 
 
 //Selecteerd random de prodcut id, product naam, product prijs en de foto van de database table stockitems.
-$product = "SELECT StockItemID, StockItemName, RecommendedRetailPrice, Photo
+$product = "SELECT StockItemID, StockItemName, UnitPrice, RecommendedRetailPrice, Photo
                 FROM stockitems LIMIT $offset, $aantal_producten;";
 //Selecteerd random de prodcut id, product naam, product prijs en de foto van de database table stockitems en wordt gelimiteerd op 3.
 $product_slider = "SELECT StockItemID, StockItemName, RecommendedRetailPrice, Photo
@@ -105,7 +105,7 @@ function getParam($default){
         //De product id word toegevoegd in de href van de button zodat je naar de juiste product pagina geleid wordt.
         if (mysqli_num_rows($result_product) > 0) {
             while ($row = mysqli_fetch_assoc($result_product)) {
-                $prijs = $row['RecommendedRetailPrice'];
+                $prijs = $row['UnitPrice'];
                 ?>
                 <div class="col-sm-3 col-md-3">
                     <a href="Pages/product_pagina.php?product=<?php echo $row['StockItemID']; ?>"
