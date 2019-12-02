@@ -1,41 +1,42 @@
 <?php
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
 
-if (!isset($_GET['product']) || !filter_var($_GET['product'], FILTER_VALIDATE_INT)){
+if (!isset($_GET['product']) || !filter_var($_GET['product'], FILTER_VALIDATE_INT)) {
     header("Location: ../");
     die();
-} else{
+} else {
     $productId = $_GET['product'];
 }
 
-if (isset($_POST['amount']) && filter_var($_POST['amount'], FILTER_VALIDATE_INT)){
+if (isset($_POST['amount']) && filter_var($_POST['amount'], FILTER_VALIDATE_INT)) {
     $amount = $_POST['amount'];
 }
 
 session_start();
 
-if(isset($amount) && isset($_POST['addToCart'])){
-    echo 'productID:'. $productId.'<BR>';
-    echo 'amount:'. $amount.'<BR>';
-    if(!isset($_SESSION["shoppingCart"])){
+function addToCart($productId, $amount)
+{
+
+    if (!isset($_SESSION["shoppingCart"])) {
         $_SESSION["shoppingCart"] = array();
     }
-    if(isset($_SESSION["shoppingCart"][$productId])){
+    if (isset($_SESSION["shoppingCart"][$productId])) {
         $_SESSION["shoppingCart"][$productId] += $amount;
-    } else{
+    } else {
         $_SESSION["shoppingCart"][$productId] = $amount;
     }
 }
-if(isset($_SESSION["shoppingCart"])){
-    print_r($_SESSION["shoppingCart"]);
+
+if (isset($amount) && isset($_POST['addToCart'])) {
+    addToCart($productId, $amount);
 }
+
+
+//if (isset($_SESSION["shoppingCart"])) {
+//    print_r($_SESSION["shoppingCart"]);
+//}
 
 include "../Modules/functions.php";
 print_header();
-
-
 
 
 $stmt = $connection->prepare("SELECT *, REPLACE(CAST(stockitems.UnitPrice AS CHAR), '.', ',') as price FROM stockitems WHERE StockItemID = ?");
@@ -51,41 +52,42 @@ $tags = json_decode($row['CustomFields'], true);
     <div class="row">
         <div class="col-md-8">
             <div class="m-5">
-                <img src="data:image/jpeg;base64, <?php echo base64_encode($row['Photo'])?>" class="w-60"  onerror="this.src='https://source.unsplash.com/1600x900/?<?php echo $row['StockItemName']?>'" />
-                <img type= src= class="w-60">
+                <img src="data:image/jpeg;base64, <?php echo base64_encode($row['Photo']) ?>" class="w-60"
+                     onerror="this.src='https://source.unsplash.com/1600x900/?<?php echo $row['StockItemName'] ?>'"/>
+                <img type=src= class="w-60">
             </div>
             <div class="m5">
                 <h3><strong>Productbeschrijving</strong></h3>
                 <?php
-                if(!isset($tags['Tags'][0])){
+                if (!isset($tags['Tags'][0])) {
                     $tags['Tags'][0] = '';
                 }
                 ?>
-                <?php print('<p>Gebruik de '.$row['StockItemName'].' voor al je '.strtolower($tags['Tags'][0]).' skills.
-                    Door de super goede '.$row['StockItemName'].' is '.strtolower($tags['Tags'][0]).' geen grote klus meer. Moet je het product een keer
-                    meenemen, dan maak je het niet te zwaar voor jezelf. Deze '.$row['StockItemName'].' weegt namelijk maar '.$row['TypicalWeightPerUnit'].' gram. Ook in het
-                    donker werken vormt geen enkel probleem, want met deze '.$row['StockItemName'].' is het niet moeilijk om
-                    de juiste weg te vinden.</p>')?>
+                <?php print('<p>Gebruik de ' . $row['StockItemName'] . ' voor al je ' . strtolower($tags['Tags'][0]) . ' skills.
+                    Door de super goede ' . $row['StockItemName'] . ' is ' . strtolower($tags['Tags'][0]) . ' geen grote klus meer. Moet je het product een keer
+                    meenemen, dan maak je het niet te zwaar voor jezelf. Deze ' . $row['StockItemName'] . ' weegt namelijk maar ' . $row['TypicalWeightPerUnit'] . ' gram. Ook in het
+                    donker werken vormt geen enkel probleem, want met deze ' . $row['StockItemName'] . ' is het niet moeilijk om
+                    de juiste weg te vinden.</p>') ?>
             </div>
         </div>
         <div class="col-md-4">
             <div class="mt-5">
-                <h1><?php echo $row['StockItemName']?></h1>
+                <h1><?php echo $row['StockItemName'] ?></h1>
             </div>
-<!--            <div class="card-body text-danger">-->
-<!--                <i class="fas fa-star rating"></i>-->
-<!--                <i class="fas fa-star rating"></i>-->
-<!--                <i class="fas fa-star rating"></i>-->
-<!--                <i class="fas fa-star rating"></i>-->
-<!--                <i class="fas fa-star-half-alt rating"></i>-->
-<!--            </div>-->
+            <!--            <div class="card-body text-danger">-->
+            <!--                <i class="fas fa-star rating"></i>-->
+            <!--                <i class="fas fa-star rating"></i>-->
+            <!--                <i class="fas fa-star rating"></i>-->
+            <!--                <i class="fas fa-star rating"></i>-->
+            <!--                <i class="fas fa-star-half-alt rating"></i>-->
+            <!--            </div>-->
             <div>
                 <p>
                     <?php
 
-                    for ($i=0;$i<count($tags['Tags']);$i++){
+                    for ($i = 0; $i < count($tags['Tags']); $i++) {
                         echo $tags['Tags'][$i];
-                        if($i != count($tags['Tags'])-1){
+                        if ($i != count($tags['Tags']) - 1) {
                             echo ', ';
                         }
                     }
@@ -94,11 +96,11 @@ $tags = json_decode($row['CustomFields'], true);
                 </p>
             </div>
             <div>
-                <p><?php echo $row['MarketingComments']?>
+                <p><?php echo $row['MarketingComments'] ?>
                 </p>
             </div>
             <div>
-                <h2>€<?php echo $row['price']?></h2>
+                <h2>€<?php echo $row['price'] ?></h2>
             </div>
             <div>
                 <p><i class="fas fa-circle text-success"> </i> In voorraad</p>
