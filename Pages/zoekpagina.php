@@ -1,13 +1,10 @@
 <?php
-include "../Modules/functions.php";
-print_header();
-include "../BackgroundCode/zoekfunctie_backcode.php";
 
-$search = getIfExists('search', '');
-$category = getIfExists('category', 0);
-$orderBy = getIfExists('order', 'nameAZ');
-$itemsPerPage = getIfExists('itemsPerPage', 12);
-$page = getIfExists('page', 1);
+if (isset($_POST['id']) && filter_var($_POST['id'], FILTER_VALIDATE_INT)) {
+    $cartProductID = $_POST['id'];
+}
+
+session_start();
 
 function addToCart($productId, $amount)
 {
@@ -20,6 +17,22 @@ function addToCart($productId, $amount)
         $_SESSION["shoppingCart"][$productId] = $amount;
     }
 }
+
+if (isset($_POST['id']) && isset($_POST['addToCart'])) {
+    addToCart($cartProductID, 1);
+}
+
+
+include "../Modules/functions.php";
+print_header();
+include "../BackgroundCode/zoekfunctie_backcode.php";
+
+$search = getIfExists('search', '');
+$category = getIfExists('category', 0);
+$orderBy = getIfExists('order', 'nameAZ');
+$itemsPerPage = getIfExists('itemsPerPage', 12);
+$page = getIfExists('page', 1);
+
 
 $categoryName = getCategoryName($category);
 
@@ -138,12 +151,12 @@ if ($page > $totalPages)
                             ?>
                             <form method="post" style="display: inline;">
 
-                                        <input name="id" type="hidden" min="0" class="form-control w-10 hide" id="aantal"
-                                               value="<?php echo $resultArray[$i]["StockItemID"] ?>" style="display: inline;">
+                                <input name="id" type="hidden"
+                                       value="<?php echo $resultArray[$i]["StockItemID"] ?>" style="display: inline;">
 
-                                        <button name="addToCart" type="submit" class="btn btn-success float-right">In
-                                            winkelwagen
-                                        </button>
+                                <button name="addToCart" type="submit" class="btn btn-success float-right my-5">In
+                                    winkelwagen
+                                </button>
 
 
                             </form>
