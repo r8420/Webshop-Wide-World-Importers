@@ -1,6 +1,6 @@
 <?php
-include '../Modules/head.php';
-include '../Modules/header.php';
+include "../Modules/functions.php";
+print_header();
 ?>
 <!-- Begin page content -->
 <div class="container margin100" align="center">
@@ -20,9 +20,5 @@ include '../Modules/header.php';
 </div>
 
 <?php
-include '../Modules/footer.php'
+print_footer();
 ?>
-<!-- Placed at the end of the document so the pages load faster -->
-<script src="../js/imports-dist.js"></script>
-</body>
-</html>
