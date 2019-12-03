@@ -22,7 +22,12 @@ include "../BackgroundCode/winkelwagen_backcode.php";
                 </thead>
                 <tbody>
                 <?php
-                $shoppingCart = $_SESSION['shoppingCart'];
+                if(isset($_SESSION['shoppingCart'])) {
+                    $shoppingCart = $_SESSION['shoppingCart'];
+                } else {
+                    $shoppingCart = array();
+                }
+
                 $totalPrice = 0;
                 foreach ($shoppingCart as $productID=>$amount) {
                     $productInfo = getProductInformation($productID);

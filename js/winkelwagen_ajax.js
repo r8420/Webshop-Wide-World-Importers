@@ -7,6 +7,8 @@
  * @param {Number} productPrice De UnitPrice, de standaardprijs per product
  */
 function sendPostRequest(productID, amount, productPrice) {
+    if(amount < 0)
+        amount = 0;
     $.post('../BackgroundCode/winkelwagen_backcode.php', {
         updateCart: true,
         productID: productID,
