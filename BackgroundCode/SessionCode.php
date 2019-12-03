@@ -7,6 +7,15 @@ function checkSessionActive()
         header("Refresh: 0; url=login.php");
         exit();
     }
+
+}
+function getUserID(){
+    return $_SESSION['userNr'];
+
+}
+
+function sessionDestroy (){
+    sessionDestroy();
 }
 
 ?>

@@ -31,7 +31,7 @@ $result_categorie = mysqli_query($connection, $categorie_link);
 <body>
 <div id="page-container">
     <div id="content-wrap">
-        <nav class="navbar navbar-expand-lg bg-primary navbar-light">
+        <nav class="navbar navbar-expand-lg bg-primary navbar-light mb-5">
             <div class="container">
                 <a class="navbar-brand text-white mb-0 h1" href="<?php echo $prefix; ?>index.php">
                     <img src="<?php echo $prefix; ?>Images/wide-world-importers-logo-small.png" width="175" height="57" alt="">
@@ -68,7 +68,7 @@ $result_categorie = mysqli_query($connection, $categorie_link);
                                 if (mysqli_num_rows($result_categorie) > 0) {
                                 while ($row = mysqli_fetch_assoc($result_categorie)) {
                                 ?>
-                                <a class="dropdown-item" href="<?php echo $prefix; ?>Pages/zoekpagina.php?category=<?php echo $row['StockGroupName']; ?>"><?php echo $row['StockGroupName']; ?></a>
+                                <a class="dropdown-item" href="<?php echo $prefix; ?>Pages/zoekpagina.php?category=<?php echo $row['StockGroupID']; ?>"><?php echo $row['StockGroupName']; ?></a>
                                     <?php
                                 }
                                 } else {
@@ -89,11 +89,23 @@ $result_categorie = mysqli_query($connection, $categorie_link);
                     <div class="fas dropdown fa-user text-white ml-5 mr-4" id="navbarDropdown1" href="#" role="button"
                          data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown1">
+                            <?php if (isset($_SESSION['loggedin']) == FALSE || $_SESSION["loggedin"] == FALSE) {?>
                             <a class="dropdown-item" href="<?php echo $prefix; ?>Pages/login.php"
                                onclick="window.location.href='<?php echo $prefix; ?>Pages/login.php'">Inloggen</a>
                             <a class="dropdown-item" href="<?php echo $prefix; ?>Pages/registreren.php"
                                onclick="window.location.href='<?php echo $prefix; ?>Pages/registreren.php'">Account
                                 aanmaken</a>
+                            <?php }
+                            elseif (isset($_SESSION['loggedin']) && $_SESSION["loggedin"] == TRUE){?>
+                                <a class="dropdown-item" href="<?php echo $prefix; ?>Pages/account_page.php"
+                                   onclick="window.location.href='<?php echo $prefix; ?>Pages/account_page.php'"
+                                >Account
+                                </a>
+                                <a class="dropdown-item" href="<?php echo $prefix; ?>BackgroundCode/logout.php"
+                                   onclick="window.location.href='<?php echo $prefix; ?>BackgroundCode/logout.php'"
+                                   >Uitloggen
+                                    </a>
+                            <?php }?>
                         </div>
                     </div>
                     <a href="<?php echo $prefix; ?>Pages/winkelwagen.php">
@@ -136,7 +148,7 @@ $result_categorie = mysqli_query($connection, $categorie_link);
                     <p class="pt-2">Heeft u vragen over één van de producten die wij verkopen of heeft u eenprobleem met uw
                     bestelling? Om een antwoord op deze en andere vragen te krijgen kunt u ons op maandag t/m vrijdag bereiken via onze telefonische klantenservice
                     <br>
-                        <b> 3311 TP, Amsterdam<br>
+                        <b> 1017 CA, Amsterdam<br>
                             +31 9404393940 || wwi@wwi.nl</b>
                     </p>
 
