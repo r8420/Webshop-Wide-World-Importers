@@ -7,7 +7,7 @@ if (!isset($_GET['product']) || !filter_var($_GET['product'], FILTER_VALIDATE_IN
     $productId = $_GET['product'];
 }
 
-if (isset($_POST['amount']) && filter_var($_POST['amount'], FILTER_VALIDATE_INT)) {
+if (isset($_POST['amount']) && filter_var($_POST['amount'], FILTER_VALIDATE_INT) && $_POST['amount'] > 0) {
     $amount = $_POST['amount'];
 }
 
@@ -15,7 +15,6 @@ session_start();
 
 function addToCart($productId, $amount)
 {
-
     if (!isset($_SESSION["shoppingCart"])) {
         $_SESSION["shoppingCart"] = array();
     }
@@ -30,9 +29,10 @@ if (isset($amount) && isset($_POST['addToCart'])) {
     addToCart($productId, $amount);
 }
 
-if (isset($_SESSION["shoppingCart"])) {
-    print_r($_SESSION["shoppingCart"]);
-}
+
+//if (isset($_SESSION["shoppingCart"])) {
+//    print_r($_SESSION["shoppingCart"]);
+//}
 
 include "../Modules/functions.php";
 print_header();
@@ -48,6 +48,14 @@ $tags = json_decode($row['CustomFields'], true);
 
 ?>
 <div class="container">
+    <?php if (isset($amount) && isset($_POST['addToCart'])) {
+        ?>
+        <div id="updateCartAlert" class="alert alert-success" role="alert">
+            <?php echo "Dit item is toegevoegd aan uw winkelwagen. U heeft dit product nu " . $_SESSION["shoppingCart"][$productId] . " keer in uw winkelwagen."; ?>
+        </div>
+        <?php
+    }
+    ?>
     <div class="row">
         <div class="col-md-8">
             <div class="m-5">
