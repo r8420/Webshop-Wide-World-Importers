@@ -1,4 +1,6 @@
 <?php
+include "../Modules/functions.php";
+print_header();
 
 if (!isset($_GET['product']) || !filter_var($_GET['product'], FILTER_VALIDATE_INT)) {
     header("Location: ../");
@@ -7,11 +9,10 @@ if (!isset($_GET['product']) || !filter_var($_GET['product'], FILTER_VALIDATE_IN
     $productId = $_GET['product'];
 }
 
-if (isset($_POST['amount']) && filter_var($_POST['amount'], FILTER_VALIDATE_INT)) {
+if (isset($_POST['amount']) && filter_var($_POST['amount'], FILTER_VALIDATE_INT) && $_POST['amount'] > 0) {
     $amount = $_POST['amount'];
 }
 
-session_start();
 
 function addToCart($productId, $amount)
 {
@@ -34,8 +35,6 @@ if (isset($amount) && isset($_POST['addToCart'])) {
 //    print_r($_SESSION["shoppingCart"]);
 //}
 
-include "../Modules/functions.php";
-print_header();
 
 
 $stmt = $connection->prepare("SELECT *, REPLACE(CAST(stockitems.UnitPrice AS CHAR), '.', ',') as price FROM stockitems WHERE StockItemID = ?");

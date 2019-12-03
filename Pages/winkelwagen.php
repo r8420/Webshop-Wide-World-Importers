@@ -1,6 +1,5 @@
 <?php
 include "../Modules/functions.php";
-session_start();
 print_header();
 include "../BackgroundCode/winkelwagen_backcode.php";
 ?>
@@ -22,7 +21,12 @@ include "../BackgroundCode/winkelwagen_backcode.php";
                 </thead>
                 <tbody>
                 <?php
-                $shoppingCart = $_SESSION['shoppingCart'];
+                if(isset($_SESSION['shoppingCart'])) {
+                    $shoppingCart = $_SESSION['shoppingCart'];
+                } else {
+                    $shoppingCart = array();
+                }
+
                 $totalPrice = 0;
                 foreach ($shoppingCart as $productID=>$amount) {
                     $productInfo = getProductInformation($productID);
@@ -62,7 +66,13 @@ include "../BackgroundCode/winkelwagen_backcode.php";
                 ?>
                 </tbody>
             </table>
-            <button class="btn btn-success float-right" onclick="window.location.href='bestel.php'">Bestellen</button>
+            <div class="my-5">
+                <button class="btn btn-success ml-5 mr-4 float-right" onclick="window.location.href='#'">Bestellen</button>
+                <button class="btn btn-primary mr-5 float-right mr-1" onclick="window.location.href='../index.php'">Terug naar homepagina</button>
+            </div>
+            <div class="p-5">
+
+            </div>
         </div>
     </div>
 <script src="../js/winkelwagen_ajax.js"></script>
