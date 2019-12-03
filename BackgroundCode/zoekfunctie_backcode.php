@@ -1,11 +1,5 @@
 <?php
 
-if(!function_exists('startDBConnection')) {
-    include '../DatabaseFactory.php';
-    global $connection;
-    $connection = startDBConnection();
-}
-
 /***
  * Get the search results from the database
  * @param string $search The search term
