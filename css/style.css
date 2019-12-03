@@ -36,16 +36,14 @@
     margin-bottom: 100px;
 }
 
-.w-400 {
-    width: 400px;
-}
-
 .slider {
     height: 400px;
 }
 
 .slider-text {
-    text-shadow: 4px 4px 15px #000000;
+    background-color: rgba(0, 0, 0, 0.4);
+    padding-top: 25px;
+    padding-bottom: 25px;
 }
 
 .carousel-control-prev-icon {

@@ -1,9 +1,9 @@
 <?php
-include "../Modules/functions.php";
 include "../BackgroundCode/SessionCode.php";
-include "../BackgroundCode/Bestelgeschiedenis_functionali.php";
-print_header();
 checkSessionActive();
+include "../Modules/functions.php";
+print_header();
+include "../BackgroundCode/Bestelgeschiedenis_functionali.php";
 $itemlist = getSqlResults($_GET['orderId'], $_SESSION['userNr'], $connection);
 $totaal = 0;
 
@@ -11,7 +11,7 @@ $totaal = 0;
 ?>
 <div class="container">
     <div class="m-5">
-        <h1>Bestelling 4046</h1>
+        <h1>Bestelling <?php echo $_GET['orderId'];?></h1>
     </div>
     <div class="container rounded-0">
         <table class="table table-striped table-hover">
@@ -28,7 +28,7 @@ $totaal = 0;
             <?php
             foreach ($itemlist as $item) { ?>
             <tr>
-                <td><img src="../Images/logo.png"></td>
+                <td><img src="data:image/png;base64,<?php echo base64_encode($item[5]) ?>"></td>
                 <td><?php echo $item[3] ?></td>
                 <td><?php echo $item[2] ?></td>
                 <td><?php echo "€" . $item[4] ?></td>
