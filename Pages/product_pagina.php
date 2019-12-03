@@ -1,56 +1,42 @@
 <?php
+// Buffer the output so nothing will be output until the PHP script ends.
+// Because then the header() function can be used after the headers are set.
+ob_start();
+
+// Disable cache so we dont get ERR_CACHE_MISS when we use the back button on the shopping cart.
+header('Cache-Control: no cache');
+session_cache_limiter('private_no_expire');
+
+
 include "../Modules/functions.php";
 print_header();
 
-if (!isset($_GET['product']) || !filter_var($_GET['product'], FILTER_VALIDATE_INT)) {
+include "../BackgroundCode/product_functions.php";
+
+$productId = (checkInt('GET', 'product') ? $_GET['product'] : false);
+$amount = (checkInt('POST', 'amount') ? $_POST['amount'] : false);
+$productInfo = getProductInfo($productId);
+$tags = json_decode($productInfo['CustomFields'], true);
+
+// If there's no product id defined, go back to index.php
+if (!$productId) {
     header("Location: ../");
     die();
-} else {
-    $productId = $_GET['product'];
 }
 
-if (isset($_POST['amount']) && filter_var($_POST['amount'], FILTER_VALIDATE_INT) && $_POST['amount'] > 0) {
-    $amount = $_POST['amount'];
-}
-
-
-function addToCart($productId, $amount)
-{
-    if (!isset($_SESSION["shoppingCart"])) {
-        $_SESSION["shoppingCart"] = array();
-    }
-    if (isset($_SESSION["shoppingCart"][$productId])) {
-        $_SESSION["shoppingCart"][$productId] += $amount;
-    } else {
-        $_SESSION["shoppingCart"][$productId] = $amount;
-    }
-}
-
-if (isset($amount) && isset($_POST['addToCart'])) {
+// If there is any amount that needs to be added to cart, add it.
+if ($amount) {
     addToCart($productId, $amount);
 }
 
-
-//if (isset($_SESSION["shoppingCart"])) {
-//    print_r($_SESSION["shoppingCart"]);
-//}
-
-
-
-$stmt = $connection->prepare("SELECT *, REPLACE(CAST(stockitems.UnitPrice AS CHAR), '.', ',') as price FROM stockitems WHERE StockItemID = ?");
-$stmt->bind_param("i", $productId);
-$stmt->execute();
-$result = $stmt->get_result();
-$row = $result->fetch_assoc();
-$stmt->close();
-$tags = json_decode($row['CustomFields'], true);
-
 ?>
 <div class="container">
-    <?php if (isset($amount) && isset($_POST['addToCart'])) {
+    <?php if ($amount) {
         ?>
         <div id="updateCartAlert" class="alert alert-success" role="alert">
-            <?php echo "Dit item is toegevoegd aan uw winkelwagen. U heeft dit product nu " . $_SESSION["shoppingCart"][$productId] . " keer in uw winkelwagen."; ?>
+            Dit item is toegevoegd aan uw winkelwagen. U heeft dit product nu
+            <?php echo $_SESSION["shoppingCart"][$productId]; ?>
+            keer in uw winkelwagen.
         </div>
         <?php
     }
@@ -58,8 +44,7 @@ $tags = json_decode($row['CustomFields'], true);
     <div class="row">
         <div class="col-md-8">
             <div class="m-5">
-                <img src="data:image/jpeg;base64, <?php echo base64_encode($row['Photo']) ?>" class="w-60"
-                     onerror="this.src='https://source.unsplash.com/1600x900/?<?php echo $row['StockItemName'] ?>'"/>
+                <img src="data:image/jpeg;base64, <?php echo base64_encode($productInfo['Photo']) ?>" class="w-60"/>
                 <img type=src= class="w-60">
             </div>
             <div class="m5">
@@ -69,44 +54,37 @@ $tags = json_decode($row['CustomFields'], true);
                     $tags['Tags'][0] = '';
                 }
                 ?>
-                <?php print('<p>Gebruik de ' . $row['StockItemName'] . ' voor al je ' . strtolower($tags['Tags'][0]) . ' skills.
-                    Door de super goede ' . $row['StockItemName'] . ' is ' . strtolower($tags['Tags'][0]) . ' geen grote klus meer. Moet je het product een keer
-                    meenemen, dan maak je het niet te zwaar voor jezelf. Deze ' . $row['StockItemName'] . ' weegt namelijk maar ' . $row['TypicalWeightPerUnit'] . ' gram. Ook in het
-                    donker werken vormt geen enkel probleem, want met deze ' . $row['StockItemName'] . ' is het niet moeilijk om
-                    de juiste weg te vinden.</p>') ?>
+                <?php print(sprintf("<p>Gebruik de %s voor al je %s skills.
+                    Door de super goede %s is %s geen grote klus meer. Moet je het product een keer
+                    meenemen, dan maak je het niet te zwaar voor jezelf. Deze %s weegt namelijk maar %s gram. Ook in het
+                    donker werken vormt geen enkel probleem, want met deze %s is het niet moeilijk om
+                    de juiste weg te vinden.</p>",
+                    $productInfo['StockItemName'], strtolower($tags['Tags'][0]), $productInfo['StockItemName'], strtolower($tags['Tags'][0]),
+                    $productInfo['StockItemName'], $productInfo['TypicalWeightPerUnit'], $productInfo['StockItemName'])) ?>
             </div>
         </div>
         <div class="col-md-4">
             <div class="mt-5">
-                <h1><?php echo $row['StockItemName'] ?></h1>
+                <h1><?php echo $productInfo['StockItemName'] ?></h1>
             </div>
-            <!--            <div class="card-body text-danger">-->
-            <!--                <i class="fas fa-star rating"></i>-->
-            <!--                <i class="fas fa-star rating"></i>-->
-            <!--                <i class="fas fa-star rating"></i>-->
-            <!--                <i class="fas fa-star rating"></i>-->
-            <!--                <i class="fas fa-star-half-alt rating"></i>-->
-            <!--            </div>-->
             <div>
                 <p>
                     <?php
-
                     for ($i = 0; $i < count($tags['Tags']); $i++) {
                         echo $tags['Tags'][$i];
                         if ($i != count($tags['Tags']) - 1) {
                             echo ', ';
                         }
                     }
-
                     ?>
                 </p>
             </div>
             <div>
-                <p><?php echo $row['MarketingComments'] ?>
+                <p><?php echo $productInfo['MarketingComments'] ?>
                 </p>
             </div>
             <div>
-                <h2>€<?php echo $row['price'] ?></h2>
+                <h2>€<?php echo $productInfo['price'] ?></h2>
             </div>
             <div>
                 <p><i class="fas fa-circle text-success"> </i> In voorraad</p>
@@ -118,7 +96,7 @@ $tags = json_decode($row['CustomFields'], true);
                             <input name="amount" type="number" min="0" class="form-control" id="aantal" value="1">
                         </div>
                         <div class="col-8">
-                            <button name="addToCart" type="submit" class="btn btn-success">In winkelwagen</button>
+                            <button type="submit" class="btn btn-success">In winkelwagen</button>
                         </div>
                     </div>
                 </form>
