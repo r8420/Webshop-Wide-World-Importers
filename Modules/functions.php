@@ -1,4 +1,5 @@
 <?php
+session_start();
 $prefix = "../";
 function print_header($var = false)
 {

@@ -1,8 +1,8 @@
 <?php
-include "../BackgroundCode/SessionCode.php";
-checkSessionActive();
 include "../Modules/functions.php";
 print_header();
+include "../BackgroundCode/SessionCode.php";
+checkSessionActive();
 include "../BackgroundCode/Bestelgeschiedenis_functionali.php";
 $itemlist = getSqlResults($_GET['orderId'], $_SESSION['userNr'], $connection);
 $totaal = 0;

@@ -1,10 +1,12 @@
 <?php
+include "../Modules/functions.php";
+print_header();
+include "../BackgroundCode/zoekfunctie_backcode.php";
 
 if (isset($_POST['id']) && filter_var($_POST['id'], FILTER_VALIDATE_INT)) {
     $cartProductID = $_POST['id'];
 }
 
-session_start();
 
 function addToCart($productId, $amount)
 {
@@ -23,9 +25,6 @@ if (isset($_POST['id']) && isset($_POST['addToCart'])) {
 }
 
 
-include "../Modules/functions.php";
-print_header();
-include "../BackgroundCode/zoekfunctie_backcode.php";
 
 $search = getIfExists('search', '');
 $category = getIfExists('category', 0);
