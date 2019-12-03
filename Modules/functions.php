@@ -89,11 +89,23 @@ $result_categorie = mysqli_query($connection, $categorie_link);
                     <div class="fas dropdown fa-user text-white ml-5 mr-4" id="navbarDropdown1" href="#" role="button"
                          data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown1">
+                            <?php if (isset($_SESSION['loggedin']) == FALSE || $_SESSION["loggedin"] == FALSE) {?>
                             <a class="dropdown-item" href="<?php echo $prefix; ?>Pages/login.php"
                                onclick="window.location.href='<?php echo $prefix; ?>Pages/login.php'">Inloggen</a>
                             <a class="dropdown-item" href="<?php echo $prefix; ?>Pages/registreren.php"
                                onclick="window.location.href='<?php echo $prefix; ?>Pages/registreren.php'">Account
                                 aanmaken</a>
+                            <?php }
+                            elseif (isset($_SESSION['loggedin']) && $_SESSION["loggedin"] == TRUE){?>
+                                <a class="dropdown-item" href="<?php echo $prefix; ?>Pages/account_page.php"
+                                   onclick="window.location.href='<?php echo $prefix; ?>Pages/account_page.php'"
+                                >Account
+                                </a>
+                                <a class="dropdown-item" href="<?php echo $prefix; ?>BackgroundCode/logout.php"
+                                   onclick="window.location.href='<?php echo $prefix; ?>BackgroundCode/logout.php'"
+                                   >Uitloggen
+                                    </a>
+                            <?php }?>
                         </div>
                     </div>
                     <a href="<?php echo $prefix; ?>Pages/winkelwagen.php">
