@@ -3,11 +3,35 @@ include "../Modules/functions.php";
 print_header();
 include "../BackgroundCode/zoekfunctie_backcode.php";
 
+if (isset($_POST['id']) && filter_var($_POST['id'], FILTER_VALIDATE_INT)) {
+    $cartProductID = $_POST['id'];
+}
+
+
+function addToCart($productId, $amount)
+{
+    if (!isset($_SESSION["shoppingCart"])) {
+        $_SESSION["shoppingCart"] = array();
+    }
+    if (isset($_SESSION["shoppingCart"][$productId])) {
+        $_SESSION["shoppingCart"][$productId] += $amount;
+    } else {
+        $_SESSION["shoppingCart"][$productId] = $amount;
+    }
+}
+
+if (isset($_POST['id']) && isset($_POST['addToCart'])) {
+    addToCart($cartProductID, 1);
+}
+
+
+
 $search = getIfExists('search', '');
 $category = getIfExists('category', 0);
 $orderBy = getIfExists('order', 'nameAZ');
 $itemsPerPage = getIfExists('itemsPerPage', 12);
 $page = getIfExists('page', 1);
+
 
 $categoryName = getCategoryName($category);
 
@@ -15,10 +39,18 @@ $numResults = getNumberResults($search, $category);
 $totalPages = ceil($numResults / $itemsPerPage);
 
 //Als de gegeven pagina buiten de hoogste pagina valt, zet de pagina naar de hoogst mogelijke
-if($page > $totalPages)
+if ($page > $totalPages)
     $page = $totalPages;
 ?>
     <main class="container">
+        <?php if (isset($_POST['id']) && isset($_POST['addToCart'])) {
+            ?>
+            <div id="updateCartAlert" class="alert alert-success" role="alert">
+                <?php echo "Dit item is toegevoegd aan uw winkelwagen. U heeft dit product nu " . $_SESSION["shoppingCart"][$cartProductID] . " keer in uw winkelwagen."; ?>
+            </div>
+            <?php
+        }
+        ?>
         <div class="row">
             <!-- Voor nu niet nodig
             <form class="col-3 pr-0">
@@ -76,7 +108,7 @@ if($page > $totalPages)
                 <div class="card bg-dark text-white">
                     <div class="card-body">
                         <?php
-                        if($category == 0) {
+                        if ($category == 0) {
                             print("<h5 class=\"float-left\">$numResults resultaten voor '$search'</h5>");
                         } else {
                             print("<h5 class=\"float-left\">$numResults resultaten voor '$search' in category $categoryName</h5>");
@@ -99,67 +131,87 @@ if($page > $totalPages)
                         </script>
                         <select class="float-right custom-select w-25" onchange="setParam('order', this.value);">
                             <option value="" disabled="" selected>Sorteer op</option>
-                            <option value="nameAZ" <?php setSelected('order', 'nameAZ');?>>Naam: A-Z</option>
-                            <option value="nameZA" <?php setSelected('order', 'nameZA');?>>Naam: Z-A</option>
-                            <option value="priceLowHigh" <?php setSelected('order', 'priceLowHigh');?>>Prijs: Laag-Hoog</option>
-                            <option value="priceHighLow" <?php setSelected('order', 'priceHighLow');?>>Prijs: Hoog-Laag</option>
+                            <option value="nameAZ" <?php setSelected('order', 'nameAZ'); ?>>Naam: A-Z</option>
+                            <option value="nameZA" <?php setSelected('order', 'nameZA'); ?>>Naam: Z-A</option>
+                            <option value="priceLowHigh" <?php setSelected('order', 'priceLowHigh'); ?>>Prijs:
+                                Laag-Hoog
+                            </option>
+                            <option value="priceHighLow" <?php setSelected('order', 'priceHighLow'); ?>>Prijs:
+                                Hoog-Laag
+                            </option>
                         </select>
                     </div>
-                    <ul class="list-group list-group-flush text-dark" id="productList">
-                        <li class="list-group-item">
-                            <div>
+                    <li class="list-group list-group-flush text-dark" id="productList">
+                    <li class="list-group-item">
+                        <div>
 
-                            </div>
-                        </li>
-                        <?php
-                        if($numResults > 0) {
-                            $resultArray = getSearchResults($search, $category, $orderBy, $page, $itemsPerPage);
-                            for ($i = 0; $i < count($resultArray) && $i < abs(($page - 1) * $itemsPerPage - $numResults); $i++) {
-                                $productName = strip_tags($resultArray[$i]['StockItemName']);
-                                $productPrice = strip_tags($resultArray[$i]['UnitPrice']);
-                                $productPhoto = base64_encode($resultArray[$i]['Photo']);
-                                print('<li class="list-group-item shadow"><a href="product_pagina.php?product='.$resultArray[$i]["StockItemID"].'"><img src="data:image/jpeg;base64,' . $productPhoto . '" width="190" height="120"><span class="col-8">' . $productName . '</span><span class="col-4">' . $productPrice . '</span></a></li>');
-                            }
+                        </div>
+                    </li>
+                    <?php
+                    if ($numResults > 0) {
+                        $resultArray = getSearchResults($search, $category, $orderBy, $page, $itemsPerPage);
+                        for ($i = 0; $i < count($resultArray) && $i < abs(($page - 1) * $itemsPerPage - $numResults); $i++) {
+                            $productName = strip_tags($resultArray[$i]['StockItemName']);
+                            $productPrice = strip_tags($resultArray[$i]['UnitPrice']);
+                            $productPrice = str_replace(".", ",", $productPrice);
+                            $productPhoto = base64_encode($resultArray[$i]['Photo']);
+                            print('<li class="list-group-item shadow"><a href="product_pagina.php?product=' . $resultArray[$i]["StockItemID"] . '"><img src="data:image/jpeg;base64,' . $productPhoto . '" width="190" height="120"><span class="col-8">' . $productName . '</span><span class="col-4">'."€ " . $productPrice . '</span></a>');
+                            ?>
+                            <form method="post" style="display: inline;">
+
+                                <input name="id" type="hidden"
+                                       value="<?php echo $resultArray[$i]["StockItemID"] ?>" style="display: inline;">
+
+                                <button name="addToCart" type="submit" class="btn btn-success float-right my-5">In
+                                    winkelwagen
+                                </button>
+
+
+                            </form>
+                            </li>
+                            <?php
                         }
-                        ?>
+                    }
+                    ?>
                     </ul>
                     <div class="card">
                         <div class="card-body align-content-center">
-                            <select class="float-right custom-select w-25" onchange="setParam('itemsPerPage', this.value)">
+                            <select class="float-right custom-select w-25"
+                                    onchange="setParam('itemsPerPage', this.value)">
                                 <option value="" disabled="" selected>Resultaten per pagina</option>
-                                <option value="12" <?php setSelected('itemsPerPage', 12);?>>12</option>
-                                <option value="24" <?php setSelected('itemsPerPage', 24);?>>24</option>
-                                <option value="32" <?php setSelected('itemsPerPage', 32);?>>32</option>
-                                <option value="48" <?php setSelected('itemsPerPage', 48);?>>48</option>
-                                <option value="64" <?php setSelected('itemsPerPage', 64);?>>64</option>
+                                <option value="12" <?php setSelected('itemsPerPage', 12); ?>>12</option>
+                                <option value="24" <?php setSelected('itemsPerPage', 24); ?>>24</option>
+                                <option value="32" <?php setSelected('itemsPerPage', 32); ?>>32</option>
+                                <option value="48" <?php setSelected('itemsPerPage', 48); ?>>48</option>
+                                <option value="64" <?php setSelected('itemsPerPage', 64); ?>>64</option>
                             </select>
                             <ul class="pagination float-left w-75">
                                 <?php
-                                if($page > 1) {
+                                if ($page > 1) {
                                     //Print "Vorige" pagina link
-                                    print('<li class="page-item"><a class="page-link" href = "'.change_url_parameter("page", $page - 1).'" tabindex = "-1" >&lt;</a ></li >');
+                                    print('<li class="page-item"><a class="page-link" href = "' . change_url_parameter("page", $page - 1) . '" tabindex = "-1" >&lt;</a ></li >');
                                 }
-                                if($page > 3) {
+                                if ($page > 3) {
                                     //Print de eerste pagina link
-                                    print('<li class="page-item"><a class="page-link" href="'.change_url_parameter("page", 1).'" tabindex="-1">1</a></li>');
+                                    print('<li class="page-item"><a class="page-link" href="' . change_url_parameter("page", 1) . '" tabindex="-1">1</a></li>');
                                     print('<li class="page-item"><a class="page-link disabled text-dark">...</a></li>');
                                 }
-                                for($i = $page - 2; $i <= $page + 2; $i++) {
+                                for ($i = $page - 2; $i <= $page + 2; $i++) {
                                     //print the vorige 2, en volgende 2 pagina links
-                                    if($i < 1 || $i > $totalPages) continue;
+                                    if ($i < 1 || $i > $totalPages) continue;
                                     $currentPageHighlight = "";
-                                    if($page == $i)
+                                    if ($page == $i)
                                         $currentPageHighlight = " bg-dark text-white";
-                                    print('<li class="page-item"><a class="page-link'.$currentPageHighlight.'" href="'.change_url_parameter("page", $i).'">'.$i.'</a></li>');
+                                    print('<li class="page-item"><a class="page-link' . $currentPageHighlight . '" href="' . change_url_parameter("page", $i) . '">' . $i . '</a></li>');
                                 }
-                                if($page < $totalPages - 2) {
+                                if ($page < $totalPages - 2) {
                                     //Print de laatste pagina link
                                     print('<li class="page-item"><a class="page-link disabled text-dark">...</a></li>');
-                                    print('<li class="page-item"><a class="page-link" href="'.change_url_parameter("page", $totalPages).'">'.$totalPages.'</a></li>');
+                                    print('<li class="page-item"><a class="page-link" href="' . change_url_parameter("page", $totalPages) . '">' . $totalPages . '</a></li>');
                                 }
-                                if($page != $totalPages) {
+                                if ($page != $totalPages) {
                                     //print de "Volgende" pagina link
-                                    print('<li class="page-item"><a class="page-link" href = "'.change_url_parameter("page", $page + 1).'">&gt;</a></li>');
+                                    print('<li class="page-item"><a class="page-link" href = "' . change_url_parameter("page", $page + 1) . '">&gt;</a></li>');
                                 }
                                 ?>
                             </ul>

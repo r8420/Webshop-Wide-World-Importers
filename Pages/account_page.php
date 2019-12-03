@@ -1,8 +1,8 @@
 <?php
-include "../BackgroundCode/SessionCode.php";
-checkSessionActive();
 include "../Modules/functions.php";
 print_header();
+include "../BackgroundCode/SessionCode.php";
+checkSessionActive();
 include "../BackgroundCode/account_background.php";
 $userID = $_SESSION['userNr'];
 $currentUser = getUser($userID, $connection);
@@ -38,7 +38,7 @@ $orders = getAssociatedOrders($userID, $connection)
 <!--                        accountgegevens</strong>-->
 <!--                </button>-->
             </div>
-            <div class="row m-2">
+            <div class="row m-2 mt-5 mb-5">
                 <div class="col-6 p-0 pl-2 border-top border-left border-bottom">
                     <p class=" pt-3"><strong>Adresgegevens</strong><br>
                         Straatnaam:<br>

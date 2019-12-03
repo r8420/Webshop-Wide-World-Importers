@@ -1,5 +1,4 @@
 <?php
-session_start();
 include "../Modules/functions.php";
 print_header();
 ?>
