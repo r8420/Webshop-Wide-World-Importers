@@ -1,6 +1,5 @@
 <?php
 include "../Modules/functions.php";
-session_start();
 print_header();
 include "../BackgroundCode/winkelwagen_backcode.php";
 ?>
