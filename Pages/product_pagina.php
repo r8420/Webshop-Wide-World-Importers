@@ -8,10 +8,10 @@ header('Cache-Control: no cache');
 session_cache_limiter('private_no_expire');
 
 
-include "../Modules/functions.php";
+include '../Modules/functions.php';
 print_header();
 
-include "../BackgroundCode/product_functions.php";
+include '../BackgroundCode/product_functions.php';
 
 $productId = (checkInt('GET', 'product') ? $_GET['product'] : false);
 $amount = (checkInt('POST', 'amount') ? $_POST['amount'] : false);
@@ -20,7 +20,7 @@ $tags = json_decode($productInfo['CustomFields'], true);
 
 // If there's no product id defined, go back to index.php
 if (!$productId) {
-    header("Location: ../");
+    header('Location: ../');
     die();
 }
 
@@ -35,7 +35,7 @@ if ($amount) {
         ?>
         <div id="updateCartAlert" class="alert alert-success" role="alert">
             Dit item is toegevoegd aan uw winkelwagen. U heeft dit product nu
-            <?php echo $_SESSION["shoppingCart"][$productId]; ?>
+            <?php echo $_SESSION['shoppingCart'][$productId]; ?>
             keer in uw winkelwagen.
         </div>
         <?php
@@ -45,7 +45,6 @@ if ($amount) {
         <div class="col-md-8">
             <div class="m-5">
                 <img src="data:image/jpeg;base64, <?php echo base64_encode($productInfo['Photo']) ?>" class="w-60"/>
-                <img type=src= class="w-60">
             </div>
             <div class="m5">
                 <h3><strong>Productbeschrijving</strong></h3>
@@ -54,11 +53,11 @@ if ($amount) {
                     $tags['Tags'][0] = '';
                 }
                 ?>
-                <?php print(sprintf("<p>Gebruik de %s voor al je %s skills.
+                <?php print(sprintf('<p>Gebruik de %s voor al je %s skills.
                     Door de super goede %s is %s geen grote klus meer. Moet je het product een keer
                     meenemen, dan maak je het niet te zwaar voor jezelf. Deze %s weegt namelijk maar %s gram. Ook in het
                     donker werken vormt geen enkel probleem, want met deze %s is het niet moeilijk om
-                    de juiste weg te vinden.</p>",
+                    de juiste weg te vinden.</p>',
                     $productInfo['StockItemName'], strtolower($tags['Tags'][0]), $productInfo['StockItemName'], strtolower($tags['Tags'][0]),
                     $productInfo['StockItemName'], $productInfo['TypicalWeightPerUnit'], $productInfo['StockItemName'])) ?>
             </div>
@@ -70,9 +69,9 @@ if ($amount) {
             <div>
                 <p>
                     <?php
-                    for ($i = 0; $i < count($tags['Tags']); $i++) {
-                        echo $tags['Tags'][$i];
-                        if ($i != count($tags['Tags']) - 1) {
+                    foreach ($tags['Tags'] as $tag => $tagValue) {
+                        echo $tagValue;
+                        if ($tag !== count($tags['Tags']) - 1) {
                             echo ', ';
                         }
                     }
