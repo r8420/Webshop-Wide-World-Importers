@@ -14,4 +14,8 @@ function getUserID(){
 
 }
 
+function sessionDestroy (){
+    sessionDestroy();
+}
+
 ?>
