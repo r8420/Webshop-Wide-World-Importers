@@ -7,7 +7,7 @@ if (!isset($_GET['product']) || !filter_var($_GET['product'], FILTER_VALIDATE_IN
     $productId = $_GET['product'];
 }
 
-if (isset($_POST['amount']) && filter_var($_POST['amount'], FILTER_VALIDATE_INT)) {
+if (isset($_POST['amount']) && filter_var($_POST['amount'], FILTER_VALIDATE_INT) && $_POST['amount'] > 0) {
     $amount = $_POST['amount'];
 }
 
