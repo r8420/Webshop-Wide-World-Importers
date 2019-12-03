@@ -50,6 +50,9 @@ if ($_POST['inlogbutton']) {
                 </div>
             </form>
             <div class="float-right">
+                <a href="<?php echo $prefix; ?>Pages/registreren.php">
+                    <button name="inlogbutton" id="inlogbutton" class="btn btn-success">Account aanmaken</button>
+                </a>
                 <a href="<?php echo $prefix; ?>Pages/succes.php">
                     <button name="inlogbutton" id="inlogbutton" class="btn btn-success">Naar betalen</button>
                 </a>
