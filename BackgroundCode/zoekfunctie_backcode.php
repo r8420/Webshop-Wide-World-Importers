@@ -12,6 +12,7 @@
 function getSearchResults($search, $category, $orderBy, $page, $itemsPerPage) {
     global $connection;
     $searchSQL = "%$search%";
+    echo $searchSQL;
     $orderSQL = getOrderBy($orderBy);
     $offset = ($page - 1) * $itemsPerPage;
 
@@ -92,11 +93,12 @@ function getOrderBy($orderBy) {
 function getNumberResults($search, $category) {
     global $connection;
     $searchSQL = "%$search%";
+    echo $searchSQL;
     if($category == null || $category == 0) {
-        $stmt = $connection->prepare("get_number_results(?) ");
-        $stmt->bind_param("s", $searchSQL);
+        $stmt = $connection->prepare("CALL get_number_results(?)");
+        $stmt->bind_param("s", $search);
     } else {
-        $stmt = $connection->prepare("get_number_results_category(?,?)");
+        $stmt = $connection->prepare("CALL get_number_results_category(?,?)");
         $stmt->bind_param("si", $searchSQL, $category);
     }
     $stmt->execute();

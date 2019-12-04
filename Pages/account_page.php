@@ -1,8 +1,12 @@
 <?php
-include "../Modules/functions.php";
+
+//include "../DatabaseFactory.php";
+//$connection = startDBConnection();
 include "../BackgroundCode/SessionCode.php";
 checkSessionActive();
+include "../Modules/functions.php";
 print_header();
+echo "wou";
 include "../BackgroundCode/account_background.php";
 $userID = $_SESSION['userNr'];
 $currentUser = getUser($userID, $connection);

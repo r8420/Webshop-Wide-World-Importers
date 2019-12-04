@@ -1,5 +1,4 @@
 <?php
-session_start();
 $prefix = "../";
 function print_header($var = false)
 {
@@ -7,14 +6,17 @@ global $prefix;
 if ($var === "index") {
     $prefix = "";
 }
-if (!function_exists('startDBConnection')) {
-    include $prefix . "DatabaseFactory.php";
-    global $connection;
-    $connection = startDBConnection();
-}
+session_start();
+//if (!function_exists('startDBConnection')) {
+//    include $prefix . "DatabaseFactory.php";
+//    global $connection;
+//    $connection = startDBConnection();
+//}
+include $prefix."DatabaseFactory.php";
 
+$connection = startDBConnection();
 
-$categorie_link = "SELECT StockGroupID, StockGroupName FROM stockgroups;";
+$categorie_link = "CALL get_stock_groups()";
 $result_categorie = mysqli_query($connection, $categorie_link);
 ?>
 
