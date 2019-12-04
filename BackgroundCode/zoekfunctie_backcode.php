@@ -16,17 +16,17 @@ function getSearchResults($search, $category, $orderBy, $page, $itemsPerPage) {
     $offset = ($page - 1) * $itemsPerPage;
 
     if($category == null || $category == 0) {
-        $stmt = $connection->prepare("SELECT StockItemID, StockItemName, UnitPrice, Photo FROM stockitems WHERE SearchDetails LIKE ? $orderSQL LIMIT $offset, $itemsPerPage");
+        $stmt = $connection->prepare("CALL get_stockitem_results(?,?,?,?)");
         if($stmt == FALSE) {
             return array(array("StockItemID"=>"1","StockItemName"=>"We're sorry, something went wrong","UnitPrice"=>"0,00","Photo"=>""));
         }
-        $stmt->bind_param("s", $searchSQL);
+        $stmt->bind_param("siii", $searchSQL,$orderSQL, $offset, $itemsPerPage);
     } else {
-        $stmt = $connection->prepare("SELECT si.StockItemID, StockItemName, UnitPrice, Photo FROM stockitemstockgroups sisg JOIN stockitems si ON si.StockItemID = sisg.StockItemID JOIN stockgroups sg ON sg.StockGroupID = sisg.StockGroupID WHERE si.SearchDetails LIKE ? AND sisg.StockGroupID = ? $orderSQL LIMIT $offset, $itemsPerPage");
+        $stmt = $connection->prepare("CALL get_stockitem_results_category(?,?,?,?,?)");
         if($stmt == FALSE) {
             return array(array("StockItemID"=>"1","StockItemName"=>"We're sorry, something went wrong","UnitPrice"=>"0,00","Photo"=>""));
         }
-        $stmt->bind_param("si", $searchSQL, $category);
+        $stmt->bind_param("siiii", $searchSQL, $category, $orderSQL, $offset, $itemsPerPage );
     }
 
     $stmt->execute();
@@ -49,7 +49,7 @@ function getCategoryName($category) {
     if($category == 0)
         return '';
     global $connection;
-    $stmt = $connection->prepare("SELECT StockGroupName FROM stockgroups WHERE StockGroupID LIKE ?");
+    $stmt = $connection->prepare("CALL get_stock_group(?)");
     $stmt->bind_param("i", $category);
     $stmt->execute();
     $result = $stmt->get_result()->fetch_array()[0];
@@ -60,27 +60,29 @@ function getCategoryName($category) {
 /***
  * A function to get the order sql
  * @param string $orderBy The order by option
- * @return string
+ * @return int
  */
 function getOrderBy($orderBy) {
     //Order by code
     $orderSQL = "ORDER BY StockItemName";
     switch ($orderBy) {
         case 'nameAZ':
-            $orderSQL = "ORDER BY StockItemName";
+            $orderSQL = 1;
             break;
         case 'nameZA':
-            $orderSQL = "ORDER BY StockItemName DESC";
+            $orderSQL = 2;
             break;
         case 'priceHighLow':
-            $orderSQL = "ORDER BY RecommendedRetailPrice DESC";
+            $orderSQL = 4;
             break;
         case 'priceLowHigh':
-            $orderSQL = "ORDER BY RecommendedRetailPrice";
+            $orderSQL = 3;
             break;
     }
     return $orderSQL;
 }
+
+
 
 /***
  * @param string $search The search query
@@ -91,10 +93,10 @@ function getNumberResults($search, $category) {
     global $connection;
     $searchSQL = "%$search%";
     if($category == null || $category == 0) {
-        $stmt = $connection->prepare("SELECT COUNT(*) FROM stockitems WHERE SearchDetails LIKE ? ");
+        $stmt = $connection->prepare("get_number_results(?) ");
         $stmt->bind_param("s", $searchSQL);
     } else {
-        $stmt = $connection->prepare("SELECT COUNT(*) FROM stockitemstockgroups sisg JOIN stockitems si ON si.StockItemID = sisg.StockItemID JOIN stockgroups sg ON sg.StockGroupID = sisg.StockGroupID WHERE si.SearchDetails LIKE ? AND sisg.StockGroupID LIKE ?");
+        $stmt = $connection->prepare("get_number_results_category(?,?)");
         $stmt->bind_param("si", $searchSQL, $category);
     }
     $stmt->execute();
