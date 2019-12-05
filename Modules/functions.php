@@ -1,4 +1,5 @@
 <?php
+session_start();
 $prefix = "../";
 function print_header($var = false)
 {
@@ -6,18 +7,16 @@ global $prefix;
 if ($var === "index") {
     $prefix = "";
 }
-session_start();
-//if (!function_exists('startDBConnection')) {
-//    include $prefix . "DatabaseFactory.php";
-//    global $connection;
-//    $connection = startDBConnection();
-//}
-include $prefix."DatabaseFactory.php";
+global $connection;
 
+include $prefix . "DatabaseFactory.php";
 $connection = startDBConnection();
 
-$categorie_link = "CALL get_stock_groups()";
-$result_categorie = mysqli_query($connection, $categorie_link);
+$stmt = $connection->prepare("CALL get_stock_groups()");
+$stmt->execute();
+$result_categorie = $stmt->get_result();
+$stmt->close();
+
 ?>
 
     <!DOCTYPE html>
@@ -38,7 +37,7 @@ $result_categorie = mysqli_query($connection, $categorie_link);
             <div class="container">
                 <a class="navbar-brand text-white mb-0 h1" href="<?php echo $prefix; ?>index.php">
                     <img src="<?php echo $prefix; ?>Images/wide-world-importers-logo-small.png" width="175" height="57" alt="">
-                    </a>
+                </a>
                 <div class="my-2 my-lg-0 d-lg-none">
                     <div class="fas dropdown fa-user text-white ml-5 mr-4" id="navbarDropdown1" role="button"
                          data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -69,11 +68,11 @@ $result_categorie = mysqli_query($connection, $categorie_link);
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <?php
                                 if (mysqli_num_rows($result_categorie) > 0) {
-                                while ($row = mysqli_fetch_assoc($result_categorie)) {
-                                ?>
-                                <a class="dropdown-item" href="<?php echo $prefix; ?>Pages/zoekpagina.php?category=<?php echo $row['StockGroupID']; ?>"><?php echo $row['StockGroupName']; ?></a>
-                                    <?php
-                                }
+                                    while ($row = mysqli_fetch_assoc($result_categorie)) {
+                                        ?>
+                                        <a class="dropdown-item" href="<?php echo $prefix; ?>Pages/zoekpagina.php?category=<?php echo $row['StockGroupID']; ?>"><?php echo $row['StockGroupName']; ?></a>
+                                        <?php
+                                    }
                                 } else {
                                     echo "0 results";
                                 }
@@ -93,11 +92,11 @@ $result_categorie = mysqli_query($connection, $categorie_link);
                          data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown1">
                             <?php if (isset($_SESSION['loggedin']) == FALSE || $_SESSION["loggedin"] == FALSE) {?>
-                            <a class="dropdown-item" href="<?php echo $prefix; ?>Pages/login.php"
-                               onclick="window.location.href='<?php echo $prefix; ?>Pages/login.php'">Inloggen</a>
-                            <a class="dropdown-item" href="<?php echo $prefix; ?>Pages/registreren.php"
-                               onclick="window.location.href='<?php echo $prefix; ?>Pages/registreren.php'">Account
-                                aanmaken</a>
+                                <a class="dropdown-item" href="<?php echo $prefix; ?>Pages/login.php"
+                                   onclick="window.location.href='<?php echo $prefix; ?>Pages/login.php'">Inloggen</a>
+                                <a class="dropdown-item" href="<?php echo $prefix; ?>Pages/registreren.php"
+                                   onclick="window.location.href='<?php echo $prefix; ?>Pages/registreren.php'">Account
+                                    aanmaken</a>
                             <?php }
                             elseif (isset($_SESSION['loggedin']) && $_SESSION["loggedin"] == TRUE){?>
                                 <a class="dropdown-item" href="<?php echo $prefix; ?>Pages/account_page.php"
@@ -106,8 +105,8 @@ $result_categorie = mysqli_query($connection, $categorie_link);
                                 </a>
                                 <a class="dropdown-item" href="<?php echo $prefix; ?>BackgroundCode/logout.php"
                                    onclick="window.location.href='<?php echo $prefix; ?>BackgroundCode/logout.php'"
-                                   >Uitloggen
-                                    </a>
+                                >Uitloggen
+                                </a>
                             <?php }?>
                         </div>
                     </div>
@@ -140,17 +139,17 @@ $result_categorie = mysqli_query($connection, $categorie_link);
                     <img class="float-left mr-1" src="<?php echo $prefix; ?>Images/logo.png" width="40px" height="40px">
                     <h2>WWI</h2>
                     <p class="pt-2">Wide World Importers is een importeur en groothandel die producten levert aan
-                    verschillende warenhuizen en supermarkten in de Verenigde Staten. Ook levert WWI producten door aan
-                    weer andere groothandels. Incidenteel verkoopt WWI producten rechtstreeks aan consumenten. WWI werkt
-                    met een groot netwerk aan vertegenwoordigers die het land doortrekken om hun producten in de markt
-                    te krijgen.</p>
+                        verschillende warenhuizen en supermarkten in de Verenigde Staten. Ook levert WWI producten door aan
+                        weer andere groothandels. Incidenteel verkoopt WWI producten rechtstreeks aan consumenten. WWI werkt
+                        met een groot netwerk aan vertegenwoordigers die het land doortrekken om hun producten in de markt
+                        te krijgen.</p>
 
                 </div>
                 <div class="col-sm-6 pt-3 pb-4">
                     <h2>Klantenservice</h2>
                     <p class="pt-2">Heeft u vragen over één van de producten die wij verkopen of heeft u eenprobleem met uw
-                    bestelling? Om een antwoord op deze en andere vragen te krijgen kunt u ons op maandag t/m vrijdag bereiken via onze telefonische klantenservice
-                    <br>
+                        bestelling? Om een antwoord op deze en andere vragen te krijgen kunt u ons op maandag t/m vrijdag bereiken via onze telefonische klantenservice
+                        <br>
                         <b> 1017 CA, Amsterdam<br>
                             +31 9404393940 || wwi@wwi.nl</b>
                     </p>
