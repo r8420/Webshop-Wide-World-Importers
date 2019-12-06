@@ -21,6 +21,7 @@ function getUserAddress($userId, $connection){
     $stmt->bind_result($address, $postCode, $cityName, $stateProvince, $country);
     $stmt->store_result();
     $stmt->fetch();
+    $stmt->close();
 
     return array($address, $postCode, $cityName, $stateProvince, $country);
 }
