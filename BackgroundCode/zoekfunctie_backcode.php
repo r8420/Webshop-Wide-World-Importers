@@ -11,8 +11,6 @@
  */
 function getSearchResults($search, $category, $orderBy, $page, $itemsPerPage) {
     global $connection;
-    $searchSQL = "%$search%";
-    echo $searchSQL;
     $orderSQL = getOrderBy($orderBy);
     $offset = ($page - 1) * $itemsPerPage;
 
@@ -21,13 +19,13 @@ function getSearchResults($search, $category, $orderBy, $page, $itemsPerPage) {
         if($stmt == FALSE) {
             return array(array("StockItemID"=>"1","StockItemName"=>"We're sorry, something went wrong","UnitPrice"=>"0,00","Photo"=>""));
         }
-        $stmt->bind_param("siii", $searchSQL,$orderSQL, $offset, $itemsPerPage);
+        $stmt->bind_param("siii", $search,$orderSQL, $offset, $itemsPerPage);
     } else {
         $stmt = $connection->prepare("CALL get_stockitem_results_category(?,?,?,?,?)");
         if($stmt == FALSE) {
             return array(array("StockItemID"=>"1","StockItemName"=>"We're sorry, something went wrong","UnitPrice"=>"0,00","Photo"=>""));
         }
-        $stmt->bind_param("siiii", $searchSQL, $category, $orderSQL, $offset, $itemsPerPage );
+        $stmt->bind_param("siiii", $search, $category, $orderSQL, $offset, $itemsPerPage );
     }
 
     $stmt->execute();
@@ -92,14 +90,12 @@ function getOrderBy($orderBy) {
  */
 function getNumberResults($search, $category) {
     global $connection;
-    $searchSQL = "%$search%";
-    echo $searchSQL;
     if($category == null || $category == 0) {
         $stmt = $connection->prepare("CALL get_number_results(?)");
         $stmt->bind_param("s", $search);
     } else {
         $stmt = $connection->prepare("CALL get_number_results_category(?,?)");
-        $stmt->bind_param("si", $searchSQL, $category);
+        $stmt->bind_param("si", $search, $category);
     }
     $stmt->execute();
     $result = $stmt->get_result()->fetch_array()[0];
