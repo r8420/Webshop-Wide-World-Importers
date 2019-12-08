@@ -1,11 +1,5 @@
 <?php
 
-if(!function_exists('startDBConnection')) {
-    include '../DatabaseFactory.php';
-    global $connection;
-    $connection = startDBConnection();
-}
-
 /***
  * Get the search results from the database
  * @param string $search The search term
@@ -23,9 +17,15 @@ function getSearchResults($search, $category, $orderBy, $page, $itemsPerPage) {
 
     if($category == null || $category == 0) {
         $stmt = $connection->prepare("SELECT StockItemID, StockItemName, UnitPrice, Photo FROM stockitems WHERE SearchDetails LIKE ? $orderSQL LIMIT $offset, $itemsPerPage");
+        if($stmt == FALSE) {
+            return array(array("StockItemID"=>"1","StockItemName"=>"We're sorry, something went wrong","UnitPrice"=>"0,00","Photo"=>""));
+        }
         $stmt->bind_param("s", $searchSQL);
     } else {
-        $stmt = $connection->prepare("SELECT StockItemID, StockItemName, UnitPrice, Photo FROM stockitemstockgroups sisg JOIN stockitems si ON si.StockItemID = sisg.StockItemID JOIN stockgroups sg ON sg.StockGroupID = sisg.StockGroupID WHERE si.SearchDetails LIKE ? AND sisg.StockGroupID = ? $orderSQL LIMIT $offset, $itemsPerPage");
+        $stmt = $connection->prepare("SELECT si.StockItemID, StockItemName, UnitPrice, Photo FROM stockitemstockgroups sisg JOIN stockitems si ON si.StockItemID = sisg.StockItemID JOIN stockgroups sg ON sg.StockGroupID = sisg.StockGroupID WHERE si.SearchDetails LIKE ? AND sisg.StockGroupID = ? $orderSQL LIMIT $offset, $itemsPerPage");
+        if($stmt == FALSE) {
+            return array(array("StockItemID"=>"1","StockItemName"=>"We're sorry, something went wrong","UnitPrice"=>"0,00","Photo"=>""));
+        }
         $stmt->bind_param("si", $searchSQL, $category);
     }
 
@@ -110,7 +110,10 @@ function getNumberResults($search, $category) {
  * @return string|int The value of the parameter
  */
 function getIfExists($param, $default) {
-    return ISSET($_GET[$param]) ? htmlspecialchars(strip_tags($_GET[$param])) : $default;
+    $returnValue = ISSET($_GET[$param]) ? htmlspecialchars(strip_tags($_GET[$param])) : $default;
+    if(gettype($default) == "integer" && ($returnValue < 1 || preg_match_all("/\D+/", $returnValue)))
+        $returnValue = $default;
+    return $returnValue;
 }
 
 /***
