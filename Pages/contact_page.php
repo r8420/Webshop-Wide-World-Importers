@@ -50,12 +50,12 @@ if (isset($_POST['naam']) && isset($_POST['bericht']) && isset($_POST['email']))
             <h2>Contactgegevens</h2>
             <div class="container"><em><p>
                         WWI<br>
-                        Torenstraat 118<br>
-                        Dordrecht<br>
-                        Zuid-Holland<br>
-                        3311 TP<br>
+                        Herengracht 450<br>
+                        Amsterdam<br>
+                        Noord-Holland<br>
+                        1017 CA<br>
                         +31 9404393940<br>
-                        wwi@nfiewfoewnf.nl</em></p>
+                        admin@wwiproject.ml</em></p>
             </div>
         </div>
         <div class="col mt-1">
