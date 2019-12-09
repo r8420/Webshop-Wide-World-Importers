@@ -49,8 +49,10 @@ $stmt->close();
                                 aanmaken</a>
                         </div>
                     </div>
-                    <a href="<?php echo $prefix; ?>Pages/winkelwagen.php">
-                        <i class="fas fa-shopping-cart text-white"></i>
+                    <a class="shoppingCart" href="<?php echo $prefix; ?>Pages/winkelwagen.php">
+                        <span class="fa-stack fa-2x has-badge" data-count="<?php echo getShoppingCartNumber()?>">
+                            <i class="fas fa-shopping-cart text-white"></i>
+                        </span>
                     </a>
                 </div>
                 <button class="navbar-toggler" type="button" data-toggle="collapse"
@@ -110,8 +112,10 @@ $stmt->close();
                             <?php }?>
                         </div>
                     </div>
-                    <a href="<?php echo $prefix; ?>Pages/winkelwagen.php">
-                        <i class="fas fa-shopping-cart text-white mr-4"></i>
+                    <a class="shoppingCart" href="<?php echo $prefix; ?>Pages/winkelwagen.php">
+                        <span class="fa-stack fa-2x has-badge" data-count="<?php echo getShoppingCartNumber()?>">
+                            <i class="fas fa-shopping-cart text-white"></i>
+                        </span>
                     </a>
                     <a href="<?php echo $prefix; ?>Pages/contact_page.php">
                         <i class="fas fa-comments text-white"></i>
@@ -122,6 +126,23 @@ $stmt->close();
 
 
         <?php
+        }
+
+        /***
+         * Get the number of items in the shopping cart
+         * @return int
+         */
+        function getShoppingCartNumber() {
+            if(isset($_SESSION['shoppingCart'])) {
+                $shoppingCart = $_SESSION['shoppingCart'];
+            } else {
+                $shoppingCart = array();
+            }
+            $returnValue = 0;
+            foreach($shoppingCart as $value) {
+                $returnValue += $value;
+            }
+            return $returnValue;
         }
 
         function print_footer($var = false)
