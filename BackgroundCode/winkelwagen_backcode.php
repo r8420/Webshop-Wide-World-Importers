@@ -23,7 +23,7 @@ if(isset($_POST['updateCart'])) {
 function getProductInformation($productID) {
     global $connection;
 
-    $stmt = $connection->prepare("SELECT StockItemID, StockItemName, UnitPrice, REPLACE(CAST(UnitPrice AS CHAR), '.', ',') as price, Photo FROM stockitems WHERE StockItemID = ?");
+    $stmt = $connection->prepare("CALL get_product_information(?)");
     $stmt->bind_param('i', $productID);
     $stmt->execute();
     $result = $stmt->get_result();
