@@ -2,14 +2,13 @@
 include "../DatabaseFactory.php";
 
 // start connectie database
-$tblName = "people";
 $connection = startDBConnection();
 
 // Haalt POST Request op
 $usernamePassword = checkPOSTRequest();
 
 // Voert SQL query uit
-$returnStatement = returnStatement($connection, $tblName, $usernamePassword);
+$returnStatement = returnStatement($connection,  $usernamePassword);
 
 // Start validatie op
 startvalidation($returnStatement, $usernamePassword);
@@ -38,14 +37,13 @@ function checkPOSTRequest()
  * via prepared statements is het niet mogelijk om een sql-injectie te doen.
  * @param $connection object voor connectie
  * Dit object is gedefineerdt in DatabaseFactary.php
- * @param $tblName string met de tablename
  * @param $usernamePassword ['username', 'password'] ;
  * Stuurt een array terug met de resultaten van de query
  * @return array ['stmtnumrows', 'id', 'logonName', 'hashedPassword'] ;
  */
-function returnStatement($connection, $tblName, $usernamePassword)
+function returnStatement($connection, $usernamePassword)
 {
-    $selectSQL = "SELECT PersonID, LogonName, HashedPassword FROM $tblName WHERE LogonName = ?";
+    $selectSQL = "CALL login_validation(?)";
     $stmt = $connection->prepare($selectSQL);
     $stmt->bind_param("s", $usernamePassword[0]);
     $stmt->execute();
