@@ -19,8 +19,8 @@ class DatabaseFactory
 
     private $host = "wwiproject.ml";
     private $databasename = "***REMOVED***_wwi";
-    private $user = "***REMOVED***_wwi";
-    private $dbpassword = "1Ik0iDKy2JNo";
+    private $user = "***REMOVED***_application";
+    private $dbpassword = "***REMOVED***";
     private $port = 3306;
 
     /**
