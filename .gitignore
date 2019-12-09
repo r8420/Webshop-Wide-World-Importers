@@ -76,3 +76,5 @@ fabric.properties
 .idea/dataSources.xml
 
 .idea/watcherTasks.xml
+
+.idea/codeStyles/codeStyleConfig.xml
