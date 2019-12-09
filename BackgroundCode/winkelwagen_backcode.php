@@ -33,6 +33,23 @@ function getProductInformation($productID) {
 }
 
 /***
+ * Krijg het hoeveelheid die in het magazijn zit.
+ * @param $productID Het productID om mee te kijken
+ * @return array
+ */
+function getProductStock($productID) {
+    global $connection;
+
+    $stmt = $connection->prepare("SELECT QuantityOnHand FROM stockitemholdings WHERE StockItemID = ?");
+    $stmt->bind_param('i', $productID);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $stmt->close();
+    $returnValue = $result->fetch_assoc()['QuantityOnHand'];
+    return $returnValue;
+}
+
+/***
  * @param int $productID De product ID
  * @param int $amount De hoeveelheid
  */
