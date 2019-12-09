@@ -152,7 +152,7 @@ if ($page > $totalPages)
                         $resultArray = getSearchResults($search, $category, $orderBy, $page, $itemsPerPage);
                         for ($i = 0; $i < count($resultArray) && $i < abs(($page - 1) * $itemsPerPage - $numResults); $i++) {
                             $productName = strip_tags($resultArray[$i]['StockItemName']);
-                            $productPrice = strip_tags($resultArray[$i]['UnitPrice']);
+                            $productPrice = strip_tags($resultArray[$i]['RecommendedRetailPrice']);
                             $productPrice = str_replace(".", ",", $productPrice);
                             $productPhoto = base64_encode($resultArray[$i]['Photo']);
                             print('<li class="list-group-item shadow"><a href="product_pagina.php?product=' . $resultArray[$i]["StockItemID"] . '"><img src="data:image/jpeg;base64,' . $productPhoto . '" width="190" height="120"><span class="col-8">' . $productName . '</span><span class="col-4">'."€ " . $productPrice . '</span></a>');
