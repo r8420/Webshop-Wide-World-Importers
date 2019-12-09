@@ -35,7 +35,7 @@ include "../BackgroundCode/winkelwagen_backcode.php";
 
                     $productName = strip_tags($productInfo['StockItemName']);
                     $productPriceFormatted = strip_tags($productInfo['price']);
-                    $productPrice = strip_tags($productInfo['UnitPrice']);
+                    $productPrice = strip_tags($productInfo['RecommendedRetailPrice']);
                     $productPhoto = base64_encode($productInfo['Photo']);
                     $totalPrice += $amount*$productPrice;
                     print('
