@@ -1,7 +1,7 @@
 <?php
 
 
-function getIndexProducts($connection){
+function getIndexProducts($connection) {
 
     $results = array();
     $sql = "CALL get_products_index()";
@@ -19,7 +19,7 @@ function getIndexProducts($connection){
 
 }
 
-function getIndexSlider($connection){
+function getIndexSlider($connection) {
     $results = array();
     $sql = "CALL get_slider_index()";
     $stmt = $connection->prepare($sql);
@@ -35,8 +35,7 @@ function getIndexSlider($connection){
 }
 
 
-
-function getIndexCategorys($connection){
+function getIndexCategorys($connection) {
     $results = array();
     $sql = "CALL get_catergorys_index()";
     $stmt = $connection->prepare($sql);
