@@ -1,5 +1,5 @@
 /***
- * Deze functie stuurt een POST request naar de winkelwagen_backcode.php met de POST-waarden:
+ * Deze functie stuurt een POST request naar de shoppingCartFunctions.inc.php met de POST-waarden:
  * updateCart=true, productID=productID, amount=amount.
  * Deze gegevens worden gebruikt om de sessie aan te passen.
  * @param {Number} productID Het productID om aan te passen
@@ -7,9 +7,9 @@
  * @param {Number} productPrice De UnitPrice, de standaardprijs per product
  */
 function sendPostRequest(productID, amount, productPrice) {
-    if(amount < 0)
+    if (amount < 0)
         amount = 0;
-    $.post('BackgroundCode/winkelwagen_backcode.php', {
+    $.post('includes/shoppingCartFunctions.inc.php', {
         updateCart: true,
         productID: productID,
         amount: amount
@@ -40,11 +40,11 @@ function updatePrices(productID, amount, productPrice) {
     let difference = previousProductPrice - currentPrice;
     let currentTotalPrice = previousTotalPrice - difference;
 
-    document.getElementById(`productPrice${productID}`).innerText=`€${formatToString(amount*productPrice)}`;
-    if(amount == 0) {
+    document.getElementById(`productPrice${productID}`).innerText = `€${formatToString(amount * productPrice)}`;
+    if (amount == 0) {
         document.getElementById(`row${productID}`).remove();
     }
-    document.getElementById(`totalPrice`).innerText=`€${formatToString(currentTotalPrice)}`;
+    document.getElementById(`totalPrice`).innerText = `€${formatToString(currentTotalPrice)}`;
 }
 
 /**
@@ -57,7 +57,7 @@ function updateShoppingCartNumber(SessionArrayJSON) {
         count += Number(SessionArrayJSON[key]);
     });
     let shoppingCartElements = document.getElementsByClassName('jsShoppingCart');
-    for(let i = 0; i < shoppingCartElements.length; i++) {
+    for (let i = 0; i < shoppingCartElements.length; i++) {
         shoppingCartElements[i].dataset.count = count;
     }
 

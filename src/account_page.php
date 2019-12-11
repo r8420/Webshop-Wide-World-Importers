@@ -1,9 +1,9 @@
 <?php
-include "Modules/functions.php";
-include "BackgroundCode/SessionCode.php";
+include 'Modules/functions.php';
+include 'includes/sessionFunctions.inc.php';
 checkSessionActive();
 print_header();
-include "BackgroundCode/account_background.php";
+include 'includes/accountFunctions.inc.php';
 $userID = $_SESSION['userNr'];
 $currentUser = getUser($userID, $connection);
 $currentUserAddress = getUserAddress($userID, $connection);
@@ -20,7 +20,7 @@ $orders = getAssociatedOrders($userID, $connection)
                 <div class="col-6 p-0 pl-2 border-top border-left border-bottom">
                     <p class="pt-3"><strong>Accountgegevens</strong><br>
                         AccountNr:<br>
-                        Voledige Naam:<br>
+                        Volledige Naam:<br>
                         Telefoon:<br>
                         E-Mail:
                     </p>
@@ -65,7 +65,7 @@ $orders = getAssociatedOrders($userID, $connection)
         </div>
         <div class="col-md-6 mt-5 mb-5 ">
             <div class=" m-1 ">
-                <?php if ($orders != null) { ?>
+                <?php if ($orders !== null) { ?>
                     <p class="border col-12 pt-3 pb-3"><strong>Order geschiedenis</strong><br>
                         <?php foreach ($orders as $order) { ?>
                             <a href="bestelgeschiedenispagina.php?orderId=<?php echo $order ?>">

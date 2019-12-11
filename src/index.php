@@ -1,16 +1,16 @@
 <?php
 include "Modules/functions.php";
 print_header("index");
-include "BackgroundCode/index_background.php";
+include "includes/indexFunctions.inc.php";
 
 
-//Selecteerd random de prodcut id, product naam, product prijs en de foto van de database table stockitems.
+//Selecteert random de product id, product naam, product prijs en de foto van de database table stockitems.
 $products = getIndexProducts($connection);
 
-//Selecteerd random de prodcut id, product naam, product prijs en de foto van de database table stockitems en wordt gelimiteerd op 3.
+//Selecteert random de product id, product naam, product prijs en de foto van de database table stockitems en wordt gelimiteerd op 3.
 $productsSlider = getIndexSlider($connection);
 
-//Selecteerd de productnaam, foto, categorienaam en de categorie id van de database table stockitems, stockitemstockgroups en van stockgroups.
+//Selecteert de productnaam, foto, categorienaam en de categorie id van de database table stockitems, stockitemstockgroups en van stockgroups.
 $categorieProducts = getIndexCategorys($connection);
 ?>
 <div class="container">
@@ -27,14 +27,14 @@ $categorieProducts = getIndexCategorys($connection);
             //De slider wordt aangemaakt zodra er meer dan 0 rows zijn in de query.
             //De slider word maximaal 3x getoond op de homepagina met de productnaam en de foto.
             //De product id word toegevoegd in de href van de button zodat je naar de juiste product pagina geleid wordt.
-            if ($productsSlider != null) {
+            if ($productsSlider !== null) {
                 $active = 'active';
                 foreach ($productsSlider AS $product) {
                     ?>
                     <div class="carousel-item w-100  <?php echo $active;
                     $active = ""; ?>">
                         <img class="d-block slider mx-auto"
-                             src="data:image/png;base64,<?php echo base64_encode($product[3]) ?>">
+                             src="data:image/png;base64,<?php echo base64_encode($product[3]) ?>" alt="Artikel foto">
                         <div class="carousel-caption">
                             <h5 class="slider-text"><?php echo $product[1]; ?> </h5>
                             <a href="product_pagina.php?product=<?php echo $product[2]; ?>">
@@ -65,8 +65,8 @@ $categorieProducts = getIndexCategorys($connection);
         //De product wordt aangemaakt zodra er meer dan 0 rows zijn in de query.
         //Alle producten worden getoond met de productnaam, product foto en de product prijs.
         //De product id word toegevoegd in de href van de button zodat je naar de juiste product pagina geleid wordt.
-        if ($products != null) {
-            foreach($products AS $product) {
+        if ($products !== null) {
+            foreach ($products AS $product) {
                 $prijs = $product[3];
                 ?>
                 <div class="col-sm-3 col-md-3">
@@ -74,7 +74,7 @@ $categorieProducts = getIndexCategorys($connection);
                        class="text-decoration-none">
                         <div class="card border-0">
                             <img src="data:image/png;base64,<?php echo base64_encode($product[4]) ?>"
-                                 class="card-img-top w-75 mx-auto">
+                                 class="card-img-top w-75 mx-auto" alt="Artikel foto">
                             <div class="card-body">
                                 <h5 class="card-title text-dark"><?php echo $product[1]; ?></h5>
                                 <h5 class="card-title text-dark">
@@ -95,9 +95,9 @@ $categorieProducts = getIndexCategorys($connection);
     <div class="row mt-5">
         <?php
         //De categorie wordt aangemaakt zodra er meer dan 0 rows zijn in de query.
-        //Alle categorien worden getoond met de categorie naam en de product foto.
+        //Alle categorieën worden getoond met de categorie naam en de product foto.
         //De categorie id word toegevoegd in de href van de a tag zodat je naar de juiste product pagina geleid wordt.
-        if ($categorieProducts != null) {
+        if ($categorieProducts !== null) {
             foreach ($categorieProducts as $product) {
                 ?>
                 <div class="col-sm-3">
