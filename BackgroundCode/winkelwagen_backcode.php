@@ -52,7 +52,7 @@ function getProductStock($productID) {
  * @param int $amount De hoeveelheid
  */
 function updateCart($productID, $amount) {
-    if($amount === 0) {
+    if($amount <= 0) {
         unset($_SESSION['shoppingCart'][$productID]);
     } else {
         $_SESSION['shoppingCart'][$productID] = $amount;
