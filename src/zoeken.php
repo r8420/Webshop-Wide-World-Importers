@@ -4,7 +4,7 @@ header('Cache-Control: no cache');
 session_cache_limiter('private_no_expire');
 
 include 'Modules/functions.php';
-print_header();
+
 include 'includes/searchFunctions.inc.php';
 
 if (isset($_POST['id']) && filter_var($_POST['id'], FILTER_VALIDATE_INT)) {
@@ -44,6 +44,7 @@ $totalPages = ceil($numResults / $itemsPerPage);
 if ($page > $totalPages) {
     $page = $totalPages;
 }
+print_header();
 ?>
 <main class="container">
     <?php if (isset($_POST['id'], $_POST['addToCart'])) {
