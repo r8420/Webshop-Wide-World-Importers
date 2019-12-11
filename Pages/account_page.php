@@ -1,7 +1,7 @@
 <?php
+include "../Modules/functions.php";
 include "../BackgroundCode/SessionCode.php";
 checkSessionActive();
-include "../Modules/functions.php";
 print_header();
 include "../BackgroundCode/account_background.php";
 $userID = $_SESSION['userNr'];
@@ -12,7 +12,7 @@ $orders = getAssociatedOrders($userID, $connection)
 ?>
 <div class="container">
     <div class="col-sm-10 mt-5">
-        <h1>Account van <?php echo $currentUser[1]  ?></h1>
+        <h1>Account van <?php echo $currentUser[1] ?></h1>
     </div>
     <div class="row">
         <div class="col-md-6 mt-5">
@@ -33,10 +33,10 @@ $orders = getAssociatedOrders($userID, $connection)
                         <?php echo $currentUser[2] ?><br>
                         <?php echo $currentUser[3] ?>
                     </p>
-                </div> 
-<!--                <button class="mb-2 btn-primary mt-5 pt-1 pb-1 pl-2 px-2 rounded"><strong>Verander-->
-<!--                        accountgegevens</strong>-->
-<!--                </button>-->
+                </div>
+                <!--                <button class="mb-2 btn-primary mt-5 pt-1 pb-1 pl-2 px-2 rounded"><strong>Verander-->
+                <!--                        accountgegevens</strong>-->
+                <!--                </button>-->
             </div>
             <div class="row m-2 mt-5 mb-5">
                 <div class="col-6 p-0 pl-2 border-top border-left border-bottom">
@@ -58,9 +58,9 @@ $orders = getAssociatedOrders($userID, $connection)
                         <?php echo $currentUserAddress[4] ?>
                     </p>
                 </div>
-<!--                <button class="mb-2 btn-primary mt-5 pt-1 pb-1 pl-2 px-2 rounded"><strong>Verander-->
-<!--                        adresgegevens</strong>-->
-<!--                </button>-->
+                <!--                <button class="mb-2 btn-primary mt-5 pt-1 pb-1 pl-2 px-2 rounded"><strong>Verander-->
+                <!--                        adresgegevens</strong>-->
+                <!--                </button>-->
             </div>
         </div>
         <div class="col-md-6 mt-5 mb-5 ">
@@ -76,7 +76,8 @@ $orders = getAssociatedOrders($userID, $connection)
             </div>
         </div>
     </div>
-    <?php
-    print_footer();
-    ?>
+</div>
+<?php
+print_footer();
+?>
 

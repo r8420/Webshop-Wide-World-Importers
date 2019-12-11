@@ -1,10 +1,12 @@
 <?php
+include "../Modules/functions.php";
+print_header();
+include "../BackgroundCode/zoekfunctie_backcode.php";
 
 if (isset($_POST['id']) && filter_var($_POST['id'], FILTER_VALIDATE_INT)) {
     $cartProductID = $_POST['id'];
 }
 
-session_start();
 
 function addToCart($productId, $amount)
 {
@@ -23,9 +25,6 @@ if (isset($_POST['id']) && isset($_POST['addToCart'])) {
 }
 
 
-include "../Modules/functions.php";
-print_header();
-include "../BackgroundCode/zoekfunctie_backcode.php";
 
 $search = getIfExists('search', '');
 $category = getIfExists('category', 0);
@@ -153,7 +152,7 @@ if ($page > $totalPages)
                         $resultArray = getSearchResults($search, $category, $orderBy, $page, $itemsPerPage);
                         for ($i = 0; $i < count($resultArray) && $i < abs(($page - 1) * $itemsPerPage - $numResults); $i++) {
                             $productName = strip_tags($resultArray[$i]['StockItemName']);
-                            $productPrice = strip_tags($resultArray[$i]['UnitPrice']);
+                            $productPrice = strip_tags($resultArray[$i]['RecommendedRetailPrice']);
                             $productPrice = str_replace(".", ",", $productPrice);
                             $productPhoto = base64_encode($resultArray[$i]['Photo']);
                             print('<li class="list-group-item shadow"><a href="product_pagina.php?product=' . $resultArray[$i]["StockItemID"] . '"><img src="data:image/jpeg;base64,' . $productPhoto . '" width="190" height="120"><span class="col-8">' . $productName . '</span><span class="col-4">'."€ " . $productPrice . '</span></a>');
