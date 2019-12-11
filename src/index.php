@@ -1,7 +1,7 @@
 <?php
-include "Modules/functions.php";
+include 'Modules/functions.php';
 print_header();
-include "includes/indexFunctions.inc.php";
+include 'includes/indexFunctions.inc.php';
 
 
 //Selecteert random de product id, product naam, product prijs en de foto van de database table stockitems.
@@ -32,7 +32,7 @@ $categorieProducts = getIndexCategorys($connection);
                 foreach ($productsSlider AS $product) {
                     ?>
                     <div class="carousel-item w-100  <?php echo $active;
-                    $active = ""; ?>">
+                    $active = ''; ?>">
                         <img class="d-block slider mx-auto"
                              src="data:image/png;base64,<?php echo base64_encode($product[3]) ?>" alt="Artikel foto">
                         <div class="carousel-caption">
@@ -126,7 +126,7 @@ $categorieProducts = getIndexCategorys($connection);
 </div>
 
 <?php
-print_footer("index");
+print_footer('index');
 ?>
 
 

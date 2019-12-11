@@ -2,9 +2,9 @@
 
 function getUser($userId, $connection) {
 
-    $sql = "CALL getUser(?)";
+    $sql = 'CALL getUser(?)';
     $stmt = $connection->prepare($sql);
-    $stmt->bind_param("i", $userId);
+    $stmt->bind_param('i', $userId);
     $stmt->execute();
     $stmt->bind_result($personId, $fullName, $phoneNumber, $emailAddress);
     $stmt->store_result();
@@ -15,9 +15,9 @@ function getUser($userId, $connection) {
 
 function getUserAddress($userId, $connection) {
 
-    $sql = "CALL getUserAddress(?)";
+    $sql = 'CALL getUserAddress(?)';
     $stmt = $connection->prepare($sql);
-    $stmt->bind_param("i", $userId);
+    $stmt->bind_param('i', $userId);
     $stmt->execute();
     $stmt->bind_result($address, $postCode, $cityName, $stateProvince, $country);
     $stmt->store_result();
@@ -31,9 +31,9 @@ function getUserAddress($userId, $connection) {
 function getAssociatedOrders($userId, $connection) {
     $orders = array();
 
-    $sql = "CALL getAssociatedOrders(?)";
+    $sql = 'CALL getAssociatedOrders(?)';
     $stmt = $connection->prepare($sql);
-    $stmt->bind_param("i", $userId);
+    $stmt->bind_param('i', $userId);
     $stmt->execute();
     $stmt->bind_result($orderId);
     $stmt->store_result();

@@ -1,5 +1,5 @@
 <?php
-include "DatabaseFactory.php";
+include 'DatabaseFactory.php';
 
 // start database connectie
 $connection = startDBConnection();
@@ -21,7 +21,7 @@ insertionOnPeopleTable($connection, $valid_login, $userRegistration);
  * @return array ['email', 'email_validation', 'name', 'tel', 'password', 'password_validation'] ;
  */
 function checkPOSTRequest() {
-    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $email = $_POST['email'];
         $email_validation = $_POST['email_validation'];
         $name = $_POST['name'];
@@ -29,7 +29,7 @@ function checkPOSTRequest() {
         $password = $_POST['password'];
         $password_validation = $_POST['password_validation'];
     } else {
-        header("Refresh: 0; url=../registreren.php");
+        header('Refresh: 0; url=../registreren.php');
         exit();
     }
     return array($email, $email_validation, $name, $tel, $password, $password_validation);
@@ -44,9 +44,9 @@ function checkPOSTRequest() {
  */
 function emailValidation($connection, $userRegistration) {
     if ($userRegistration[0] == $userRegistration[1]) {
-        $selectquery = "CALL email_validation(?)";
+        $selectquery = 'CALL email_validation(?)';
         $stmtselect = $connection->prepare($selectquery);
-        $stmtselect->bind_param("s", $userRegistration[0]);
+        $stmtselect->bind_param('s', $userRegistration[0]);
         $stmtselect->execute();
         $stmtselect->bind_result($logonName);
         $stmtselect->store_result();
@@ -76,18 +76,18 @@ function insertionOnPeopleTable($connection, $emailValidation, $userRegistration
             $hashedPassword = password_hash($userRegistration[4], PASSWORD_DEFAULT);
 
 
-            $insertsql = "CALL insert_account(?,?,?,?)";
+            $insertsql = 'CALL insert_account(?,?,?,?)';
             $stmtinsert = $connection->prepare($insertsql);
-            $stmtinsert->bind_param("ssss", $userRegistration[2], $userRegistration[0], $hashedPassword, $userRegistration[3]);
+            $stmtinsert->bind_param('ssss', $userRegistration[2], $userRegistration[0], $hashedPassword, $userRegistration[3]);
             $stmtinsert->execute();
             $stmtinsert->close();
             $connection->close();
 
-            header("Refresh: 0; url=../registreer_succes.php");
+            header('Refresh: 0; url=../registreer_succes.php');
             exit();
-        } else {
-            returnToRegister(2);
         }
+
+        returnToRegister(2);
     } else {
         returnToRegister(1);
     }
@@ -100,16 +100,16 @@ function insertionOnPeopleTable($connection, $emailValidation, $userRegistration
  */
 function returnToRegister($errorNumber) {
     session_start();
-    $errorCode = "";
+    $errorCode = '';
     if ($errorNumber == 1) {
-        $errorCode = "register_exist_email_error";
+        $errorCode = 'register_exist_email_error';
     } elseif ($errorNumber == 2) {
-        $errorCode = "register_different_password_error";
+        $errorCode = 'register_different_password_error';
     } elseif ($errorNumber == 3) {
-        $errorCode = "register_different_email_error";
+        $errorCode = 'register_different_email_error';
     }
 
-    header("Refresh: 0; url=../registreren.php?errorcode=" . $errorCode);
+    header('Refresh: 0; url=../registreren.php?errorcode=' . $errorCode);
     exit();
 }
 
