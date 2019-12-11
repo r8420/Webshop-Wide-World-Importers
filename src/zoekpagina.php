@@ -1,4 +1,8 @@
 <?php
+// Disable cache so we dont get ERR_CACHE_MISS when we use the back button on the shopping cart.
+header('Cache-Control: no cache');
+session_cache_limiter('private_no_expire');
+
 include 'Modules/functions.php';
 print_header();
 include 'includes/searchFunctions.inc.php';
