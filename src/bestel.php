@@ -3,7 +3,7 @@ include 'Modules/functions.php';
 print_header();
 include 'includes/orderFunctions.inc.php';
 
-if ($_POST['inlogButton']) {
+if (isset($_POST['inlogButton'])) {
     BestelGegevens($_POST['InputNaam'], $_POST['InputStraatEnHuisnummer'], $_POST['InputPlaats'], $_POST['InputPostcode'], $_POST['InputTelefoonnummer'], $connection);
 
 }
