@@ -30,9 +30,11 @@ include "../BackgroundCode/winkelwagen_backcode.php";
                 $totalPrice = 0;
                 foreach ($shoppingCart as $productID=>$amount) {
                     $productInfo = getProductInformation($productID);
+                    $numberInStock = getProductStock($productID);
+
                     $productName = strip_tags($productInfo['StockItemName']);
                     $productPriceFormatted = strip_tags($productInfo['price']);
-                    $productPrice = strip_tags($productInfo['UnitPrice']);
+                    $productPrice = strip_tags($productInfo['RecommendedRetailPrice']);
                     $productPhoto = base64_encode($productInfo['Photo']);
                     $totalPrice += $amount*$productPrice;
                     print('
@@ -46,7 +48,7 @@ include "../BackgroundCode/winkelwagen_backcode.php";
                             <a href="product_pagina.php?product='.$productID.'">'.$productName.'</a>
                         </td>
                         <td>
-                            <input min="0" onchange="sendPostRequest('.$productID.', this.value, '.$productPrice.')" class="form-control w-40" type="number" value="'.$amount.'">
+                            <input min="0" max="'.$numberInStock.'" onchange="sendPostRequest('.$productID.', this.value, '.$productPrice.')" class="form-control w-60" type="number" value="'.$amount.'">
                         </td>
                         <td>€'.$productPriceFormatted.'</td>
                         <td id="productPrice'.$productID.'">€'.number_format($productPrice*$amount, 2, ',', '.').'</td>
