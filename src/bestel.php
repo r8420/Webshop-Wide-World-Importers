@@ -1,6 +1,14 @@
 <?php
-include "../Modules/functions.php";
+include "Modules/functions.php";
 print_header();
+include "BackgroundCode/bestel_functionali.php";
+
+if ($_POST['inlogbutton']) {
+    BestelGegevens($_POST['InputNaam'], $_POST['InputStraatenhuisnummer'], $_POST['InutPlaats'], $_POST['InputPostcode'], $_POST['InputTelefoonnummer'], $connection);
+
+}
+
+
 ?>
 <!-- Begin page content -->
 <div class="container">
@@ -10,43 +18,52 @@ print_header();
                 <h1>Bestellen<br><br></h1>
                 <h3>Adresgegevens</h3>
             </div>
-            <form>
+            <form method="post">
 
                 <div class="form-group">
                     <label for="InputNaam">Naam*:</label>
-                    <input type="text" class="form-control" id="InputNaam" placeholder="">
+                    <input name="InputNaam" type="text" class="form-control" id="InputNaam" placeholder="" required>
                 </div>
                 <div class="form-group">
                     <label for="InputStraatenhuisnummer">Straat en huisnummer*:</label>
-                    <input type="text" class="form-control" id="InputStraatenhuisnummer" placeholder="">
+                    <input name="InputStraatenhuisnummer" type="text" class="form-control" id="InputStraatenhuisnummer"
+                           placeholder="" required>
                 </div>
                 <div class="form-group">
                     <label for="InputPlaats">Plaats*:</label>
-                    <input type="text" class="form-control" id="InputPlaats" placeholder="">
+                    <input name="InputPlaats" type="text" class="form-control" id="InputPlaats" placeholder="" required>
                 </div>
                 <div class="form-group">
                     <label for="InputPostcode">Postcode*:</label>
-                    <input type="text" class="form-control" id="InputPostcode" placeholder="">
+                    <input name="InputPostcode" type="text" class="form-control" id="InputPostcode" placeholder=""
+                           required>
                 </div>
                 <div class="form-group">
                     <label for="InputTelefoonnummer">Telefoonnummer*:</label>
-                    <input type="text" class="form-control" id="InputTelefoonnummer" placeholder="">
+                    <input name="InputTelefoonnummer" type="text" class="form-control" id="InputTelefoonnummer"
+                           placeholder="" required>
                 </div>
                 <div class="form-group">
                     <label for="InputEmailadres">E-mailadres*:</label>
-                    <input type="text" class="form-control" id="InputEmailadres" placeholder="">
+                    <input name="InputEmailadres" type="text" class="form-control" id="InputEmailadres" placeholder=""
+                           required>
                 </div>
             </form>
-                <div class="float-right">
-                    <a href="<?php echo $prefix; ?>Pages/succes.php"><button id="inlogbutton" class="btn btn-success">Naar betalen</button></a>
-                </div>
+            <div class="float-right">
+                <a href="<?php echo $prefix; ?>registreren.php">
+                    <button name="inlogbutton" id="inlogbutton" class="btn btn-success">Account aanmaken</button>
+                </a>
+                <a href="<?php echo $prefix; ?>succes.php">
+                    <button name="inlogbutton" id="inlogbutton" class="btn btn-success">Naar betalen</button>
+                </a>
+            </div>
         </div>
 
         <div class="col-6">
             <div class="mb-5 mt-3 w-75">
                 <h3>Besteloverzicht</h3>
-                <p>Aantal artikelen: 4 <span class="text-primary float-right">WINKELWAGEN AANPASSEN
-                    </span>
+                <p>Aantal artikelen: 4 <span class="text-primary float-right"><a href="winkelwagen.php">WINKELWAGEN AANPASSEN
+                </a>    </span>
                 </p>
                 <ul>
                     <li>Productnaam1</li>
@@ -67,3 +84,4 @@ print_header();
 <?php
 print_footer();
 ?>
+

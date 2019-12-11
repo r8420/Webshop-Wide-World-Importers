@@ -2,17 +2,16 @@
 include "../DatabaseFactory.php";
 
 // start database connectie
-$dbName = "people";
 $connection = startDBConnection();
 
 // Haalt POST Request op
 $userRegistration = checkPOSTRequest();
 
 // voert emailvalidatie uit en een select query uit op de database
-$valid_login = emailValidation($connection, $dbName, $userRegistration);
+$valid_login = emailValidation($connection, $userRegistration);
 
 // insert account on people table
-insertionOnPeopleTable($connection, $valid_login, $userRegistration, $dbName);
+insertionOnPeopleTable($connection, $valid_login, $userRegistration);
 
 
 /**
@@ -21,8 +20,7 @@ insertionOnPeopleTable($connection, $valid_login, $userRegistration, $dbName);
  * De functie geeft een array terug met de email, email_valedatie, naam, telefoon, wachtwoord en wachtwoord_validatie
  * @return array ['email', 'email_validation', 'name', 'tel', 'password', 'password_validation'] ;
  */
-function checkPOSTRequest()
-{
+function checkPOSTRequest() {
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $email = $_POST['email'];
         $email_validation = $_POST['email_validation'];
@@ -31,7 +29,7 @@ function checkPOSTRequest()
         $password = $_POST['password'];
         $password_validation = $_POST['password_validation'];
     } else {
-        header("Refresh: 0; url=../Pages/registreren.php");
+        header("Refresh: 0; url=registreren.php");
         exit();
     }
     return array($email, $email_validation, $name, $tel, $password, $password_validation);
@@ -45,12 +43,10 @@ function checkPOSTRequest()
  * @param $userRegistration
  * @return array met de numrows en loginnaam
  */
-function emailValidation($connection, $dbName, $userRegistration)
-{
+function emailValidation($connection, $userRegistration) {
     if ($userRegistration[0] == $userRegistration[1]) {
-        $selectquery = "SELECT LogonName FROM $dbName WHERE LogonName = ?";
+        $selectquery = "CALL email_validation(?)";
         $stmtselect = $connection->prepare($selectquery);
-
         $stmtselect->bind_param("s", $userRegistration[0]);
         $stmtselect->execute();
         $stmtselect->bind_result($logonName);
@@ -70,8 +66,7 @@ function emailValidation($connection, $dbName, $userRegistration)
  * @param $emailValidation
  * @param $userRegistration
  */
-function insertionOnPeopleTable($connection, $emailValidation, $userRegistration, $dbname)
-{
+function insertionOnPeopleTable($connection, $emailValidation, $userRegistration) {
 
     if ($emailValidation[0] == 0) {
         if ($userRegistration[4] == $userRegistration[5]) {
@@ -82,14 +77,14 @@ function insertionOnPeopleTable($connection, $emailValidation, $userRegistration
             $hashedPassword = password_hash($userRegistration[4], PASSWORD_DEFAULT);
 
 
-            $insertsql = "INSERT INTO people (PersonID, FullName, LogonName, HashedPassword, PhoneNumber, EmailAddress) SELECT (max(PersonID)+1),?,?,?,?,? FROM $dbname";
+            $insertsql = "CALL insert_account(?,?,?,?)";
             $stmtinsert = $connection->prepare($insertsql);
-            $stmtinsert->bind_param("sssss", $userRegistration[2], $userRegistration[0], $hashedPassword, $userRegistration[3], $userRegistration[0]);
+            $stmtinsert->bind_param("ssss", $userRegistration[2], $userRegistration[0], $hashedPassword, $userRegistration[3]);
             $stmtinsert->execute();
             $stmtinsert->close();
             $connection->close();
 
-            header("Refresh: 0; url=../Pages/registreer_succes.php");
+            header("Refresh: 0; url=../registreer_succes.php");
             exit();
         } else {
             returnToRegister(2);
@@ -104,9 +99,9 @@ function insertionOnPeopleTable($connection, $emailValidation, $userRegistration
  * deze code word meegegeven in de url als error code
  * @param $errorNumber
  */
-function returnToRegister($errorNumber)
-{
-    session_start(); $errorCode = "";
+function returnToRegister($errorNumber) {
+    session_start();
+    $errorCode = "";
     if ($errorNumber == 1) {
         $errorCode = "register_exist_email_error";
     } elseif ($errorNumber == 2) {
@@ -115,7 +110,7 @@ function returnToRegister($errorNumber)
         $errorCode = "register_different_email_error";
     }
 
-    header("Refresh: 0; url=../Pages/registreren.php?errorcode=".$errorCode);
+    header("Refresh: 0; url=../registreren.php?errorcode=" . $errorCode);
     exit();
 }
 

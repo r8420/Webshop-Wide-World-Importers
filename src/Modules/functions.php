@@ -1,21 +1,18 @@
 <?php
 session_start();
-$prefix = "../";
 function print_header($var = false)
 {
-global $prefix;
-if ($var === "index") {
-    $prefix = "";
-}
-if (!function_exists('startDBConnection')) {
-    include $prefix . "DatabaseFactory.php";
-    global $connection;
-    $connection = startDBConnection();
-}
 
+global $connection;
 
-$categorie_link = "SELECT StockGroupID, StockGroupName FROM stockgroups;";
-$result_categorie = mysqli_query($connection, $categorie_link);
+include "DatabaseFactory.php";
+$connection = startDBConnection();
+
+$stmt = $connection->prepare("CALL get_stock_groups()");
+$stmt->execute();
+$result_categorie = $stmt->get_result();
+$stmt->close();
+
 ?>
 
     <!DOCTYPE html>
@@ -24,9 +21,9 @@ $result_categorie = mysqli_query($connection, $categorie_link);
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="<?php echo $prefix; ?>css/imports.css">
-    <link rel="stylesheet" href="<?php echo $prefix; ?>css/style.css">
-    <script src="<?php echo $prefix; ?>js/imports-dist.js"></script>
+    <link rel="stylesheet" href="css/imports.css">
+    <link rel="stylesheet" href="css/style.css">
+    <script src="js/imports-dist.js"></script>
     <title>WWI Webshop</title>
 </head>
 <body>
@@ -34,22 +31,24 @@ $result_categorie = mysqli_query($connection, $categorie_link);
     <div id="content-wrap">
         <nav class="navbar navbar-expand-lg bg-primary navbar-light mb-5">
             <div class="container">
-                <a class="navbar-brand text-white mb-0 h1" href="<?php echo $prefix; ?>index.php">
-                    <img src="<?php echo $prefix; ?>Images/wide-world-importers-logo-small.png" width="175" height="57" alt="">
-                    </a>
+                <a class="navbar-brand text-white mb-0 h1" href="index.php">
+                    <img src="Images/wide-world-importers-logo-small.png" width="175" height="57"
+                         alt="">
+                </a>
                 <div class="my-2 my-lg-0 d-lg-none">
                     <div class="fas dropdown fa-user text-white ml-5 mr-4" id="navbarDropdown1" role="button"
                          data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown1">
-                            <a class="dropdown-item" href="<?php echo $prefix; ?>Pages/login.php"
-                               onclick="window.location.href='<?php echo $prefix; ?>Pages/login.php'">Inloggen</a>
-                            <a class="dropdown-item" href="<?php echo $prefix; ?>Pages/registreren.php"
-                               onclick="window.location.href='<?php echo $prefix; ?>Pages/registreren.php'">Account
+                            <a class="dropdown-item" href="login.php"
+                               onclick="window.location.href='login.php'">Inloggen</a>
+                            <a class="dropdown-item" href="registreren.php"
+                               onclick="window.location.href='registreren.php'">Account
                                 aanmaken</a>
                         </div>
                     </div>
-                    <a class="shoppingCart" href="<?php echo $prefix; ?>Pages/winkelwagen.php">
-                        <span class="fa-stack fa-2x has-badge jsShoppingCart" data-count="<?php echo getShoppingCartNumber()?>">
+                    <a class="shoppingCart" href="winkelwagen.php">
+                        <span class="fa-stack fa-2x has-badge jsShoppingCart"
+                              data-count="<?php echo getShoppingCartNumber() ?>">
                             <i class="fas fa-shopping-cart text-white"></i>
                         </span>
                     </a>
@@ -69,11 +68,12 @@ $result_categorie = mysqli_query($connection, $categorie_link);
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <?php
                                 if (mysqli_num_rows($result_categorie) > 0) {
-                                while ($row = mysqli_fetch_assoc($result_categorie)) {
-                                ?>
-                                <a class="dropdown-item" href="<?php echo $prefix; ?>Pages/zoekpagina.php?category=<?php echo $row['StockGroupID']; ?>"><?php echo $row['StockGroupName']; ?></a>
-                                    <?php
-                                }
+                                    while ($row = mysqli_fetch_assoc($result_categorie)) {
+                                        ?>
+                                        <a class="dropdown-item"
+                                           href="zoekpagina.php?category=<?php echo $row['StockGroupID']; ?>"><?php echo $row['StockGroupName']; ?></a>
+                                        <?php
+                                    }
                                 } else {
                                     echo "0 results";
                                 }
@@ -83,7 +83,7 @@ $result_categorie = mysqli_query($connection, $categorie_link);
                         </li>
                     </ul>
                     <form class="form-inline mr-md-auto w-50" method="get"
-                          action="<?php echo $prefix; ?>Pages/zoekpagina.php">
+                          action="zoekpagina.php">
                         <input class="form-control mr-sm-2 w-75" type="search" name="search" placeholder="Zoeken..."
                                aria-label="Search">
                     </form>
@@ -92,31 +92,32 @@ $result_categorie = mysqli_query($connection, $categorie_link);
                     <div class="fas dropdown fa-user text-white ml-5 mr-4" id="navbarDropdown1" href="#" role="button"
                          data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown1">
-                            <?php if (isset($_SESSION['loggedin']) == FALSE || $_SESSION["loggedin"] == FALSE) {?>
-                            <a class="dropdown-item" href="<?php echo $prefix; ?>Pages/login.php"
-                               onclick="window.location.href='<?php echo $prefix; ?>Pages/login.php'">Inloggen</a>
-                            <a class="dropdown-item" href="<?php echo $prefix; ?>Pages/registreren.php"
-                               onclick="window.location.href='<?php echo $prefix; ?>Pages/registreren.php'">Account
-                                aanmaken</a>
-                            <?php }
-                            elseif (isset($_SESSION['loggedin']) && $_SESSION["loggedin"] == TRUE){?>
-                                <a class="dropdown-item" href="<?php echo $prefix; ?>Pages/account_page.php"
-                                   onclick="window.location.href='<?php echo $prefix; ?>Pages/account_page.php'"
+                            <?php if (isset($_SESSION['loggedin']) == FALSE || $_SESSION["loggedin"] == FALSE) { ?>
+                                <a class="dropdown-item" href="login.php"
+                                   onclick="window.location.href='login.php'">Inloggen</a>
+                                <a class="dropdown-item" href="registreren.php"
+                                   onclick="window.location.href='registreren.php'">Account
+                                    aanmaken</a>
+                            <?php } elseif (isset($_SESSION['loggedin']) && $_SESSION["loggedin"] == TRUE) {
+                                ?>
+                                <a class="dropdown-item" href="account_page.php"
+                                   onclick="window.location.href='account_page.php'"
                                 >Account
                                 </a>
-                                <a class="dropdown-item" href="<?php echo $prefix; ?>BackgroundCode/logout.php"
-                                   onclick="window.location.href='<?php echo $prefix; ?>BackgroundCode/logout.php'"
-                                   >Uitloggen
-                                    </a>
-                            <?php }?>
+                                <a class="dropdown-item" href="includes/logout.php"
+                                   onclick="window.location.href='logout.php'"
+                                >Uitloggen
+                                </a>
+                            <?php } ?>
                         </div>
                     </div>
-                    <a class="shoppingCart" href="<?php echo $prefix; ?>Pages/winkelwagen.php">
-                        <span class="fa-stack fa-2x has-badge jsShoppingCart" data-count="<?php echo getShoppingCartNumber()?>">
+                    <a class="shoppingCart" href="winkelwagen.php">
+                        <span class="fa-stack fa-2x has-badge jsShoppingCart"
+                              data-count="<?php echo getShoppingCartNumber() ?>">
                             <i class="fas fa-shopping-cart text-white"></i>
                         </span>
                     </a>
-                    <a href="<?php echo $prefix; ?>Pages/contact_page.php">
+                    <a href="contact_page.php">
                         <i class="fas fa-comments text-white"></i>
                     </a>
                 </div>
@@ -132,13 +133,13 @@ $result_categorie = mysqli_query($connection, $categorie_link);
          * @return int
          */
         function getShoppingCartNumber() {
-            if(isset($_SESSION['shoppingCart'])) {
+            if (isset($_SESSION['shoppingCart'])) {
                 $shoppingCart = $_SESSION['shoppingCart'];
             } else {
                 $shoppingCart = array();
             }
             $returnValue = 0;
-            foreach($shoppingCart as $value) {
+            foreach ($shoppingCart as $value) {
                 $returnValue += $value;
             }
             return $returnValue;
@@ -146,30 +147,31 @@ $result_categorie = mysqli_query($connection, $categorie_link);
 
         function print_footer($var = false)
         {
-        $prefix = "../";
-        if ($var === "index") {
-            $prefix = "";
-        }
         ?>
     </div>
     <footer class="text-white bg-primary mt-5" id="fixed-footer">
         <div class="container">
             <div class="row">
                 <div class="col-sm-6 pt-3 pb-4">
-                    <img class="float-left mr-1" src="<?php echo $prefix; ?>Images/logo.png" width="40px" height="40px">
+                    <img class="float-left mr-1" src="Images/logo.png" width="40px" height="40px">
                     <h2>WWI</h2>
                     <p class="pt-2">Wide World Importers is een importeur en groothandel die producten levert aan
-                    verschillende warenhuizen en supermarkten in de Verenigde Staten. Ook levert WWI producten door aan
-                    weer andere groothandels. Incidenteel verkoopt WWI producten rechtstreeks aan consumenten. WWI werkt
-                    met een groot netwerk aan vertegenwoordigers die het land doortrekken om hun producten in de markt
-                    te krijgen.</p>
+                        verschillende warenhuizen en supermarkten in de Verenigde Staten. Ook levert WWI producten door
+                        aan
+                        weer andere groothandels. Incidenteel verkoopt WWI producten rechtstreeks aan consumenten. WWI
+                        werkt
+                        met een groot netwerk aan vertegenwoordigers die het land doortrekken om hun producten in de
+                        markt
+                        te krijgen.</p>
 
                 </div>
                 <div class="col-sm-6 pt-3 pb-4">
                     <h2>Klantenservice</h2>
-                    <p class="pt-2">Heeft u vragen over één van de producten die wij verkopen of heeft u eenprobleem met uw
-                    bestelling? Om een antwoord op deze en andere vragen te krijgen kunt u ons op maandag t/m vrijdag bereiken via onze telefonische klantenservice
-                    <br>
+                    <p class="pt-2">Heeft u vragen over één van de producten die wij verkopen of heeft u eenprobleem met
+                        uw
+                        bestelling? Om een antwoord op deze en andere vragen te krijgen kunt u ons op maandag t/m
+                        vrijdag bereiken via onze telefonische klantenservice
+                        <br>
                         <b> 1017 CA, Amsterdam<br>
                             +31 9404393940 || wwi@wwi.nl</b>
                     </p>

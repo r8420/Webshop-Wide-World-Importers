@@ -1,5 +1,5 @@
 <?php
-include "../Modules/functions.php";
+include "Modules/functions.php";
 print_header();
 
 //stuurt mail mits ingevuld en beveiligd door strip_tagz.
@@ -59,7 +59,7 @@ if (isset($_POST['naam']) && isset($_POST['bericht']) && isset($_POST['email']))
             </div>
         </div>
         <div class="col mt-1">
-            <img src="../Images/Map.jpg">
+            <img src="Images/Map.jpg">
             <div class="w-60 float-center mt-2">
                 <form method="post">
                     Naam*: <input class="form-control float-right" type="text" name="naam" required><br><br>
