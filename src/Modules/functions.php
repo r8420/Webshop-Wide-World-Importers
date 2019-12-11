@@ -71,7 +71,7 @@ $stmt->close();
                                     while ($row = mysqli_fetch_assoc($result_categorie)) {
                                         ?>
                                         <a class="dropdown-item"
-                                           href="zoekpagina.php?category=<?php echo $row['StockGroupID']; ?>"><?php echo $row['StockGroupName']; ?></a>
+                                           href="zoeken.php?category=<?php echo $row['StockGroupID']; ?>"><?php echo $row['StockGroupName']; ?></a>
                                         <?php
                                     }
                                 } else {
@@ -83,7 +83,7 @@ $stmt->close();
                         </li>
                     </ul>
                     <form class="form-inline mr-md-auto w-50" method="get"
-                          action="zoekpagina.php">
+                          action="zoeken.php">
                         <input class="form-control mr-sm-2 w-75" type="search" name="search" placeholder="Zoeken..."
                                aria-label="Search">
                     </form>
@@ -100,8 +100,8 @@ $stmt->close();
                                     aanmaken</a>
                             <?php } elseif (isset($_SESSION['loggedin']) && $_SESSION["loggedin"] == TRUE) {
                                 ?>
-                                <a class="dropdown-item" href="account_page.php"
-                                   onclick="window.location.href='account_page.php'"
+                                <a class="dropdown-item" href="account.php"
+                                   onclick="window.location.href='account.php'"
                                 >Account
                                 </a>
                                 <a class="dropdown-item" href="includes/logout.php"
@@ -117,7 +117,7 @@ $stmt->close();
                             <i class="fas fa-shopping-cart text-white"></i>
                         </span>
                     </a>
-                    <a href="contact_page.php">
+                    <a href="contact.php">
                         <i class="fas fa-comments text-white"></i>
                     </a>
                 </div>

@@ -29,7 +29,7 @@ function checkPOSTRequest() {
         $password = $_POST['password'];
         $password_validation = $_POST['password_validation'];
     } else {
-        header("Refresh: 0; url=registreren.php");
+        header("Refresh: 0; url=../registreren.php");
         exit();
     }
     return array($email, $email_validation, $name, $tel, $password, $password_validation);

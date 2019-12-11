@@ -37,7 +37,7 @@ $categorieProducts = getIndexCategorys($connection);
                              src="data:image/png;base64,<?php echo base64_encode($product[3]) ?>" alt="Artikel foto">
                         <div class="carousel-caption">
                             <h5 class="slider-text"><?php echo $product[1]; ?> </h5>
-                            <a href="product_pagina.php?product=<?php echo $product[2]; ?>">
+                            <a href="product.php?product=<?php echo $product[2]; ?>">
                                 <button type="button" class="mt-5 mb-5 btn btn-success text-white">Bekijk product
                                 </button>
                             </a>
@@ -70,7 +70,7 @@ $categorieProducts = getIndexCategorys($connection);
                 $prijs = $product[3];
                 ?>
                 <div class="col-sm-3 col-md-3">
-                    <a href="product_pagina.php?product=<?php echo $product[0]; ?>"
+                    <a href="product.php?product=<?php echo $product[0]; ?>"
                        class="text-decoration-none">
                         <div class="card border-0">
                             <img src="data:image/png;base64,<?php echo base64_encode($product[4]) ?>"
@@ -101,7 +101,7 @@ $categorieProducts = getIndexCategorys($connection);
             foreach ($categorieProducts as $product) {
                 ?>
                 <div class="col-sm-3">
-                    <a href="zoekpagina.php?category=<?php echo $product[3]; ?>"
+                    <a href="zoeken.php?category=<?php echo $product[3]; ?>"
                        class="text-decoration-none">
                         <div class="card align-items-center border-0">
                             <div class="card-body">
