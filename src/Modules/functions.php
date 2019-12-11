@@ -105,7 +105,7 @@ $stmt->close();
                                    onclick="window.location.href='account.php'"
                                 >Account
                                 </a>
-                                <a class="dropdown-item" href="includes/logout.php"
+                                <a class="dropdown-item" href="logout.php"
                                    onclick="window.location.href='logout.php'"
                                 >Uitloggen
                                 </a>
