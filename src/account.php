@@ -68,7 +68,7 @@ $orders = getAssociatedOrders($userID, $connection)
                 <?php if ($orders !== null) { ?>
                     <p class="border col-12 pt-3 pb-3"><strong>Order geschiedenis</strong><br>
                         <?php foreach ($orders as $order) { ?>
-                            <a href="bestelgeschiedenispagina.php?orderId=<?php echo $order ?>">
+                            <a href="bestelgeschiedenis.php?orderId=<?php echo $order ?>">
                                 Order: <?php echo $order ?></a><br>
                         <?php } ?>
                     </p>

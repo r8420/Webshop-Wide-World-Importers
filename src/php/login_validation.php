@@ -21,11 +21,11 @@ startvalidation($returnStatement, $usernamePassword);
  * @return array ['username', 'password'] ;
  */
 function checkPOSTRequest() {
-    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $email = $_POST['email'];
         $password = $_POST['password'];
     } else {
-        header("Refresh: 0; url=login.php");
+        header("Refresh: 0; url=../login.php");
         exit();
     }
     return array($email, $password);
@@ -69,7 +69,7 @@ function startvalidation($stmt, $usernamePassword) {
             session_start();
             $_SESSION['loggedin'] = TRUE;
             $_SESSION['userNr'] = $stmt[1];
-            header("Refresh: 0; url=../account_page.php");
+            header("Refresh: 0; url=../account.php");
             exit();
         } else {
             returnToLogin();
@@ -85,7 +85,7 @@ function startvalidation($stmt, $usernamePassword) {
 function returnToLogin() {
     session_start();
     $errorCode = "login_error";
-    header("Refresh: 0; url=login.php?errorcode=" . $errorCode);
+    header("Refresh: 0; url=../login.php?errorcode=" . $errorCode);
     exit();
 }
 

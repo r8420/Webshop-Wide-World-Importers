@@ -13,7 +13,7 @@ print_header();
             Het aanmaken van uw account is gelukt.
         </p>
     </div>
-    <a class="btn btn-success" href="account_page.php">Mijn account</a>
+    <a class="btn btn-success" href="account.php">Mijn account</a>
     <br>
     <a class="btn btn-success mt-3" href="index.php">Terug naar de homepagina</a>
 </div>
