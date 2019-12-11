@@ -7,13 +7,3 @@ function checkSessionActive() {
     }
 
 }
-
-function getUserID() {
-    return $_SESSION['userNr'];
-
-}
-
-function sessionDestroy() {
-    sessionDestroy();
-}
-
