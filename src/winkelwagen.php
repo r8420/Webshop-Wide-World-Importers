@@ -1,7 +1,7 @@
 <?php
-include "../Modules/functions.php";
+include "Modules/functions.php";
 print_header();
-include "../BackgroundCode/winkelwagen_backcode.php";
+include "BackgroundCode/winkelwagen_backcode.php";
 ?>
     <div class="container">
         <div class="m-5">
@@ -70,7 +70,7 @@ include "../BackgroundCode/winkelwagen_backcode.php";
             </table>
             <div class="my-5">
                 <button class="btn btn-success ml-5 mr-4 float-right" onclick="window.location.href='#'">Bestellen</button>
-                <button class="btn btn-primary mr-5 float-right mr-1" onclick="window.location.href='../../index.php'">Terug naar homepagina</button>
+                <button class="btn btn-primary mr-5 float-right mr-1" onclick="window.location.href='index.php'">Terug naar homepagina</button>
             </div>
             <div class="p-5">
 
@@ -99,7 +99,7 @@ include "../BackgroundCode/winkelwagen_backcode.php";
 <!--        </div>-->
 <!--        <div class="row col-12 border rounded-0 ">-->
 <!--            <div class="col-2 mt-1 mb-1">-->
-<!--                <img src="../Images/logo.png">-->
+<!--                <img src="Images/logo.png">-->
 <!--            </div>-->
 <!--            <div class="col-4 m-auto">-->
 <!--                <p class="m-0"> article</p>-->

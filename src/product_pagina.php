@@ -8,10 +8,10 @@ header('Cache-Control: no cache');
 session_cache_limiter('private_no_expire');
 
 
-include '../Modules/functions.php';
+include 'Modules/functions.php';
 print_header();
 
-include '../BackgroundCode/product_functions.php';
+include 'BackgroundCode/product_functions.php';
 
 $productId = (checkInt('GET', 'product') ? $_GET['product'] : false);
 $amount = (checkInt('POST', 'amount') ? $_POST['amount'] : false);
@@ -20,7 +20,7 @@ $tags = json_decode($productInfo['CustomFields'], true);
 
 // If there's no product id defined, go back to index.php
 if (!$productId) {
-    header('Location: ../');
+    header('Location: ');
     die();
 }
 

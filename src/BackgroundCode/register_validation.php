@@ -1,5 +1,5 @@
 <?php
-include "../DatabaseFactory.php";
+include "DatabaseFactory.php";
 
 // start database connectie
 $connection = startDBConnection();
@@ -30,7 +30,7 @@ function checkPOSTRequest()
         $password = $_POST['password'];
         $password_validation = $_POST['password_validation'];
     } else {
-        header("Refresh: 0; url=../registreren.php");
+        header("Refresh: 0; url=registreren.php");
         exit();
     }
     return array($email, $email_validation, $name, $tel, $password, $password_validation);
@@ -87,7 +87,7 @@ function insertionOnPeopleTable($connection, $emailValidation, $userRegistration
             $stmtinsert->close();
             $connection->close();
 
-            header("Refresh: 0; url=../registreer_succes.php");
+            header("Refresh: 0; url=registreer_succes.php");
             exit();
         } else {
             returnToRegister(2);
@@ -113,7 +113,7 @@ function returnToRegister($errorNumber)
         $errorCode = "register_different_email_error";
     }
 
-    header("Refresh: 0; url=../registreren.php?errorcode=".$errorCode);
+    header("Refresh: 0; url=registreren.php?errorcode=".$errorCode);
     exit();
 }
 
