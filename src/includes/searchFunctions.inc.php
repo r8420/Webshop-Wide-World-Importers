@@ -111,8 +111,9 @@ function getNumberResults($search, $category) {
  */
 function getIfExists($param, $default) {
     $returnValue = ISSET($_GET[$param]) ? htmlspecialchars(strip_tags($_GET[$param])) : $default;
-    if (gettype($default) == "integer" && ($returnValue < 1 || preg_match_all("/\D+/", $returnValue)))
+    if (is_int($default) && ($returnValue < 1 || preg_match("/\D+/", $returnValue))) {
         $returnValue = $default;
+    }
     return $returnValue;
 }
 
