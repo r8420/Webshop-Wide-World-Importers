@@ -28,7 +28,7 @@ print_header();
         }
     }
     ?>
-    <form action="../BackgroundCode/register_validation.php" method="POST">
+    <form action="BackgroundCode/register_validation.php" method="POST">
         <div class="input-group mb-3">
             <div class="input-group-prepend">
                 <div class="input-group-text"><i class="fas fa-at"></i></div>

@@ -1,6 +1,6 @@
 <?php
 session_start();
-$prefix = "../";
+$prefix = "";
 function print_header($var = false)
 {
 global $prefix;
@@ -42,14 +42,14 @@ $stmt->close();
                     <div class="fas dropdown fa-user text-white ml-5 mr-4" id="navbarDropdown1" role="button"
                          data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown1">
-                            <a class="dropdown-item" href="<?php echo $prefix; ?>Pages/login.php"
-                               onclick="window.location.href='<?php echo $prefix; ?>Pages/login.php'">Inloggen</a>
-                            <a class="dropdown-item" href="<?php echo $prefix; ?>Pages/registreren.php"
-                               onclick="window.location.href='<?php echo $prefix; ?>Pages/registreren.php'">Account
+                            <a class="dropdown-item" href="<?php echo $prefix; ?>login.php"
+                               onclick="window.location.href='<?php echo $prefix; ?>login.php'">Inloggen</a>
+                            <a class="dropdown-item" href="<?php echo $prefix; ?>registreren.php"
+                               onclick="window.location.href='<?php echo $prefix; ?>registreren.php'">Account
                                 aanmaken</a>
                         </div>
                     </div>
-                    <a class="shoppingCart" href="<?php echo $prefix; ?>Pages/winkelwagen.php">
+                    <a class="shoppingCart" href="<?php echo $prefix; ?>winkelwagen.php">
                         <span class="fa-stack fa-2x has-badge" data-count="<?php echo getShoppingCartNumber()?>">
                             <i class="fas fa-shopping-cart text-white"></i>
                         </span>
@@ -72,7 +72,7 @@ $stmt->close();
                                 if (mysqli_num_rows($result_categorie) > 0) {
                                     while ($row = mysqli_fetch_assoc($result_categorie)) {
                                         ?>
-                                        <a class="dropdown-item" href="<?php echo $prefix; ?>Pages/zoekpagina.php?category=<?php echo $row['StockGroupID']; ?>"><?php echo $row['StockGroupName']; ?></a>
+                                        <a class="dropdown-item" href="<?php echo $prefix; ?>zoekpagina.php?category=<?php echo $row['StockGroupID']; ?>"><?php echo $row['StockGroupName']; ?></a>
                                         <?php
                                     }
                                 } else {
@@ -84,7 +84,7 @@ $stmt->close();
                         </li>
                     </ul>
                     <form class="form-inline mr-md-auto w-50" method="get"
-                          action="<?php echo $prefix; ?>Pages/zoekpagina.php">
+                          action="<?php echo $prefix; ?>zoekpagina.php">
                         <input class="form-control mr-sm-2 w-75" type="search" name="search" placeholder="Zoeken..."
                                aria-label="Search">
                     </form>
@@ -94,15 +94,15 @@ $stmt->close();
                          data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown1">
                             <?php if (isset($_SESSION['loggedin']) == FALSE || $_SESSION["loggedin"] == FALSE) {?>
-                                <a class="dropdown-item" href="<?php echo $prefix; ?>Pages/login.php"
-                                   onclick="window.location.href='<?php echo $prefix; ?>Pages/login.php'">Inloggen</a>
-                                <a class="dropdown-item" href="<?php echo $prefix; ?>Pages/registreren.php"
-                                   onclick="window.location.href='<?php echo $prefix; ?>Pages/registreren.php'">Account
+                                <a class="dropdown-item" href="<?php echo $prefix; ?>login.php"
+                                   onclick="window.location.href='<?php echo $prefix; ?>login.php'">Inloggen</a>
+                                <a class="dropdown-item" href="<?php echo $prefix; ?>registreren.php"
+                                   onclick="window.location.href='<?php echo $prefix; ?>registreren.php'">Account
                                     aanmaken</a>
                             <?php }
                             elseif (isset($_SESSION['loggedin']) && $_SESSION["loggedin"] == TRUE){?>
-                                <a class="dropdown-item" href="<?php echo $prefix; ?>Pages/account_page.php"
-                                   onclick="window.location.href='<?php echo $prefix; ?>Pages/account_page.php'"
+                                <a class="dropdown-item" href="<?php echo $prefix; ?>account_page.php"
+                                   onclick="window.location.href='<?php echo $prefix; ?>account_page.php'"
                                 >Account
                                 </a>
                                 <a class="dropdown-item" href="<?php echo $prefix; ?>BackgroundCode/logout.php"
@@ -112,12 +112,12 @@ $stmt->close();
                             <?php }?>
                         </div>
                     </div>
-                    <a class="shoppingCart" href="<?php echo $prefix; ?>Pages/winkelwagen.php">
+                    <a class="shoppingCart" href="<?php echo $prefix; ?>winkelwagen.php">
                         <span class="fa-stack fa-2x has-badge" data-count="<?php echo getShoppingCartNumber()?>">
                             <i class="fas fa-shopping-cart text-white"></i>
                         </span>
                     </a>
-                    <a href="<?php echo $prefix; ?>Pages/contact_page.php">
+                    <a href="<?php echo $prefix; ?>contact_page.php">
                         <i class="fas fa-comments text-white"></i>
                     </a>
                 </div>
