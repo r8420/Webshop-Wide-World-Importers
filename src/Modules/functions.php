@@ -9,7 +9,7 @@ global $connection;
 
 
 
-$stmt = $connection->prepare("CALL get_stock_groups()");
+$stmt = $connection->prepare('CALL get_stock_groups()');
 $stmt->execute();
 $result_categorie = $stmt->get_result();
 $stmt->close();
@@ -76,7 +76,7 @@ $stmt->close();
                                         <?php
                                     }
                                 } else {
-                                    echo "0 results";
+                                    echo '0 results';
                                 }
 
                                 ?>
@@ -90,22 +90,22 @@ $stmt->close();
                     </form>
                 </div>
                 <div class="my-2 my-lg-0 d-none d-lg-block ">
-                    <div class="fas dropdown fa-user text-white ml-5 mr-4" id="navbarDropdown1" href="#" role="button"
+                    <div class="fas dropdown fa-user text-white ml-5 mr-4" id="navbarDropdown1" role="button"
                          data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown1">
-                            <?php if (isset($_SESSION['loggedin']) == FALSE || $_SESSION["loggedin"] == FALSE) { ?>
+                            <?php if (isset($_SESSION['loggedin']) === FALSE || $_SESSION['loggedin'] === FALSE) { ?>
                                 <a class="dropdown-item" href="login.php"
                                    onclick="window.location.href='login.php'">Inloggen</a>
                                 <a class="dropdown-item" href="registreren.php"
                                    onclick="window.location.href='registreren.php'">Account
                                     aanmaken</a>
-                            <?php } elseif (isset($_SESSION['loggedin']) && $_SESSION["loggedin"] == TRUE) {
+                            <?php } elseif (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === TRUE) {
                                 ?>
                                 <a class="dropdown-item" href="account.php"
                                    onclick="window.location.href='account.php'"
                                 >Account
                                 </a>
-                                <a class="dropdown-item" href="includes/logout.php"
+                                <a class="dropdown-item" href="logout.php"
                                    onclick="window.location.href='logout.php'"
                                 >Uitloggen
                                 </a>
@@ -146,7 +146,7 @@ $stmt->close();
             return $returnValue;
         }
 
-        function print_footer($var = false)
+        function print_footer()
         {
         ?>
     </div>
@@ -154,7 +154,7 @@ $stmt->close();
         <div class="container">
             <div class="row">
                 <div class="col-sm-6 pt-3 pb-4">
-                    <img class="float-left mr-1" src="Images/logo.png" width="40px" height="40px">
+                    <img class="float-left mr-1" src="Images/logo.png" width="40px" height="40px" alt="Logo">
                     <h2>WWI</h2>
                     <p class="pt-2">Wide World Importers is een importeur en groothandel die producten levert aan
                         verschillende warenhuizen en supermarkten in de Verenigde Staten. Ook levert WWI producten door
@@ -168,7 +168,7 @@ $stmt->close();
                 </div>
                 <div class="col-sm-6 pt-3 pb-4">
                     <h2>Klantenservice</h2>
-                    <p class="pt-2">Heeft u vragen over één van de producten die wij verkopen of heeft u eenprobleem met
+                    <p class="pt-2">Heeft u vragen over één van de producten die wij verkopen of heeft u een probleem met
                         uw
                         bestelling? Om een antwoord op deze en andere vragen te krijgen kunt u ons op maandag t/m
                         vrijdag bereiken via onze telefonische klantenservice

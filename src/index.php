@@ -1,7 +1,7 @@
 <?php
-include "Modules/functions.php";
+include 'Modules/functions.php';
 print_header();
-include "includes/indexFunctions.inc.php";
+include 'includes/indexFunctions.inc.php';
 
 
 //Selecteert random de product id, product naam, product prijs en de foto van de database table stockitems.
@@ -11,7 +11,7 @@ $products = getIndexProducts($connection);
 $productsSlider = getIndexSlider($connection);
 
 //Selecteert de productnaam, foto, categorienaam en de categorie id van de database table stockitems, stockitemstockgroups en van stockgroups.
-$categorieProducts = getIndexCategorys($connection);
+$categorieProducts = getIndexCategories($connection);
 ?>
 <div class="container">
 
@@ -32,7 +32,7 @@ $categorieProducts = getIndexCategorys($connection);
                 foreach ($productsSlider AS $product) {
                     ?>
                     <div class="carousel-item w-100  <?php echo $active;
-                    $active = ""; ?>">
+                    $active = ''; ?>">
                         <img class="d-block slider mx-auto"
                              src="data:image/png;base64,<?php echo base64_encode($product[3]) ?>" alt="Artikel foto">
                         <div class="carousel-caption">
@@ -78,7 +78,7 @@ $categorieProducts = getIndexCategorys($connection);
                             <div class="card-body">
                                 <h5 class="card-title text-dark"><?php echo $product[1]; ?></h5>
                                 <h5 class="card-title text-dark">
-                                    € <?php echo str_replace(".", ",", "$prijs"); ?></h5>
+                                    € <?php echo str_replace('.', ',', (string)$prijs); ?></h5>
                             </div>
                         </div>
                     </a>
@@ -126,7 +126,7 @@ $categorieProducts = getIndexCategorys($connection);
 </div>
 
 <?php
-print_footer("index");
+print_footer();
 ?>
 
 
