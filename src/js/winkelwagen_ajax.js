@@ -78,7 +78,7 @@ function formatToNumber(text) {
 /**
  * Deze functie zet het gegeven getal over naar Nederlandse getal-notatie.
  * @param number Het getal om om te zetten
- * @returns {String} De tekst met het geformateerde getal
+ * @returns {String} De tekst met het geformatteerde getal
  */
 function formatToString(number) {
     return new Intl.NumberFormat('nl-NL', {minimumFractionDigits: 2}).format(number);

@@ -168,7 +168,7 @@ $stmt->close();
                 </div>
                 <div class="col-sm-6 pt-3 pb-4">
                     <h2>Klantenservice</h2>
-                    <p class="pt-2">Heeft u vragen over één van de producten die wij verkopen of heeft u eenprobleem met
+                    <p class="pt-2">Heeft u vragen over één van de producten die wij verkopen of heeft u een probleem met
                         uw
                         bestelling? Om een antwoord op deze en andere vragen te krijgen kunt u ons op maandag t/m
                         vrijdag bereiken via onze telefonische klantenservice

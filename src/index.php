@@ -11,7 +11,7 @@ $products = getIndexProducts($connection);
 $productsSlider = getIndexSlider($connection);
 
 //Selecteert de productnaam, foto, categorienaam en de categorie id van de database table stockitems, stockitemstockgroups en van stockgroups.
-$categorieProducts = getIndexCategorys($connection);
+$categorieProducts = getIndexCategories($connection);
 ?>
 <div class="container">
 

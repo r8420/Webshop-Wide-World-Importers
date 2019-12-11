@@ -35,7 +35,7 @@ function getIndexSlider($connection) {
 }
 
 
-function getIndexCategorys($connection) {
+function getIndexCategories($connection) {
     $results = array();
     $sql = 'CALL get_catergorys_index()';
     $stmt = $connection->prepare($sql);

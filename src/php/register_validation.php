@@ -15,9 +15,9 @@ insertionOnPeopleTable($connection, $valid_login, $userRegistration);
 
 
 /**
- * Checkt of er een valid post is gestuud met de Register pagina.
+ * Checkt of er een valid post is gestuurd met de Register pagina.
  * Indien niet word de gebruiker terug verwezen naar de Register pagina
- * De functie geeft een array terug met de email, email_valedatie, naam, telefoon, wachtwoord en wachtwoord_validatie
+ * De functie geeft een array terug met de email, email_validatie, naam, telefoon, wachtwoord en wachtwoord_validatie
  * @return array ['email', 'email_validation', 'name', 'tel', 'password', 'password_validation'] ;
  */
 function checkPOSTRequest() {
@@ -60,7 +60,7 @@ function emailValidation($connection, $userRegistration) {
 
 /**
  * In deze functie word het account in de database gestopt indien de twee ingegeven wachtwoorden overeenkomen
- * Het wachtwoord wordt vervolgens geëncrypt voordat er een sql prepared query word uitgevoerd op de database
+ * Het wachtwoord wordt vervolgens encrypt voordat er een sql prepared query word uitgevoerd op de database
  * @param $connection object voor connectie
  * @param $emailValidation
  * @param $userRegistration
