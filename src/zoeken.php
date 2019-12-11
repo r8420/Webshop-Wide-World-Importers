@@ -1,7 +1,6 @@
 <?php
-// Disable cache so we dont get ERR_CACHE_MISS when we use the back button on the shopping cart.
-header('Cache-Control: no cache');
-session_cache_limiter('private_no_expire');
+// Refresh cache so we dont get ERR_CACHE_MISS when we use the back button on the shopping cart.
+session_cache_limiter('private, must-revalidate');
 
 include 'Modules/functions.php';
 
