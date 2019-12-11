@@ -1,17 +1,11 @@
 <?php
 
-if(session_status() === PHP_SESSION_NONE) {
+if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
-if(!function_exists('startDBConnection')) {
-    global $connection;
-    include 'DatabaseFactory.php';
-    $connection = startDBConnection();
-}
-
 //Een manier om de session aan te passen via de jQuery post
-if(isset($_POST['updateCart'])) {
+if (isset($_POST['updateCart'])) {
     updateCart($_POST['productID'], $_POST['amount']);
     print(json_encode($_SESSION['shoppingCart']));
 }
@@ -53,7 +47,7 @@ function getProductStock($productID) {
  * @param int $amount De hoeveelheid
  */
 function updateCart($productID, $amount) {
-    if($amount <= 0) {
+    if ($amount <= 0) {
         unset($_SESSION['shoppingCart'][$productID]);
     } else {
         $_SESSION['shoppingCart'][$productID] = $amount;

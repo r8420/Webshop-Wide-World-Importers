@@ -1,6 +1,6 @@
 <?php
 
-function getUser($userId, $connection){
+function getUser($userId, $connection) {
 
     $sql = "CALL getUser(?)";
     $stmt = $connection->prepare($sql);
@@ -12,7 +12,8 @@ function getUser($userId, $connection){
     $stmt->close();
     return array($personId, $fullName, $phoneNumber, $emailAddress);
 }
-function getUserAddress($userId, $connection){
+
+function getUserAddress($userId, $connection) {
 
     $sql = "CALL getUserAddress(?)";
     $stmt = $connection->prepare($sql);
@@ -27,7 +28,7 @@ function getUserAddress($userId, $connection){
 }
 
 
-function getAssociatedOrders($userId, $connection){
+function getAssociatedOrders($userId, $connection) {
     $orders = array();
 
     $sql = "CALL getAssociatedOrders(?)";
@@ -36,13 +37,13 @@ function getAssociatedOrders($userId, $connection){
     $stmt->execute();
     $stmt->bind_result($orderId);
     $stmt->store_result();
-    while ($stmt->fetch()){
+    while ($stmt->fetch()) {
         $orders[] = $orderId;
     }
     return $orders;
 
 
-
 }
+
 ?>
 

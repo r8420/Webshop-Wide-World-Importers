@@ -1,10 +1,10 @@
 <?php
-include "Modules/functions.php";
+include 'Modules/functions.php';
 print_header();
-include "BackgroundCode/bestel_functionali.php";
+include 'includes/orderFunctions.inc.php';
 
-if ($_POST['inlogbutton']) {
-    BestelGegevens($_POST['InputNaam'], $_POST['InputStraatenhuisnummer'], $_POST['InutPlaats'], $_POST['InputPostcode'], $_POST['InputTelefoonnummer'], $connection);
+if ($_POST['inlogButton']) {
+    BestelGegevens($_POST['InputNaam'], $_POST['InputStraatEnHuisnummer'], $_POST['InputPlaats'], $_POST['InputPostcode'], $_POST['InputTelefoonnummer'], $connection);
 
 }
 
@@ -25,8 +25,8 @@ if ($_POST['inlogbutton']) {
                     <input name="InputNaam" type="text" class="form-control" id="InputNaam" placeholder="" required>
                 </div>
                 <div class="form-group">
-                    <label for="InputStraatenhuisnummer">Straat en huisnummer*:</label>
-                    <input name="InputStraatenhuisnummer" type="text" class="form-control" id="InputStraatenhuisnummer"
+                    <label for="InputStraatEnHuisnummer">Straat en huisnummer*:</label>
+                    <input name="InputStraatEnHuisnummer" type="text" class="form-control" id="InputStraatEnHuisnummer"
                            placeholder="" required>
                 </div>
                 <div class="form-group">
@@ -50,11 +50,11 @@ if ($_POST['inlogbutton']) {
                 </div>
             </form>
             <div class="float-right">
-                <a href="<?php echo $prefix; ?>registreren.php">
-                    <button name="inlogbutton" id="inlogbutton" class="btn btn-success">Account aanmaken</button>
+                <a href="registreren.php">
+                    <button name="inlogButton" id="inlogButton" class="btn btn-success">Account aanmaken</button>
                 </a>
-                <a href="<?php echo $prefix; ?>succes.php">
-                    <button name="inlogbutton" id="inlogbutton" class="btn btn-success">Naar betalen</button>
+                <a href="succes.php">
+                    <button name="inlogButton" id="inlogButton" class="btn btn-success">Naar betalen</button>
                 </a>
             </div>
         </div>
