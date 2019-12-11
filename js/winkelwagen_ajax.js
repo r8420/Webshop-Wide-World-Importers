@@ -13,9 +13,12 @@ function sendPostRequest(productID, amount, productPrice) {
         updateCart: true,
         productID: productID,
         amount: amount
-    }, () => {
+    }, (json) => {
         //Als het gelukt is, update de prijzen in de winkelwagen
         updatePrices(productID, amount, productPrice);
+
+        //En update het winkelwagen getal
+        updateShoppingCartNumber(JSON.parse(json));
     });
 }
 
@@ -42,6 +45,22 @@ function updatePrices(productID, amount, productPrice) {
         document.getElementById(`row${productID}`).remove();
     }
     document.getElementById(`totalPrice`).innerText=`€${formatToString(currentTotalPrice)}`;
+}
+
+/**
+ * Update het winkelwagen getal
+ * @param {Object} SessionArrayJSON De SESSION array, maar dan als JSON ¯\_(ツ)_/¯
+ */
+function updateShoppingCartNumber(SessionArrayJSON) {
+    let count = 0;
+    Object.keys(SessionArrayJSON).forEach(key => {
+        count += Number(SessionArrayJSON[key]);
+    });
+    let shoppingCartElements = document.getElementsByClassName('jsShoppingCart');
+    for(let i = 0; i < shoppingCartElements.length; i++) {
+        shoppingCartElements[i].dataset.count = count;
+    }
+
 }
 
 /***

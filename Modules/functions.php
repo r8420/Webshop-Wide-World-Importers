@@ -49,7 +49,7 @@ $result_categorie = mysqli_query($connection, $categorie_link);
                         </div>
                     </div>
                     <a class="shoppingCart" href="<?php echo $prefix; ?>Pages/winkelwagen.php">
-                        <span class="fa-stack fa-2x has-badge" data-count="<?php echo getShoppingCartNumber()?>">
+                        <span class="fa-stack fa-2x has-badge jsShoppingCart" data-count="<?php echo getShoppingCartNumber()?>">
                             <i class="fas fa-shopping-cart text-white"></i>
                         </span>
                     </a>
@@ -112,7 +112,7 @@ $result_categorie = mysqli_query($connection, $categorie_link);
                         </div>
                     </div>
                     <a class="shoppingCart" href="<?php echo $prefix; ?>Pages/winkelwagen.php">
-                        <span class="fa-stack fa-2x has-badge" data-count="<?php echo getShoppingCartNumber()?>">
+                        <span class="fa-stack fa-2x has-badge jsShoppingCart" data-count="<?php echo getShoppingCartNumber()?>">
                             <i class="fas fa-shopping-cart text-white"></i>
                         </span>
                     </a>
