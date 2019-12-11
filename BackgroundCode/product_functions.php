@@ -24,7 +24,7 @@ function addToCart($productId, $amount = 1) {
  */
 function getProductInfo($id) {
     global $connection;
-    $stmt = $connection->prepare("SELECT *, REPLACE(CAST(stockitems.RecommendedRetailPrice AS CHAR), '.', ',') as price FROM stockitems WHERE StockItemID = ?");
+    $stmt = $connection->prepare('CALL get_product_information(?)');
     $stmt->bind_param('i', $id);
     $stmt->execute();
     $result = $stmt->get_result();
