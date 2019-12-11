@@ -9,11 +9,11 @@ session_cache_limiter('private_no_expire');
 
 
 include 'Modules/functions.php';
-print_header();
+
 
 include 'includes/productFunctions.inc.php';
 
-$productId = (checkInt('GET', 'product') ? $_GET['product'] : false);
+$productId = (checkInt('GET', 'id') ? $_GET['id'] : false);
 $amount = (checkInt('POST', 'amount') ? $_POST['amount'] : false);
 $productInfo = getProductInfo($productId);
 $tags = json_decode($productInfo['CustomFields'], true);
@@ -28,7 +28,7 @@ if (!$productId) {
 if ($amount) {
     addToCart($productId, $amount);
 }
-
+print_header();
 ?>
 <div class="container">
     <?php if ($amount) {
