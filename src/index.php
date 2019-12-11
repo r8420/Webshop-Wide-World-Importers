@@ -78,7 +78,7 @@ $categorieProducts = getIndexCategorys($connection);
                             <div class="card-body">
                                 <h5 class="card-title text-dark"><?php echo $product[1]; ?></h5>
                                 <h5 class="card-title text-dark">
-                                    € <?php echo str_replace(".", ",", "$prijs"); ?></h5>
+                                    € <?php echo str_replace('.', ',', (string)$prijs); ?></h5>
                             </div>
                         </div>
                     </a>
