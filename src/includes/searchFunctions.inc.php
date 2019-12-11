@@ -14,25 +14,25 @@ function getSearchResults($search, $category, $orderBy, $page, $itemsPerPage) {
     $orderSQL = getOrderBy($orderBy);
     $offset = ($page - 1) * $itemsPerPage;
 
-    if($category == null || $category == 0) {
+    if ($category == null || $category == 0) {
         $stmt = $connection->prepare("CALL get_stockitem_results(?,?,?,?)");
-        if($stmt == FALSE) {
-            return array(array("StockItemID"=>"1","StockItemName"=>"We're sorry, something went wrong","UnitPrice"=>"0,00","Photo"=>""));
+        if ($stmt == FALSE) {
+            return array(array("StockItemID" => "1", "StockItemName" => "We're sorry, something went wrong", "UnitPrice" => "0,00", "Photo" => ""));
         }
-        $stmt->bind_param("siii", $search,$orderSQL, $offset, $itemsPerPage);
+        $stmt->bind_param("siii", $search, $orderSQL, $offset, $itemsPerPage);
     } else {
         $stmt = $connection->prepare("CALL get_stockitem_results_category(?,?,?,?,?)");
-        if($stmt == FALSE) {
-            return array(array("StockItemID"=>"1","StockItemName"=>"We're sorry, something went wrong","UnitPrice"=>"0,00","Photo"=>""));
+        if ($stmt == FALSE) {
+            return array(array("StockItemID" => "1", "StockItemName" => "We're sorry, something went wrong", "UnitPrice" => "0,00", "Photo" => ""));
         }
-        $stmt->bind_param("siiii", $search, $category, $orderSQL, $offset, $itemsPerPage );
+        $stmt->bind_param("siiii", $search, $category, $orderSQL, $offset, $itemsPerPage);
     }
 
     $stmt->execute();
     $result = $stmt->get_result();
 
     $resultArray = array();
-    while($row = $result->fetch_assoc()) {
+    while ($row = $result->fetch_assoc()) {
         $resultArray[] = $row;
     }
     $stmt->close();
@@ -45,7 +45,7 @@ function getSearchResults($search, $category, $orderBy, $page, $itemsPerPage) {
  * @return string
  */
 function getCategoryName($category) {
-    if($category == 0)
+    if ($category == 0)
         return '';
     global $connection;
     $stmt = $connection->prepare("CALL get_stock_group(?)");
@@ -82,7 +82,6 @@ function getOrderBy($orderBy) {
 }
 
 
-
 /***
  * @param string $search The search query
  * @param int $category The category id
@@ -90,7 +89,7 @@ function getOrderBy($orderBy) {
  */
 function getNumberResults($search, $category) {
     global $connection;
-    if($category == null || $category == 0) {
+    if ($category == null || $category == 0) {
         $stmt = $connection->prepare("CALL get_number_results(?)");
         $stmt->bind_param("s", $search);
     } else {
@@ -111,7 +110,7 @@ function getNumberResults($search, $category) {
  */
 function getIfExists($param, $default) {
     $returnValue = ISSET($_GET[$param]) ? htmlspecialchars(strip_tags($_GET[$param])) : $default;
-    if(gettype($default) == "integer" && ($returnValue < 1 || preg_match_all("/\D+/", $returnValue)))
+    if (gettype($default) == "integer" && ($returnValue < 1 || preg_match_all("/\D+/", $returnValue)))
         $returnValue = $default;
     return $returnValue;
 }
@@ -122,7 +121,7 @@ function getIfExists($param, $default) {
  * @param string|int $valueToCheck The value you want to check
  */
 function setSelected($param, $valueToCheck) {
-    if(getIfExists($param, '') == $valueToCheck) {
+    if (getIfExists($param, '') == $valueToCheck) {
         print("selected");
     }
 }
@@ -133,11 +132,12 @@ function setSelected($param, $valueToCheck) {
  * @param string $parameterValue The value the parameter should have
  * @return string The url with the changed parameter
  */
-function change_url_parameter($parameter,$parameterValue) {
-    $url=parse_url($_SERVER['REQUEST_URI']);
-    parse_str($url["query"],$parameters);
+function change_url_parameter($parameter, $parameterValue) {
+    $url = parse_url($_SERVER['REQUEST_URI']);
+    parse_str($url["query"], $parameters);
     unset($parameters[$parameter]);
-    $parameters[$parameter]=$parameterValue;
-    return  $url["path"]."?".http_build_query($parameters);
+    $parameters[$parameter] = $parameterValue;
+    return $url["path"] . "?" . http_build_query($parameters);
 }
+
 ?>

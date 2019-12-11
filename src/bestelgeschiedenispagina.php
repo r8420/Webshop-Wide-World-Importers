@@ -1,17 +1,17 @@
 <?php
-include "BackgroundCode/SessionCode.php";
-include "Modules/functions.php";
+include 'includes/sessionFunctions.inc.php';
+include 'Modules/functions.php';
 checkSessionActive();
 print_header();
-include "BackgroundCode/Bestelgeschiedenis_functionali.php";
-$itemlist = getSqlResults($_GET['orderId'], $_SESSION['userNr'], $connection);
+include 'includes/orderHistoryFunctions.inc.php';
+$itemList = getSqlResults($_GET['orderId'], $_SESSION['userNr'], $connection);
 $totaal = 0;
 
 
 ?>
 <div class="container">
     <div class="m-5">
-        <h1>Bestelling <?php echo $_GET['orderId'];?></h1>
+        <h1>Bestelling <?php echo $_GET['orderId']; ?></h1>
     </div>
     <div class="container rounded-0">
         <table class="table table-striped table-hover">
@@ -26,16 +26,16 @@ $totaal = 0;
             </thead>
             <tbody>
             <?php
-            foreach ($itemlist as $item) { ?>
-            <tr>
-                <td><img src="data:image/png;base64,<?php echo base64_encode($item[5]) ?>"></td>
-                <td><?php echo $item[3] ?></td>
-                <td><?php echo $item[2] ?></td>
-                <td><?php echo "€" . $item[4] ?></td>
-                <td><?php echo "€" . $item[2] * $item[4] ?></td>
-                <?php $totaal += $item[2] * $item[4] ?>
-            </tr>
-            <?php
+            foreach ($itemList as $item) { ?>
+                <tr>
+                    <td><img src="data:image/png;base64,<?php echo base64_encode($item[5]) ?>" alt="Artikel foto"></td>
+                    <td><?php echo $item[3] ?></td>
+                    <td><?php echo $item[2] ?></td>
+                    <td><?php echo '€' . $item[4] ?></td>
+                    <td><?php echo '€' . $item[2] * $item[4] ?></td>
+                    <?php $totaal += $item[2] * $item[4] ?>
+                </tr>
+                <?php
             }
             ?>
             <tr class="bg-dark text-white">
@@ -43,7 +43,7 @@ $totaal = 0;
                 <th scope="row">Totaal</th>
                 <td></td>
                 <td></td>
-                <th scope="row"><?php echo "€" . $totaal ?></th>
+                <th scope="row"><?php echo '€' . $totaal ?></th>
             </tr>
             </tbody>
         </table>
