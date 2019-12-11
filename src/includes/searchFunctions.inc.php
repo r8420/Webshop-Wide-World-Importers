@@ -14,15 +14,15 @@ function getSearchResults($search, $category, $orderBy, $page, $itemsPerPage) {
     $orderSQL = getOrderBy($orderBy);
     $offset = ($page - 1) * $itemsPerPage;
 
-    if ($category == null || $category == 0) {
+    if ($category === null || $category === 0) {
         $stmt = $connection->prepare('CALL get_stockitem_results(?,?,?,?)');
-        if ($stmt == FALSE) {
+        if ($stmt === FALSE) {
             return array(array('StockItemID' => '1', 'StockItemName' => "We're sorry, something went wrong", 'UnitPrice' => '0,00', 'Photo' => ''));
         }
         $stmt->bind_param('siii', $search, $orderSQL, $offset, $itemsPerPage);
     } else {
         $stmt = $connection->prepare('CALL get_stockitem_results_category(?,?,?,?,?)');
-        if ($stmt == FALSE) {
+        if ($stmt === FALSE) {
             return array(array('StockItemID' => '1', 'StockItemName' => "We're sorry, something went wrong", 'UnitPrice' => '0,00', 'Photo' => ''));
         }
         $stmt->bind_param('siiii', $search, $category, $orderSQL, $offset, $itemsPerPage);
@@ -45,7 +45,7 @@ function getSearchResults($search, $category, $orderBy, $page, $itemsPerPage) {
  * @return string
  */
 function getCategoryName($category) {
-    if ($category == 0) {
+    if ($category === 0) {
         return '';
     }
     global $connection;
@@ -90,7 +90,7 @@ function getOrderBy($orderBy) {
  */
 function getNumberResults($search, $category) {
     global $connection;
-    if ($category == null || $category == 0) {
+    if ($category === null || $category === 0) {
         $stmt = $connection->prepare('CALL get_number_results(?)');
         $stmt->bind_param('s', $search);
     } else {
@@ -123,7 +123,7 @@ function getIfExists($param, $default) {
  * @param string|int $valueToCheck The value you want to check
  */
 function setSelected($param, $valueToCheck) {
-    if (getIfExists($param, '') == $valueToCheck) {
+    if (getIfExists($param, '') === $valueToCheck) {
         print('selected');
     }
 }

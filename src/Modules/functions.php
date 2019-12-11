@@ -93,13 +93,13 @@ $stmt->close();
                     <div class="fas dropdown fa-user text-white ml-5 mr-4" id="navbarDropdown1" role="button"
                          data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown1">
-                            <?php if (isset($_SESSION['loggedin']) == FALSE || $_SESSION['loggedin'] == FALSE) { ?>
+                            <?php if (isset($_SESSION['loggedin']) === FALSE || $_SESSION['loggedin'] === FALSE) { ?>
                                 <a class="dropdown-item" href="login.php"
                                    onclick="window.location.href='login.php'">Inloggen</a>
                                 <a class="dropdown-item" href="registreren.php"
                                    onclick="window.location.href='registreren.php'">Account
                                     aanmaken</a>
-                            <?php } elseif (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == TRUE) {
+                            <?php } elseif (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === TRUE) {
                                 ?>
                                 <a class="dropdown-item" href="account.php"
                                    onclick="window.location.href='account.php'"

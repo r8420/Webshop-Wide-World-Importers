@@ -62,7 +62,7 @@ function returnStatement($connection, $usernamePassword) {
  * @param $usernamePassword ['username', 'password']
  */
 function startvalidation($stmt, $usernamePassword) {
-    if ($stmt[0] == 0) {
+    if ($stmt[0] === 0) {
         returnToLogin();
     } else if (password_verify($usernamePassword[1], $stmt[3])) {
         session_start();
