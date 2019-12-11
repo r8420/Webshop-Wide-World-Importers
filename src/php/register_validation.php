@@ -39,7 +39,6 @@ function checkPOSTRequest() {
  * controleert of de email  met elkaar overeenkomen
  * voert met dat gegeven een query uit op de database
  * @param $connection object voor connectie
- * @param $dbName
  * @param $userRegistration
  * @return array met de numrows en loginnaam
  */
