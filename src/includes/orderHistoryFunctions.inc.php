@@ -14,4 +14,4 @@ function getSqlResults($orderIDget, $userNr, $connection) {
 
 }
 
-?>
+

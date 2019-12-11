@@ -114,5 +114,5 @@ function returnToRegister($errorNumber) {
     exit();
 }
 
-?>
+
 
