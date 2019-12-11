@@ -4,7 +4,7 @@
 function getIndexProducts($connection) {
 
     $results = array();
-    $sql = "CALL get_products_index()";
+    $sql = 'CALL get_products_index()';
     $stmt = $connection->prepare($sql);
     $stmt->execute();
     $stmt->bind_result($stockItemID, $stockItemName, $unitPrice, $recommendedRetailPrice, $photo);
@@ -21,7 +21,7 @@ function getIndexProducts($connection) {
 
 function getIndexSlider($connection) {
     $results = array();
-    $sql = "CALL get_slider_index()";
+    $sql = 'CALL get_slider_index()';
     $stmt = $connection->prepare($sql);
     $stmt->execute();
     $stmt->bind_result($stockItemID, $stockItemName, $recommendedRetailPrice, $photo);
@@ -37,7 +37,7 @@ function getIndexSlider($connection) {
 
 function getIndexCategorys($connection) {
     $results = array();
-    $sql = "CALL get_catergorys_index()";
+    $sql = 'CALL get_catergorys_index()';
     $stmt = $connection->prepare($sql);
     $stmt->execute();
     $stmt->bind_result($stockItemName, $photo, $stockGroupName, $stockGroupID);
