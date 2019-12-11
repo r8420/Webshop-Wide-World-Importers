@@ -1,7 +1,7 @@
 <?php
 include "../BackgroundCode/SessionCode.php";
-checkSessionActive();
 include "../Modules/functions.php";
+checkSessionActive();
 print_header();
 include "../BackgroundCode/Bestelgeschiedenis_functionali.php";
 $itemlist = getSqlResults($_GET['orderId'], $_SESSION['userNr'], $connection);
