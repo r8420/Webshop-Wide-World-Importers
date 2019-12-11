@@ -69,7 +69,7 @@ include 'includes/shoppingCartFunctions.inc.php';
                 </tbody>
             </table>
             <div class="my-5">
-                <button class="btn btn-success ml-5 mr-4 float-right" onclick="window.location.href='#'">Bestellen
+                <button class="btn btn-success ml-5 mr-4 float-right" onclick="window.location.href='bestel_tussenpagina.php'">Bestellen
                 </button>
                 <button class="btn btn-primary mr-5 float-right mr-1" onclick="window.location.href='index.php'">Terug
                     naar homepagina
