@@ -13,7 +13,7 @@ include 'Modules/functions.php';
 
 include 'includes/productFunctions.inc.php';
 
-$productId = (checkInt('GET', 'product') ? $_GET['product'] : false);
+$productId = (checkInt('GET', 'id') ? $_GET['id'] : false);
 $amount = (checkInt('POST', 'amount') ? $_POST['amount'] : false);
 $productInfo = getProductInfo($productId);
 $tags = json_decode($productInfo['CustomFields'], true);

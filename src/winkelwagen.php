@@ -40,12 +40,12 @@ include 'includes/shoppingCartFunctions.inc.php';
                     print('
                     <tr id="row' . $productID . '">
                         <td>
-                            <a href="product.php?product=' . $productID . '">
+                            <a href="product.php?id=' . $productID . '">
                             <img src="data:image/jpeg;base64,' . $productPhoto . '" alt="Artikelfoto"
                             </a>
                         </td>
                         <td>
-                            <a href="product.php?product=' . $productID . '">' . $productName . '</a>
+                            <a href="product.php?id=' . $productID . '">' . $productName . '</a>
                         </td>
                         <td>
                             <input min="0" max="' . $numberInStock . '" onchange="sendPostRequest(' . $productID . ', this.value, ' . $productPrice . ')" class="form-control w-60" type="number" value="' . $amount . '">
