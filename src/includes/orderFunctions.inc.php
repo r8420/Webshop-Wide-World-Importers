@@ -14,4 +14,4 @@ function BestelGegevens($CustomerName, $DeliveryAdressLine, $DeliveryCityID, $De
     return $return;
 }
 
-?>
+

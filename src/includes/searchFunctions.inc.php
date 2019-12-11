@@ -140,4 +140,4 @@ function change_url_parameter($parameter, $parameterValue) {
     return $url["path"] . "?" . http_build_query($parameters);
 }
 
-?>
+

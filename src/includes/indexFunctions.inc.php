@@ -50,4 +50,3 @@ function getIndexCategorys($connection) {
     return $results;
 }
 
-?>
