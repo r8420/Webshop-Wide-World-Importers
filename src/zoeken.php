@@ -115,7 +115,7 @@ print_header();
                     if ($category === 0) {
                         print("<h5 class=\"float-left\">$numResults resultaten voor '$search'</h5>");
                     } else {
-                        print("<h5 class=\"float-left\">$numResults resultaten voor '$search' in category $categoryName</h5>");
+                        print("<h5 class=\"float-left\">$numResults producten in categorie $categoryName</h5>");
                     }
                     ?>
                     <script>
