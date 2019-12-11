@@ -8,10 +8,10 @@ header('Cache-Control: no cache');
 session_cache_limiter('private_no_expire');
 
 
-include '../Modules/functions.php';
+include 'Modules/functions.php';
 print_header();
 
-include '../BackgroundCode/product_functions.php';
+include 'includes/productFunctions.inc.php';
 
 $productId = (checkInt('GET', 'product') ? $_GET['product'] : false);
 $amount = (checkInt('POST', 'amount') ? $_POST['amount'] : false);
@@ -20,7 +20,7 @@ $tags = json_decode($productInfo['CustomFields'], true);
 
 // If there's no product id defined, go back to index.php
 if (!$productId) {
-    header('Location: ../');
+    header('Location: ');
     die();
 }
 
@@ -44,7 +44,8 @@ if ($amount) {
     <div class="row">
         <div class="col-md-8">
             <div class="m-5">
-                <img src="data:image/jpeg;base64, <?php echo base64_encode($productInfo['Photo']) ?>" class="w-60"/>
+                <img src="data:image/jpeg;base64, <?php echo base64_encode($productInfo['Photo']) ?>" class="w-60"
+                     alt="Artikel foto"/>
             </div>
             <div class="m5">
                 <h3><strong>Productbeschrijving</strong></h3>

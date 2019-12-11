@@ -9,7 +9,7 @@
 function sendPostRequest(productID, amount, productPrice) {
     if(amount < 0)
         amount = 0;
-    $.post('../BackgroundCode/winkelwagen_backcode.php', {
+    $.post('BackgroundCode/winkelwagen_backcode.php', {
         updateCart: true,
         productID: productID,
         amount: amount
@@ -70,8 +70,8 @@ function updateShoppingCartNumber(SessionArrayJSON) {
  */
 function formatToNumber(text) {
     text = text.replace('€', '');
-    text = text.replace('.', '');
-    text = text.replace(',', '.');
+    text = text.replace(/./g, '');
+    text = text.replace(/,/g, '.');
     return Number(text);
 }
 

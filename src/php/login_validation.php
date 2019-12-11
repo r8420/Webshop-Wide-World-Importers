@@ -2,14 +2,13 @@
 include "../DatabaseFactory.php";
 
 // start connectie database
-$tblName = "people";
 $connection = startDBConnection();
 
 // Haalt POST Request op
 $usernamePassword = checkPOSTRequest();
 
 // Voert SQL query uit
-$returnStatement = returnStatement($connection, $tblName, $usernamePassword);
+$returnStatement = returnStatement($connection, $usernamePassword);
 
 // Start validatie op
 startvalidation($returnStatement, $usernamePassword);
@@ -21,13 +20,12 @@ startvalidation($returnStatement, $usernamePassword);
  * De functie geeft een array terug met de username en password
  * @return array ['username', 'password'] ;
  */
-function checkPOSTRequest()
-{
+function checkPOSTRequest() {
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $email = $_POST['email'];
         $password = $_POST['password'];
     } else {
-        header("Refresh: 0; url=../Pages/login.php");
+        header("Refresh: 0; url=login.php");
         exit();
     }
     return array($email, $password);
@@ -38,14 +36,12 @@ function checkPOSTRequest()
  * via prepared statements is het niet mogelijk om een sql-injectie te doen.
  * @param $connection object voor connectie
  * Dit object is gedefineerdt in DatabaseFactary.php
- * @param $tblName string met de tablename
  * @param $usernamePassword ['username', 'password'] ;
  * Stuurt een array terug met de resultaten van de query
  * @return array ['stmtnumrows', 'id', 'logonName', 'hashedPassword'] ;
  */
-function returnStatement($connection, $tblName, $usernamePassword)
-{
-    $selectSQL = "SELECT PersonID, LogonName, HashedPassword FROM $tblName WHERE LogonName = ?";
+function returnStatement($connection, $usernamePassword) {
+    $selectSQL = "CALL login_validation(?)";
     $stmt = $connection->prepare($selectSQL);
     $stmt->bind_param("s", $usernamePassword[0]);
     $stmt->execute();
@@ -65,8 +61,7 @@ function returnStatement($connection, $tblName, $usernamePassword)
  * @param $stmt ['stmtnumrows', 'id', 'logonName', 'hashedPassword']
  * @param $usernamePassword ['username', 'password']
  */
-function startvalidation($stmt, $usernamePassword)
-{
+function startvalidation($stmt, $usernamePassword) {
     if ($stmt[0] == 0) {
         returnToLogin();
     } else {
@@ -74,10 +69,10 @@ function startvalidation($stmt, $usernamePassword)
             session_start();
             $_SESSION['loggedin'] = TRUE;
             $_SESSION['userNr'] = $stmt[1];
-            header("Refresh: 0; url=../Pages/account_page.php");
+            header("Refresh: 0; url=../account_page.php");
             exit();
         } else {
-         returnToLogin();
+            returnToLogin();
         }
 
     }
@@ -87,11 +82,10 @@ function startvalidation($stmt, $usernamePassword)
  * stuurt de gebruiker terug naar loginpagina
  * met een error code in de url
  */
-function returnToLogin()
-{
+function returnToLogin() {
     session_start();
     $errorCode = "login_error";
-    header("Refresh: 0; url=../Pages/login.php?errorcode=".$errorCode);
+    header("Refresh: 0; url=login.php?errorcode=" . $errorCode);
     exit();
 }
 
