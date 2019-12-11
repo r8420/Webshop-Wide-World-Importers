@@ -1,5 +1,5 @@
 <?php
-include "../DatabaseFactory.php";
+include "DatabaseFactory.php";
 
 // start database connectie
 $connection = startDBConnection();
