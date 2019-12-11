@@ -27,7 +27,7 @@ function sortBy(selectObject, array, offset, numProducts, page) {
     let html = "";
     for (let i = offset; i < numProducts * page; i++) {
         let product = array[i];
-        html += `<li class="list-group-item shadow"><img src="data:image/jpeg;base64, ${product.Photo}" width="100" height="100"><span class="col-8">${product.StockItemName}</span><span class="col-4">${product.RecommendedRetailPrice}</span></li>`;
+        html += `<li class="list-group-item shadow"><img src="data:image/jpeg;base64, ${product.Photo}" width="100" height="100" alt="Artikel foto"><span class="col-8">${product.StockItemName}</span><span class="col-4">${product.RecommendedRetailPrice}</span></li>`;
     }
     list.innerHTML = html;
 }

@@ -154,7 +154,7 @@ $stmt->close();
         <div class="container">
             <div class="row">
                 <div class="col-sm-6 pt-3 pb-4">
-                    <img class="float-left mr-1" src="Images/logo.png" width="40px" height="40px">
+                    <img class="float-left mr-1" src="Images/logo.png" width="40px" height="40px" alt="Logo">
                     <h2>WWI</h2>
                     <p class="pt-2">Wide World Importers is een importeur en groothandel die producten levert aan
                         verschillende warenhuizen en supermarkten in de Verenigde Staten. Ook levert WWI producten door
