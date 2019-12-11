@@ -13,6 +13,7 @@ if(!function_exists('startDBConnection')) {
 //Een manier om de session aan te passen via de jQuery post
 if(isset($_POST['updateCart'])) {
     updateCart($_POST['productID'], $_POST['amount']);
+    print(json_encode($_SESSION['shoppingCart']));
 }
 
 /***
