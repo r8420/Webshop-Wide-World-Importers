@@ -4,23 +4,21 @@
  * @return false|mysqli|string
  */
 
-function startDBConnection(){
+function startDBConnection() {
     $connectionObject = new DatabaseFactory();
-    $connection = $connectionObject->getConnection();
-    return $connection;
+    return $connectionObject->getConnection();
 }
 
 /**
  * Class DatabaseFactory
- * Object met dataBaseconnectie
+ * Object met database connectie
  */
-class DatabaseFactory
-{
+class DatabaseFactory {
 
-    private $host = "wwiproject.ml";
-    private $databasename = "u6221p23137_wwi";
-    private $user = "u6221p23137_application";
-    private $dbpassword = "Z5woRgmfe";
+    private $host = 'wwiproject.ml';
+    private $databaseName = 'u6221p23137_wwi';
+    private $user = 'u6221p23137_application';
+    private $databasePassword = 'Z5woRgmfe';
     private $port = 3306;
 
     /**
@@ -28,16 +26,13 @@ class DatabaseFactory
      * indien het mis gaat is er een error handeling
      * @return false|mysqli|string
      */
-    public function getConnection()
-    {
+    public function getConnection() {
         try {
-            $connection = mysqli_connect($this->host, $this->user, $this->dbpassword, $this->databasename, $this->port);
-            return $connection;
+            return mysqli_connect($this->host, $this->user, $this->databasePassword, $this->databaseName, $this->port);
         } catch (mysqli_sql_exception $exception) {
             print $exception;
-            return "Error";
+            return 'Error';
         }
     }
 }
 
-?>

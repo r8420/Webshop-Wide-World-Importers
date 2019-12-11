@@ -1,5 +1,5 @@
 <?php
-include "Modules/functions.php";
+include 'Modules/functions.php';
 print_header();
 ?>
 <!-- Begin page content -->
@@ -8,7 +8,7 @@ print_header();
         <h1>Login</h1>
     </div>
     <?php
-    if (isset($_GET['errorcode']) && $_GET['errorcode'] == "login_error") {
+    if (isset($_GET['errorcode']) && $_GET['errorcode'] === 'login_error') {
         ?>
         <div class="text-danger text-center pb-3">
             Gebruikersnaam of wachtwoord is verkeerd ingegeven.
@@ -16,7 +16,7 @@ print_header();
         <?php
     }
     ?>
-    <form action="BackgroundCode/login_validation.php" method="POST">
+    <form action="php/login_validation.php" method="POST">
         <div class="input-group  mb-3">
             <div class="input-group-prepend">
                 <div class="input-group-text"><i class="fas fa-user"></i></div>
@@ -31,7 +31,7 @@ print_header();
         </div>
 
         <div class=" row justify-content-center">
-            <button type="submit" id="inlogbutton" class="btn btn-success pl-4 px-4 mb-3">Inloggen</button>
+            <button type="submit" id="inlogButton" class="btn btn-success pl-4 px-4 mb-3">Inloggen</button>
         </div>
     </form>
     <p class="text-center">

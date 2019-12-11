@@ -1,7 +1,6 @@
 <?php
 
-function getSqlResults($orderIDget, $userNr, $connection)
-{
+function getSqlResults($orderIDget, $userNr, $connection) {
     $results = array();
     $query = mysqli_prepare($connection, "CALL order_history(?,?)");
     $query->bind_param("ii", $orderIDget, $userNr);
