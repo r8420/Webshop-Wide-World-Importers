@@ -40,12 +40,12 @@ include 'includes/shoppingCartFunctions.inc.php';
                     print('
                     <tr id="row' . $productID . '">
                         <td>
-                            <a href="product_pagina.php?product=' . $productID . '">
+                            <a href="product.php?product=' . $productID . '">
                             <img src="data:image/jpeg;base64,' . $productPhoto . '" alt="Artikelfoto"
                             </a>
                         </td>
                         <td>
-                            <a href="product_pagina.php?product=' . $productID . '">' . $productName . '</a>
+                            <a href="product.php?product=' . $productID . '">' . $productName . '</a>
                         </td>
                         <td>
                             <input min="0" max="' . $numberInStock . '" onchange="sendPostRequest(' . $productID . ', this.value, ' . $productPrice . ')" class="form-control w-60" type="number" value="' . $amount . '">
@@ -135,7 +135,7 @@ include 'includes/shoppingCartFunctions.inc.php';
     <!--        <div class="row mt-5 mb-5">-->
     <!--            <div class="col-8"></div>-->
     <!--            <div class="col-2 ">-->
-    <!--                <a href="zoekpagina.php"><button class="mb-2 btn-primary pt-1 pb-1 pl-2 px-2 rounded"><strong>Door winkelen</strong></button></a>-->
+    <!--                <a href="zoeken.php"><button class="mb-2 btn-primary pt-1 pb-1 pl-2 px-2 rounded"><strong>Door winkelen</strong></button></a>-->
     <!--            </div>-->
     <!--            <div class="col-2 ">-->
     <!--                <a href="bestel.php"><button class="mb-2 btn-primary pt-1 pb-1 pl-2 px-2 rounded"><strong>Afrekenen</strong></button></a>-->
