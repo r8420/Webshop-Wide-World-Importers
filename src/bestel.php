@@ -1,7 +1,7 @@
 <?php
-include "../Modules/functions.php";
+include "Modules/functions.php";
 print_header();
-include "../BackgroundCode/bestel_functionali.php";
+include "BackgroundCode/bestel_functionali.php";
 
 if ($_POST['inlogbutton']) {
     BestelGegevens($_POST['InputNaam'], $_POST['InputStraatenhuisnummer'], $_POST['InutPlaats'], $_POST['InputPostcode'], $_POST['InputTelefoonnummer'], $connection);
@@ -50,10 +50,10 @@ if ($_POST['inlogbutton']) {
                 </div>
             </form>
             <div class="float-right">
-                <a href="<?php echo $prefix; ?>Pages/registreren.php">
+                <a href="<?php echo $prefix; ?>registreren.php">
                     <button name="inlogbutton" id="inlogbutton" class="btn btn-success">Account aanmaken</button>
                 </a>
-                <a href="<?php echo $prefix; ?>Pages/succes.php">
+                <a href="<?php echo $prefix; ?>succes.php">
                     <button name="inlogbutton" id="inlogbutton" class="btn btn-success">Naar betalen</button>
                 </a>
             </div>

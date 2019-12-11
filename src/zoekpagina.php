@@ -1,7 +1,7 @@
 <?php
-include "../Modules/functions.php";
+include "Modules/functions.php";
 print_header();
-include "../BackgroundCode/zoekfunctie_backcode.php";
+include "BackgroundCode/zoekfunctie_backcode.php";
 
 if (isset($_POST['id']) && filter_var($_POST['id'], FILTER_VALIDATE_INT)) {
     $cartProductID = $_POST['id'];
