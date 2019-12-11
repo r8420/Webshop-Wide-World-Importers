@@ -1,5 +1,12 @@
 <?php
 include "../Modules/functions.php";
+print_header();
+include "../BackgroundCode/bestel_functionali.php";
+
+
+
+
+
 ?>
 <!-- Begin page content -->
 <div class="container mb-5">
@@ -48,4 +55,7 @@ include "../Modules/functions.php";
         </div>
     </div>
 </div>
+<?php
+print_footer();
+?>
 
