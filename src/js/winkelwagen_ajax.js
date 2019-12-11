@@ -41,7 +41,7 @@ function updatePrices(productID, amount, productPrice) {
     let currentTotalPrice = previousTotalPrice - difference;
 
     document.getElementById(`productPrice${productID}`).innerText = `€${formatToString(amount * productPrice)}`;
-    if (amount == 0) {
+    if (amount <= 0) {
         document.getElementById(`row${productID}`).remove();
     }
     document.getElementById(`totalPrice`).innerText = `€${formatToString(currentTotalPrice)}`;
