@@ -1,7 +1,6 @@
 <?php
 
-function BestelGegevens($CustomerName,$DeliveryAdressLine, $DeliveryCityID, $DeliveryPostalCode, $Phonenumber, $connection)
-{
+function BestelGegevens($CustomerName, $DeliveryAdressLine, $DeliveryCityID, $DeliveryPostalCode, $Phonenumber, $connection) {
     $return = false;
     try {
         $query = mysqli_prepare($connection, "insert into customers (CustomerName, DeliveryCityID, PhoneNumber, DeliveryAdressLine1, DeliveryPostalCode) values (?,?,?,?,?)");

@@ -1,31 +1,31 @@
 <?php
-include "Modules/functions.php";
+include 'Modules/functions.php';
 print_header();
 
-//stuurt mail mits ingevuld en beveiligd door strip_tagz.
-if (isset($_POST['naam']) && isset($_POST['bericht']) && isset($_POST['email'])) {
+//stuurt mail mits ingevuld en beveiligd door strip_tags.
+if (isset($_POST['naam'], $_POST['bericht'], $_POST['email'])) {
 
     $name = strip_tags($_POST['naam']);
     $message = strip_tags($_POST['bericht']);
     $message = nl2br($message);
     $email = strip_tags($_POST['email']);
     $ordernummer = strip_tags($_POST['ordernummer']);
-    $finalmessage = 'Een nieuw bericht ontvangen van ' . $name . ' (' . $email . ')<br>';
+    $finalMessage = 'Een nieuw bericht ontvangen van ' . $name . ' (' . $email . ')<br>';
     if (isset($ordernummer) && !empty($ordernummer)) {
-        $finalmessage .= '<b>Ordernummer:</b> ' . $ordernummer . '<br>';
+        $finalMessage .= '<b>Ordernummer:</b> ' . $ordernummer . '<br>';
     }
-    $finalmessage .= '<b>Bericht:</b><br>';
-    $finalmessage .= $message;
+    $finalMessage .= '<b>Bericht:</b><br>';
+    $finalMessage .= $message;
     if (!empty($name) && !empty($message) && !empty($email)) {
         // Always set content-type when sending HTML email
-        $headers = "MIME-Version: 1.0" . "\r\n";
-        $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
+        $headers = 'MIME-Version: 1.0' . "\r\n";
+        $headers .= 'Content-type:text/html;charset=UTF-8' . "\r\n";
 
         // More headers
         $headers .= 'From: Wide World Importers <admin@wwiproject.ml>' . "\r\n";
         $headers .= 'Reply-To: ' . $email . "\r\n";
 
-        if (mail('admin@wwiproject.ml', 'Nieuw contact form bericht van ' . $name, $finalmessage, $headers)) {
+        if (mail('admin@wwiproject.ml', 'Nieuw contact form bericht van ' . $name, $finalMessage, $headers)) {
             echo "<script>alert('Uw bericht is verzonden')</script>";
         }
 
@@ -48,25 +48,33 @@ if (isset($_POST['naam']) && isset($_POST['bericht']) && isset($_POST['email']))
                         class="text-info">telefonische klantenservice.</em>
             </p>
             <h2>Contactgegevens</h2>
-            <div class="container"><em><p>
-                        WWI<br>
-                        Herengracht 450<br>
-                        Amsterdam<br>
-                        Noord-Holland<br>
-                        1017 CA<br>
-                        +31 9404393940<br>
-                        admin@wwiproject.ml</em></p>
+            <div class="container"><em>
+                    WWI<br>
+                    Herengracht 450<br>
+                    Amsterdam<br>
+                    Noord-Holland<br>
+                    1017 CA<br>
+                    +31 9404393940<br>
+                    admin@wwiproject.ml</em>
             </div>
         </div>
         <div class="col mt-1">
-            <img src="Images/Map.jpg">
+            <img src="Images/Map.jpg" alt="Kaart">
             <div class="w-60 float-center mt-2">
                 <form method="post">
-                    Naam*: <input class="form-control float-right" type="text" name="naam" required><br><br>
-                    Ordernummer: <input class="form-control float-right" type="text" name="ordernummer"><br><br>
-                    E-mailadres*: <input class="form-control float-right" type="email" name="email" required><br>
-                    Bericht*:<br> <textarea name="bericht" class="form-control" rows="7" cols="60"
-                                            required></textarea><br>
+                    <label class="d-block">Naam*:
+                        <input class="form-control float-right" type="text" name="naam" required>
+                    </label><br><br>
+                    <label class="d-block">Ordernummer:
+                        <input class="form-control float-right" type="text" name="ordernummer">
+                    </label><br><br>
+                    <label class="d-block">E-mailadres*:
+                        <input class="form-control float-right" type="email" name="email" required>
+                    </label><br>
+                    <br> <label class="d-block">Bericht*:
+                        <textarea name="bericht" class="form-control" rows="7" cols="60"
+                                  required></textarea>
+                    </label><br>
                     <div class="row justify-content-center"><input type="submit" class="btn btn-success pl-4 px-4"
                                                                    value="Verzenden"></div>
                 </form>
