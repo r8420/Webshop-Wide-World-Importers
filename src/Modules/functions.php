@@ -1,12 +1,13 @@
 <?php
 session_start();
-function print_header($var = false)
-{
-
-global $connection;
-
 include 'php/DatabaseFactory.php';
 $connection = startDBConnection();
+
+function print_header()
+{
+global $connection;
+
+
 
 $stmt = $connection->prepare("CALL get_stock_groups()");
 $stmt->execute();

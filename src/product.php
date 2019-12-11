@@ -9,7 +9,7 @@ session_cache_limiter('private_no_expire');
 
 
 include 'Modules/functions.php';
-print_header();
+
 
 include 'includes/productFunctions.inc.php';
 
@@ -28,7 +28,7 @@ if (!$productId) {
 if ($amount) {
     addToCart($productId, $amount);
 }
-
+print_header();
 ?>
 <div class="container">
     <?php if ($amount) {

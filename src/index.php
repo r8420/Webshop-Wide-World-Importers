@@ -1,6 +1,6 @@
 <?php
 include "Modules/functions.php";
-print_header("index");
+print_header();
 include "includes/indexFunctions.inc.php";
 
 
