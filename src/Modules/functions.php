@@ -146,7 +146,7 @@ $stmt->close();
             return $returnValue;
         }
 
-        function print_footer($var = false)
+        function print_footer()
         {
         ?>
     </div>

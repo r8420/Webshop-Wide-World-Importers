@@ -126,7 +126,7 @@ $categorieProducts = getIndexCategorys($connection);
 </div>
 
 <?php
-print_footer('index');
+print_footer();
 ?>
 
 
