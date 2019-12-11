@@ -1,6 +1,6 @@
 <?php
 
-if(session_status() == PHP_SESSION_NONE) {
+if(session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
@@ -23,13 +23,28 @@ if(isset($_POST['updateCart'])) {
 function getProductInformation($productID) {
     global $connection;
 
-    $stmt = $connection->prepare("CALL get_product_information(?)");
+    $stmt = $connection->prepare('CALL get_product_information(?)');
     $stmt->bind_param('i', $productID);
     $stmt->execute();
     $result = $stmt->get_result();
 
-    $resultArray = $result->fetch_assoc();
-    return $resultArray;
+    return $result->fetch_assoc();
+}
+
+/***
+ * Krijg het hoeveelheid die in het magazijn zit.
+ * @param $productID INT Het productID om mee te kijken
+ * @return array
+ */
+function getProductStock($productID) {
+    global $connection;
+
+    $stmt = $connection->prepare('CALL get_product_stock(?)');
+    $stmt->bind_param('i', $productID);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $stmt->close();
+    return $result->fetch_assoc()['QuantityOnHand'];
 }
 
 /***
@@ -37,7 +52,7 @@ function getProductInformation($productID) {
  * @param int $amount De hoeveelheid
  */
 function updateCart($productID, $amount) {
-    if($amount == 0) {
+    if($amount <= 0) {
         unset($_SESSION['shoppingCart'][$productID]);
     } else {
         $_SESSION['shoppingCart'][$productID] = $amount;

@@ -51,8 +51,8 @@ function updatePrices(productID, amount, productPrice) {
  */
 function formatToNumber(text) {
     text = text.replace('€', '');
-    text = text.replace('.', '');
-    text = text.replace(',', '.');
+    text = text.replace(/./g, '');
+    text = text.replace(/,/g, '.');
     return Number(text);
 }
 
