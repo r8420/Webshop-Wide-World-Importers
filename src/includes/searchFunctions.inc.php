@@ -123,7 +123,7 @@ function getIfExists($param, $default) {
  * @param string|int $valueToCheck The value you want to check
  */
 function setSelected($param, $valueToCheck) {
-    if (getIfExists($param, '') === $valueToCheck) {
+    if (getIfExists($param, '') == $valueToCheck) {
         print('selected');
     }
 }
