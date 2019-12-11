@@ -90,7 +90,7 @@ $stmt->close();
                     </form>
                 </div>
                 <div class="my-2 my-lg-0 d-none d-lg-block ">
-                    <div class="fas dropdown fa-user text-white ml-5 mr-4" id="navbarDropdown1" href="#" role="button"
+                    <div class="fas dropdown fa-user text-white ml-5 mr-4" id="navbarDropdown1" role="button"
                          data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown1">
                             <?php if (isset($_SESSION['loggedin']) == FALSE || $_SESSION["loggedin"] == FALSE) { ?>
