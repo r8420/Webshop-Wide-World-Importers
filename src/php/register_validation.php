@@ -21,7 +21,7 @@ insertionOnPeopleTable($connection, $valid_login, $userRegistration);
  * @return array ['email', 'email_validation', 'name', 'tel', 'password', 'password_validation'] ;
  */
 function checkPOSTRequest() {
-    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $email = $_POST['email'];
         $email_validation = $_POST['email_validation'];
         $name = $_POST['name'];
@@ -43,7 +43,7 @@ function checkPOSTRequest() {
  * @return array met de numrows en loginnaam
  */
 function emailValidation($connection, $userRegistration) {
-    if ($userRegistration[0] == $userRegistration[1]) {
+    if ($userRegistration[0] === $userRegistration[1]) {
         $selectquery = 'CALL email_validation(?)';
         $stmtselect = $connection->prepare($selectquery);
         $stmtselect->bind_param('s', $userRegistration[0]);
@@ -67,8 +67,8 @@ function emailValidation($connection, $userRegistration) {
  */
 function insertionOnPeopleTable($connection, $emailValidation, $userRegistration) {
 
-    if ($emailValidation[0] == 0) {
-        if ($userRegistration[4] == $userRegistration[5]) {
+    if ($emailValidation[0] === 0) {
+        if ($userRegistration[4] === $userRegistration[5]) {
 
             /**
              * Encrypt het wachtwoord met PASSWORD_DEFAULT
@@ -101,11 +101,11 @@ function insertionOnPeopleTable($connection, $emailValidation, $userRegistration
 function returnToRegister($errorNumber) {
     session_start();
     $errorCode = '';
-    if ($errorNumber == 1) {
+    if ($errorNumber === 1) {
         $errorCode = 'register_exist_email_error';
-    } elseif ($errorNumber == 2) {
+    } elseif ($errorNumber === 2) {
         $errorCode = 'register_different_password_error';
-    } elseif ($errorNumber == 3) {
+    } elseif ($errorNumber === 3) {
         $errorCode = 'register_different_email_error';
     }
 
