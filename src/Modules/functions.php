@@ -5,7 +5,7 @@ function print_header($var = false)
 
 global $connection;
 
-include "DatabaseFactory.php";
+include 'php/DatabaseFactory.php';
 $connection = startDBConnection();
 
 $stmt = $connection->prepare("CALL get_stock_groups()");
