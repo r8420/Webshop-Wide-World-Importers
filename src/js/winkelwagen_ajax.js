@@ -41,7 +41,7 @@ function updatePrices(productID, amount, productPrice) {
     let currentTotalPrice = previousTotalPrice - difference;
 
     document.getElementById(`productPrice${productID}`).innerText = `€${formatToString(amount * productPrice)}`;
-    if (amount == 0) {
+    if (amount <= 0) {
         document.getElementById(`row${productID}`).remove();
     }
     document.getElementById(`totalPrice`).innerText = `€${formatToString(currentTotalPrice)}`;
@@ -78,7 +78,7 @@ function formatToNumber(text) {
 /**
  * Deze functie zet het gegeven getal over naar Nederlandse getal-notatie.
  * @param number Het getal om om te zetten
- * @returns {String} De tekst met het geformateerde getal
+ * @returns {String} De tekst met het geformatteerde getal
  */
 function formatToString(number) {
     return new Intl.NumberFormat('nl-NL', {minimumFractionDigits: 2}).format(number);

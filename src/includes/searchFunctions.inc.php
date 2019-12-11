@@ -14,18 +14,18 @@ function getSearchResults($search, $category, $orderBy, $page, $itemsPerPage) {
     $orderSQL = getOrderBy($orderBy);
     $offset = ($page - 1) * $itemsPerPage;
 
-    if ($category == null || $category == 0) {
-        $stmt = $connection->prepare("CALL get_stockitem_results(?,?,?,?)");
-        if ($stmt == FALSE) {
-            return array(array("StockItemID" => "1", "StockItemName" => "We're sorry, something went wrong", "UnitPrice" => "0,00", "Photo" => ""));
+    if ($category === null || $category === 0) {
+        $stmt = $connection->prepare('CALL get_stockitem_results(?,?,?,?)');
+        if ($stmt === FALSE) {
+            return array(array('StockItemID' => '1', 'StockItemName' => "We're sorry, something went wrong", 'UnitPrice' => '0,00', 'Photo' => ''));
         }
-        $stmt->bind_param("siii", $search, $orderSQL, $offset, $itemsPerPage);
+        $stmt->bind_param('siii', $search, $orderSQL, $offset, $itemsPerPage);
     } else {
-        $stmt = $connection->prepare("CALL get_stockitem_results_category(?,?,?,?,?)");
-        if ($stmt == FALSE) {
-            return array(array("StockItemID" => "1", "StockItemName" => "We're sorry, something went wrong", "UnitPrice" => "0,00", "Photo" => ""));
+        $stmt = $connection->prepare('CALL get_stockitem_results_category(?,?,?,?,?)');
+        if ($stmt === FALSE) {
+            return array(array('StockItemID' => '1', 'StockItemName' => "We're sorry, something went wrong", 'UnitPrice' => '0,00', 'Photo' => ''));
         }
-        $stmt->bind_param("siiii", $search, $category, $orderSQL, $offset, $itemsPerPage);
+        $stmt->bind_param('siiii', $search, $category, $orderSQL, $offset, $itemsPerPage);
     }
 
     $stmt->execute();
@@ -45,11 +45,12 @@ function getSearchResults($search, $category, $orderBy, $page, $itemsPerPage) {
  * @return string
  */
 function getCategoryName($category) {
-    if ($category == 0)
+    if ($category === 0) {
         return '';
+    }
     global $connection;
-    $stmt = $connection->prepare("CALL get_stock_group(?)");
-    $stmt->bind_param("i", $category);
+    $stmt = $connection->prepare('CALL get_stock_group(?)');
+    $stmt->bind_param('i', $category);
     $stmt->execute();
     $result = $stmt->get_result()->fetch_array()[0];
     $stmt->close();
@@ -63,7 +64,7 @@ function getCategoryName($category) {
  */
 function getOrderBy($orderBy) {
     //Order by code
-    $orderSQL = "ORDER BY StockItemName";
+    $orderSQL = 'ORDER BY StockItemName';
     switch ($orderBy) {
         case 'nameAZ':
             $orderSQL = 1;
@@ -89,12 +90,12 @@ function getOrderBy($orderBy) {
  */
 function getNumberResults($search, $category) {
     global $connection;
-    if ($category == null || $category == 0) {
-        $stmt = $connection->prepare("CALL get_number_results(?)");
-        $stmt->bind_param("s", $search);
+    if ($category === null || $category === 0) {
+        $stmt = $connection->prepare('CALL get_number_results(?)');
+        $stmt->bind_param('s', $search);
     } else {
-        $stmt = $connection->prepare("CALL get_number_results_category(?,?)");
-        $stmt->bind_param("si", $search, $category);
+        $stmt = $connection->prepare('CALL get_number_results_category(?,?)');
+        $stmt->bind_param('si', $search, $category);
     }
     $stmt->execute();
     $result = $stmt->get_result()->fetch_array()[0];
@@ -110,8 +111,9 @@ function getNumberResults($search, $category) {
  */
 function getIfExists($param, $default) {
     $returnValue = ISSET($_GET[$param]) ? htmlspecialchars(strip_tags($_GET[$param])) : $default;
-    if (gettype($default) == "integer" && ($returnValue < 1 || preg_match_all("/\D+/", $returnValue)))
+    if (is_int($default) && ($returnValue < 1 || preg_match("/\D+/", $returnValue))) {
         $returnValue = $default;
+    }
     return $returnValue;
 }
 
@@ -122,7 +124,7 @@ function getIfExists($param, $default) {
  */
 function setSelected($param, $valueToCheck) {
     if (getIfExists($param, '') == $valueToCheck) {
-        print("selected");
+        print('selected');
     }
 }
 
@@ -134,10 +136,10 @@ function setSelected($param, $valueToCheck) {
  */
 function change_url_parameter($parameter, $parameterValue) {
     $url = parse_url($_SERVER['REQUEST_URI']);
-    parse_str($url["query"], $parameters);
+    parse_str($url['query'], $parameters);
     unset($parameters[$parameter]);
     $parameters[$parameter] = $parameterValue;
-    return $url["path"] . "?" . http_build_query($parameters);
+    return $url['path'] . '?' . http_build_query($parameters);
 }
 
-?>
+

@@ -3,8 +3,8 @@
 function BestelGegevens($CustomerName, $DeliveryAdressLine, $DeliveryCityID, $DeliveryPostalCode, $Phonenumber, $connection) {
     $return = false;
     try {
-        $query = mysqli_prepare($connection, "insert into customers (CustomerName, DeliveryCityID, PhoneNumber, DeliveryAdressLine1, DeliveryPostalCode) values (?,?,?,?,?)");
-        $query->bind_param("sisss", $CustomerName, $DeliveryCityID, $Phonenumber, $DeliveryAdressLine, $DeliveryPostalCode);
+        $query = mysqli_prepare($connection, 'insert into customers (CustomerName, DeliveryCityID, PhoneNumber, DeliveryAdressLine1, DeliveryPostalCode) values (?,?,?,?,?)');
+        $query->bind_param('sisss', $CustomerName, $DeliveryCityID, $Phonenumber, $DeliveryAdressLine, $DeliveryPostalCode);
         $query->execute();
         $return = true;
 
@@ -14,4 +14,4 @@ function BestelGegevens($CustomerName, $DeliveryAdressLine, $DeliveryCityID, $De
     return $return;
 }
 
-?>
+
