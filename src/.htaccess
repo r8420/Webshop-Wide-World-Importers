@@ -1,6 +1,22 @@
 Options +Indexes
 IndexOptions FancyIndexing FoldersFirst NameWidth=* DescriptionWidth=*
+
 <IfModule mod_speling.c>
   CheckCaseOnly On
   CheckSpelling On
 </IfModule>
+
+
+# Automaticly redirect from .php
+RewriteCond %{REQUEST_FILENAME}.php -f
+RewriteRule ^(.*?)/?$ $1.php [NC,L]
+
+# Run Php without filename extension
+RewriteEngine on
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME}.php -f
+RewriteRule ^(.*)$ $1.php
+
+# Return 404 if original request is .php
+RewriteCond %{THE_REQUEST} "^[^ ]* .*?\.php[? ].*$"
+RewriteRule .* - [L,R=404]
