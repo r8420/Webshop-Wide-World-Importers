@@ -64,17 +64,14 @@ function returnStatement($connection, $usernamePassword) {
 function startvalidation($stmt, $usernamePassword) {
     if ($stmt[0] == 0) {
         returnToLogin();
-    } else {
-        if (password_verify($usernamePassword[1], $stmt[3])) {
-            session_start();
-            $_SESSION['loggedin'] = TRUE;
-            $_SESSION['userNr'] = $stmt[1];
+    } else if (password_verify($usernamePassword[1], $stmt[3])) {
+        session_start();
+        $_SESSION['loggedin'] = TRUE;
+        $_SESSION['userNr'] = $stmt[1];
         header('Refresh: 0; url=../account.php');
-            exit();
-        } else {
-            returnToLogin();
-        }
-
+        exit();
+    } else {
+        returnToLogin();
     }
 }
 
