@@ -1,7 +1,7 @@
 <?php
-include "../Modules/functions.php";
+include "Modules/functions.php";
 print_header();
-include "../BackgroundCode/bestel_functionali.php";
+include "BackgroundCode/bestel_functionali.php";
 
 if ($_POST['inlogbutton']) {
     BestelGegevens($_POST['InputNaam'], $_POST['InputStraatenhuisnummer'], $_POST['InutPlaats'], $_POST['InputPostcode'], $_POST['InputTelefoonnummer'], $connection);

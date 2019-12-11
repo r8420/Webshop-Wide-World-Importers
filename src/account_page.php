@@ -1,9 +1,9 @@
 <?php
-include "../Modules/functions.php";
-include "../BackgroundCode/SessionCode.php";
+include "Modules/functions.php";
+include "BackgroundCode/SessionCode.php";
 checkSessionActive();
 print_header();
-include "../BackgroundCode/account_background.php";
+include "BackgroundCode/account_background.php";
 $userID = $_SESSION['userNr'];
 $currentUser = getUser($userID, $connection);
 $currentUserAddress = getUserAddress($userID, $connection);

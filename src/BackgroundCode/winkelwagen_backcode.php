@@ -6,7 +6,7 @@ if(session_status() === PHP_SESSION_NONE) {
 
 if(!function_exists('startDBConnection')) {
     global $connection;
-    include '../DatabaseFactory.php';
+    include 'DatabaseFactory.php';
     $connection = startDBConnection();
 }
 

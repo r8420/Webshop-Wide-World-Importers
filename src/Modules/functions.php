@@ -147,7 +147,7 @@ $stmt->close();
 
         function print_footer($var = false)
         {
-        $prefix = "../";
+        $prefix = "";
         if ($var === "index") {
             $prefix = "";
         }

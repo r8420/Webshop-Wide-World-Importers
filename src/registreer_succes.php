@@ -1,5 +1,5 @@
 <?php
-include "../Modules/functions.php";
+include "Modules/functions.php";
 print_header();
 ?>
 <!-- Begin page content -->
