@@ -33,6 +33,7 @@ print_header();
         <div class=" row justify-content-center">
             <button type="submit" id="inlogButton" class="btn btn-success pl-4 px-4 mb-3">Inloggen</button>
         </div>
+        <input type="hidden" name="redirect" value="account">
     </form>
     <p class="text-center">
         Nog geen account?<br>

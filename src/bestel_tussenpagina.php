@@ -31,6 +31,7 @@ include 'includes/orderFunctions.inc.php';
                 <div class="row float-right mr-1">
                     <button type="submit" id="inlogbutton" class="btn btn-success pl-4 px-4 mb-3">Inloggen</button>
                 </div>
+                <input type="hidden" name="redirect" value="order">
             </form>
         </div>
 
