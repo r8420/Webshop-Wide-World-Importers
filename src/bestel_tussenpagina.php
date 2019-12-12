@@ -8,8 +8,8 @@ include 'includes/orderFunctions.inc.php';
 <!-- Begin page content -->
 <div class="container mb-5">
     <div class="row mt-5">
-        <div class="col-2"></div>
-        <div class="col-4 border-right">
+        <div class="col-md-2"></div>
+        <div class="col-md-4 border-right">
             <div class="mb-5">
                 <h1>Bestellen<br><br></h1>
                 <h4>Bestaande Klant</h4>
@@ -28,28 +28,27 @@ include 'includes/orderFunctions.inc.php';
                     <input type="password" class="form-control rounded" placeholder="Wachtwoord" name="password"
                            required>
                 </div>
-                <div class="row float-right mr-1">
-                    <button type="submit" id="inlogbutton" class="btn btn-success pl-4 px-4 mb-3">Inloggen</button>
-                </div>
                 <input type="hidden" name="redirect" value="order">
+        </div>
+    </div>
+    <div class="row mt-3">
+        <div class="col-md-2 "></div>
+        <div class="col-sm-12 col-md-4">
+            <div class="mx-auto text-center">
+                <button type="submit" id="inlogbutton" class="btn btn-success pl-4 px-4 mb-3">Inloggen</button>
+            </div>
             </form>
         </div>
-
-        <div class="col-6">
-            <div class="row mb-5 justify-content-between"></div>
-            <div class="row mb-5 justify-content-between"></div>
-            <div class="row mb-5 justify-content-between"></div>
-            <div class="row mb-5 justify-content-between"></div>
-            <div class="row mb-5 justify-content-between"></div>
-            <div class="row mb-5 justify-content-between"></div>
-            <div class="row ml-1">
-
+        <div class="col-sm-12 col-md-4 ">
+            <div class="mx-auto text-center">
                 <a href="bestel.php">
-                    <button name="inlogbutton" id="inlogbutton" class="btn btn-success">Doorgaan als gast</button>
+                    <button name="inlogbutton" id="inlogbutton" class="btn btn-primary">Doorgaan als gast</button>
                 </a>
             </div>
         </div>
+        <div class="col-md-2"></div>
     </div>
+
 </div>
 <?php
 print_footer();
