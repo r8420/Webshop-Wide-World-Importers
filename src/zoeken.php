@@ -107,7 +107,7 @@ print_header();
             </div>
         </form>
         -->
-        <div class="col-11 pl-0">
+        <div class="col-12 pl-0">
             <div class="card bg-dark text-white">
                 <div class="card-body">
                     <?php
