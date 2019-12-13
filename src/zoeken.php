@@ -204,7 +204,7 @@ print_header();
                                     continue;
                                 }
                                 $currentPageHighlight = '';
-                                if ($page === $i) {
+                                if ($page == $i) {
                                     $currentPageHighlight = " bg-dark text-white";
                                 }
                                 print('<li class="page-item"><a class="page-link' . $currentPageHighlight . '" href="' . change_url_parameter('page', $i) . '">' . $i . '</a></li>');
