@@ -6,9 +6,13 @@ if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
+
 $connection = startDBConnection();
 
 $orderNAWrecords = checkPOSTRequest();
+
+$customerDetails = updateCustomerRecords($connection, $orderNAWrecords, 1);
+
 
 
 /**
@@ -20,6 +24,9 @@ $orderNAWrecords = checkPOSTRequest();
 function checkPOSTRequest()
 {
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        $name = $_POST['InputNaam'];
+        $tel = $_POST['InputTelefoonnummer'];
+        $email = $_POST['InputEmailadres'];
         $streetNumber = $_POST['InputStraatEnHuisnummer'];
         $postcode = $_POST['InputPostcode'];
         $city = $_POST['InputPlaats'];
@@ -27,7 +34,7 @@ function checkPOSTRequest()
         header('Refresh: 0; url=../bestel.php');
         exit();
     }
-    return array($streetNumber, $postcode, $city);
+    return array($streetNumber, $postcode, $city,  $name, $tel, $email);
 }
 
 
