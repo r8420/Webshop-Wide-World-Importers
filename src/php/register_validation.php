@@ -10,8 +10,11 @@ $userRegistration = checkPOSTRequest();
 // voert emailvalidatie uit en een select query uit op de database
 $valid_login = emailValidation($connection, $userRegistration);
 
+// Voert wachtwoordvalidatie op het wachtwoord aan de hand van de eisen
+$valid_password = passwordValidation($userRegistration);
+
 // insert account on people table
-insertionOnPeopleTable($connection, $valid_login, $userRegistration);
+insertionOnPeopleTable($connection, $valid_login, $valid_password, $userRegistration);
 
 
 /**
@@ -36,7 +39,7 @@ function checkPOSTRequest() {
 }
 
 /**
- * controleert of de email  met elkaar overeenkomen
+ * controleert of de email  met elkaar overeenkomen, en of de email valide is
  * voert met dat gegeven een query uit op de database
  * @param $connection object voor connectie
  * @param $userRegistration
@@ -52,6 +55,10 @@ function emailValidation($connection, $userRegistration) {
         $stmtselect->store_result();
         $stmtselect->fetch();
         $numRows = $stmtselect->num_rows;
+
+        if(!filter_var($userRegistration[0], FILTER_VALIDATE_EMAIL)) {
+            returnToRegister(4);
+        }
     } else {
         returnToRegister(3);
     }
@@ -59,16 +66,34 @@ function emailValidation($connection, $userRegistration) {
 }
 
 /**
+ * Controleert of de wachtwoorden met elkaar overeen komen, en of het wachtwoord de minimum waarden volgt
+ * @param $userValidation
+ * @return bool
+ */
+function passwordValidation($userValidation) {
+    if($userValidation[4] !== $userValidation [5]) {
+        returnToRegister(2);
+    }
+    if(!filter_var($userValidation[4], FILTER_VALIDATE_REGEXP, array("options"=>array("regexp"=>"/(?=.*\d.*\d.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}/")))) {
+        returnToRegister(5);
+    }
+    return True;
+
+}
+
+
+/**
  * In deze functie word het account in de database gestopt indien de twee ingegeven wachtwoorden overeenkomen
  * Het wachtwoord wordt vervolgens encrypt voordat er een sql prepared query word uitgevoerd op de database
  * @param $connection object voor connectie
  * @param $emailValidation
+ * @param $passwordValidation
  * @param $userRegistration
  */
-function insertionOnPeopleTable($connection, $emailValidation, $userRegistration) {
+function insertionOnPeopleTable($connection, $emailValidation, $passwordValidation, $userRegistration) {
 
     if ($emailValidation[0] === 0) {
-        if ($userRegistration[4] === $userRegistration[5]) {
+        if ($passwordValidation) {
 
             /**
              * Encrypt het wachtwoord met PASSWORD_DEFAULT
@@ -107,6 +132,10 @@ function returnToRegister($errorNumber) {
         $errorCode = 'register_different_password_error';
     } elseif ($errorNumber === 3) {
         $errorCode = 'register_different_email_error';
+    } elseif ($errorNumber === 4) {
+        $errorCode = 'register_invalid_email_error';
+    } elseif ($errorNumber === 5) {
+        $errorCode = 'register_invalid_password_error';
     }
 
     header('Refresh: 0; url=../registreren.php?errorcode=' . $errorCode);
