@@ -214,7 +214,7 @@ print_header();
                                 print('<li class="page-item"><a class="page-link disabled text-dark">...</a></li>');
                                 print('<li class="page-item"><a class="page-link" href="' . change_url_parameter('page', $totalPages) . '">' . $totalPages . '</a></li>');
                             }
-                            if ($page !== $totalPages) {
+                            if ($page != $totalPages) {
                                 //print de "Volgende" pagina link
                                 print('<li class="page-item"><a class="page-link" href = "' . change_url_parameter('page', $page + 1) . '">&gt;</a></li>');
                             }
