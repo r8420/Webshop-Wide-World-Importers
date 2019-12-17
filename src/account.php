@@ -44,6 +44,8 @@ $orders = getAssociatedOrders($userID, $connection)
                         Straatnaam:<br>
                         Postcode:<br>
                         Plaatsnaam:<br>
+                        Staat/Provincie:<br>
+                        Country:
                     </p>
                 </div>
                 <div class="col-6 p-0 border-top border-right border-bottom">
@@ -52,6 +54,8 @@ $orders = getAssociatedOrders($userID, $connection)
                         <?php echo $currentUserAddress[0] ?><br>
                         <?php echo $currentUserAddress[1] ?><br>
                         <?php echo $currentUserAddress[2] ?><br>
+                        <?php echo $currentUserAddress[3] ?><br>
+                        <?php echo $currentUserAddress[4] ?><br>
                     </p>
                 </div>
                 <!--                <button class="mb-2 btn-primary mt-5 pt-1 pb-1 pl-2 px-2 rounded"><strong>Verander-->
