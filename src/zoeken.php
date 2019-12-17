@@ -111,7 +111,7 @@ print_header();
             <div class="card bg-dark text-white">
                 <div class="card-body">
                     <?php
-                    if ($category === 0) {
+                    if ($category == 0) {
                         print("<h5 class=\"float-left\">$numResults resultaten voor '$search'</h5>");
                     } else {
                         print("<h5 class=\"float-left\">$numResults producten in categorie $categoryName</h5>");

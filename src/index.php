@@ -17,7 +17,7 @@ $categorieProducts = getIndexCategories($connection);
 
     <! –– Product slider -->
     <div id="carouselExampleIndicators" class="carousel slide d-none d-md-block" data-ride="carousel">
-        <ol class="carousel-indicators">
+        <ol class="carousel-indicators bg-secondary rounded">
             <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
             <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
             <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
@@ -92,6 +92,7 @@ $categorieProducts = getIndexCategories($connection);
     <! –– Einde producten -->
 
     <! –– Categorie -->
+    <h2 class="my-5">Categorieën</h2>
     <div class="row mt-5">
         <?php
         //De categorie wordt aangemaakt zodra er meer dan 0 rows zijn in de query.
@@ -105,7 +106,7 @@ $categorieProducts = getIndexCategories($connection);
                        class="text-decoration-none">
                         <div class="card align-items-center border-0">
                             <div class="card-body">
-                                <h3 class="h4 text-dark"><?php echo $product[2]; ?></h3>
+                                <h3 class="h4 text-dark font-weight-bold text-center"><?php echo $product[2]; ?></h3>
                             </div>
                             <img src="data:image/png;base64,<?php echo base64_encode($product[1]) ?>"
                                  class="card-img-top w-75 mx-auto pt-3"
