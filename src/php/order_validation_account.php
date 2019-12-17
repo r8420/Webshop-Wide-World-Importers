@@ -10,6 +10,11 @@ $connection = startDBConnection();
 
 $orderNAWrecords = checkPOSTRequest();
 
+$customerDetails = updateCustomerRecords($connection, $orderNAWrecords, 3);
+
+$orderNr = orderinsert($connection, $customerDetails);
+headtoconfirmpage($orderNr);
+
 
 /**
  * Checkt of er een valid post is gestuurd met de login pagina.
@@ -23,11 +28,14 @@ function checkPOSTRequest()
         $streetNumber = $_POST['InputStraatEnHuisnummer'];
         $postcode = $_POST['InputPostcode'];
         $city = $_POST['InputPlaats'];
+        $province = $_POST['InputProvince'];
+        $country = $_POST['InputCountry'];
+
     } else {
         header('Refresh: 0; url=../bestel.php');
         exit();
     }
-    return array($streetNumber, $postcode, $city);
+    return array($streetNumber, $postcode, $city, $province, $country);
 }
 
 
