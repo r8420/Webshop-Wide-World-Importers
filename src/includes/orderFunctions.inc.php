@@ -104,7 +104,7 @@ function orderinsert($connection, $customerinfo){
 }
 
 function headtoconfirmpage($orderNr){
-    header('Refresh: 0; url=../login.php?errorcode=' . $orderNr);
+    header('Refresh: 0; url=../succes.php?errorcode=' . $orderNr);
     exit();
 }
 
