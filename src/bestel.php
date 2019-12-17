@@ -18,7 +18,7 @@ if (isset($_POST['inlogButton'])) {
 }
 $countrys = getCountrys($connection);
 $total = 0;
-print_r($_SESSION['shoppingCart'])
+
 
 
 ?>
@@ -104,7 +104,7 @@ print_r($_SESSION['shoppingCart'])
                     </div>
                     <div class="form-group">
                         <label>Land*:</label>
-                        <select name="InputCountry">
+                        <select name="InputCountry" class="form-control">
                             <?php
                             foreach ($countrys AS $country) { ?>
                                 <option value="<?php echo $country; ?>"><?php echo $country; ?></option>
@@ -134,7 +134,7 @@ print_r($_SESSION['shoppingCart'])
                         </div>
                         <div class="form-group">
                             <label>Land*:</label>
-                            <select name="InputCountry">
+                            <select name="InputCountry" class="form-control">
                                 <?php foreach ($countrys AS $country) { ?>
                                     <option value="<?php echo $country; ?>"><?php echo $country; ?></option>
                                 <?php } ?>
@@ -161,7 +161,9 @@ print_r($_SESSION['shoppingCart'])
                 </p>
 
                 <?php foreach ($_SESSION['shoppingCart'] AS $key => $item) {
-                    $currentProduct = getProductInformation($connection, $key) ?>
+                    echo $key;
+//                    $currentProduct = getProductInformation($connection, $key)
+                    $currentProduct = getProductInformation($connection, 1) ?>
                     <div class="row p-0">
                         <div class="col-9">
                             - <b><?php echo $currentProduct['StockItemName']; ?></b>

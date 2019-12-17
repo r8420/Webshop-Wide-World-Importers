@@ -13,6 +13,9 @@ $orderNAWrecords = checkPOSTRequest();
 
 $customerDetails = updateCustomerRecords($connection, $orderNAWrecords, 1);
 
+$orderNr = orderinsert($connection, $customerDetails);
+
+headtoconfirmpage($orderNr);
 
 
 /**
@@ -30,11 +33,13 @@ function checkPOSTRequest()
         $streetNumber = $_POST['InputStraatEnHuisnummer'];
         $postcode = $_POST['InputPostcode'];
         $city = $_POST['InputPlaats'];
+        $province = $_POST['InputProvince'];
+        $country = $_POST['InputCountry'];
     } else {
         header('Refresh: 0; url=../bestel.php');
         exit();
     }
-    return array($streetNumber, $postcode, $city,  $name, $tel, $email);
+    return array($streetNumber, $postcode, $city, $province, $country ,$name, $tel, $email );
 }
 
 

@@ -17,8 +17,12 @@ $oldNAWrecords = getUserAddress($userID, $connection);
 //check if the post is send correctly and the right records are filled in
 $orderNAWrecords = checkPOSTRequest($oldNAWrecords);
 
+if ($orderNAWrecords[5] === "newAddress") {
+    $customerDetails = updateCustomerRecords($connection, $orderNAWrecords, 2);
+}
+$orderNr = orderinsert($connection, $customerDetails);
 
-updateCustomerRecords($connection, $orderNAWrecords, 2);
+headtoconfirmpage($orderNr);
 
 
 /**
@@ -34,24 +38,22 @@ function checkPOSTRequest($oldNAWrecords)
         $choice = $_POST['addressChoice'];
         if ($choice === 'newAddress') {
             if (empty($_POST['InputStraatEnHuisnummer']) || empty($_POST['InputPostcode']) ||
-                empty($_POST['InputPlaats']) || empty($_POST['InputProvinceState']) || empty($_POST['InputCountry'])) {
+                empty($_POST['InputPlaats']) || empty($_POST['InputProvinceState']) || empty($_POST['InputCountry']) || empty($_POST['InputProvince']) || empty($_POST['InputCountry'])) {
                 header('Refresh: 0; url=../bestel.php');
                 exit();
             }
             $streetNumber = $_POST['InputStraatEnHuisnummer'];
             $postcode = $_POST['InputPostcode'];
             $city = $_POST['InputPlaats'];
-        } elseif ($choice === "oldAddress") {
-            $streetNumber = $oldNAWrecords[0];
-            $postcode = $oldNAWrecords[1];
-            $city = $oldNAWrecords[2];
-        }
+            $province = $_POST['InputProvince'];
+            $country = $_POST['InputCountry'];
 
+        }
     } else {
         header('Refresh: 0; url=../bestel.php');
         exit();
     }
-    return array($streetNumber, $postcode, $city, $choice);
+    return array($streetNumber, $postcode, $city, $province, $country, $choice);
 }
 
 
