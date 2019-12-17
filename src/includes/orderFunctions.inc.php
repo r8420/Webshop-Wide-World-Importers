@@ -50,7 +50,7 @@ function insertNewCustomerGuest($connection, $nawRecords){
     $stmt->bind_param('ssssssss', $nawRecords[0], $nawRecords[1], $nawRecords[2], $nawRecords[3], $nawRecords[4],
         $nawRecords[5], $nawRecords[6], $nawRecords[7]);
     $stmt->execute();
-    $stmt->bind_results($customerNr, $personNr);
+    $stmt->bind_result($customerNr, $personNr);
     $stmt->fetch();
     return array ($customerNr, $personNr);
 
@@ -64,7 +64,7 @@ function updateCustomerRecordsOldNaw($connection, $nawRecords){
     $stmt->bind_param('isssss', $_SESSION['userNr'], $nawRecords[0], $nawRecords[1], $nawRecords[2], $nawRecords[3], $nawRecords[4],
         $nawRecords[5]);
     $stmt->execute();
-    $stmt->bind_results($customerNr);
+    $stmt->bind_result($customerNr);
     $stmt->fetch();
     return array ($customerNr, $_SESSION['userNr']);
 }
@@ -76,7 +76,7 @@ function insertNewCustomerAccount($connection,$nawRecords){
     $stmt->bind_param('isssss', $_SESSION['userNr'], $nawRecords[0], $nawRecords[1], $nawRecords[2], $nawRecords[3], $nawRecords[4],
         $nawRecords[5]);
     $stmt->execute();
-    $stmt->bind_results($customerNr);
+    $stmt->bind_result($customerNr);
     $stmt->fetch();
     return array ($customerNr, $_SESSION['userNr']);
 }
@@ -95,7 +95,7 @@ function orderinsert($connection, $customerinfo){
     $stmt = $connection->prepare($sql);
     $stmt->bind_param('iis',$customerinfo[0],$customerinfo[1], $jsonShoppingCart);
     $stmt->execute();
-    $stmt->bind_results($orderNr);
+    $stmt->bind_result($orderNr);
     $stmt->fetch();
 
     return $orderNr;
