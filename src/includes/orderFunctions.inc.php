@@ -1,5 +1,7 @@
 <?php
 
+use function Sodium\add;
+
 /***
  * Een functie om de informatie over een product/artikel uit de database te halen
  * @param int $productID De product ID om de informatie uit de database te halen
@@ -55,6 +57,19 @@ function updateCustomerRecordsOldNaw($connection, $nawRecords){
 
 function insertNewCustomerAccount($connection,$nawRecords){
 
+}
+
+function getCountrys($connection){
+
+    $result_countrys = array();
+
+    $res = $connection->query('CALL getCountrys()');
+    while ($row =$res->fetch_assoc()){
+        $result_countrys[] = $row['CountryName'];
+    }
+
+
+    return $result_countrys;
 }
 
 

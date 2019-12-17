@@ -19,12 +19,12 @@ function getUserAddress($userId, $connection) {
     $stmt = $connection->prepare($sql);
     $stmt->bind_param('i', $userId);
     $stmt->execute();
-    $stmt->bind_result($address, $postCode, $cityName);
+    $stmt->bind_result($address, $postCode, $cityName, $state, $country);
     $stmt->store_result();
     $stmt->fetch();
     $stmt->close();
 
-    return array($address, $postCode, $cityName);
+    return array($address, $postCode, $cityName, $state, $country);
 }
 
 

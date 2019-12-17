@@ -16,8 +16,9 @@ if (isset($_POST['inlogButton'])) {
     BestelGegevens($_POST['InputNaam'], $_POST['InputStraatEnHuisnummer'], $_POST['InputPlaats'], $_POST['InputPostcode'], $_POST['InputTelefoonnummer'], $connection);
 
 }
-
+$countrys = getCountrys($connection);
 $total = 0;
+print_r($_SESSION['shoppingCart'])
 
 
 ?>
@@ -63,7 +64,7 @@ $total = 0;
                                         Straatnaam:<br>
                                         Postcode:<br>
                                         Plaatsnaam:<br>
-                                        Provincie:<br>
+                                        Staat/Provincie:<br>
                                         Land:<br>
                                     </p>
                                 </div>
@@ -73,6 +74,8 @@ $total = 0;
                                         <?php echo $currentUserAddress[0] ?><br>
                                         <?php echo $currentUserAddress[1] ?><br>
                                         <?php echo $currentUserAddress[2] ?><br>
+                                        <?php echo $currentUserAddress[3] ?><br>
+                                        <?php echo $currentUserAddress[4] ?><br>
                                     </p>
                                 </div>
                             </div>
@@ -85,7 +88,7 @@ $total = 0;
                     </div>
                     <div class="form-group">
                         <label>Straat en huisnummer*:</label>
-                        <input name="InputStraatEnHuisnummer" type="text" class="form-control" placeholder="" >
+                        <input name="InputStraatEnHuisnummer" type="text" class="form-control" placeholder="">
                     </div>
                     <div class="form-group">
                         <label>Postcode*:</label>
@@ -93,24 +96,52 @@ $total = 0;
                     </div>
                     <div class="form-group">
                         <label>Plaats*:</label>
-                        <input name="InputPlaats" type="text" class="form-control" placeholder="" >
+                        <input name="InputPlaats" type="text" class="form-control" placeholder="">
                     </div>
-                   <?php } else { ?>
+                    <div class="form-group">
+                        <label>Staat/Provincie*:</label>
+                        <input name="InputProvince" type="text" class="form-control" placeholder="">
+                    </div>
+                    <div class="form-group">
+                        <label>Land*:</label>
+                        <select name="InputCountry">
+                            <?php
+                            foreach ($countrys AS $country) { ?>
+                                <option value="<?php echo $country; ?>"><?php echo $country; ?></option>
+                            <?php } ?>
+                        </select>
+                    </div>
 
-                    <div class="form-group">
-                        <label>Straat en huisnummer*:</label>
-                        <input name="InputStraatEnHuisnummer" type="text" class="form-control" placeholder="" required>
-                    </div>
-                    <div class="form-group">
-                        <label>Postcode*:</label>
-                        <input name="InputPostcode" type="text" class="form-control" placeholder=""
-                               required>
-                    </div>
-                    <div class="form-group">
-                        <label>Plaats*:</label>
-                        <input name="InputPlaats" type="text" class="form-control" placeholder="" required>
-                    </div>
-                   <?php } ?>
+                    <?php } else { ?>
+
+                        <div class="form-group">
+                            <label>Straat en huisnummer*:</label>
+                            <input name="InputStraatEnHuisnummer" type="text" class="form-control" placeholder=""
+                                   required>
+                        </div>
+                        <div class="form-group">
+                            <label>Postcode*:</label>
+                            <input name="InputPostcode" type="text" class="form-control" placeholder=""
+                                   required>
+                        </div>
+                        <div class="form-group">
+                            <label>Plaats*:</label>
+                            <input name="InputPlaats" type="text" class="form-control" placeholder="" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Staat/Provincie*:</label>
+                            <input name="InputProvince" type="text" class="form-control" placeholder="">
+                        </div>
+                        <div class="form-group">
+                            <label>Land*:</label>
+                            <select name="InputCountry">
+                                <?php foreach ($countrys AS $country) { ?>
+                                    <option value="<?php echo $country; ?>"><?php echo $country; ?></option>
+                                <?php } ?>
+                            </select>
+                        </div>
+
+                    <?php } ?>
                     <div class="form-group float-right">
                         <a href="succes.php">
                             <button name="inlogButton" id="inlogButton" class="btn btn-success">Naar betalen</button>
@@ -124,9 +155,11 @@ $total = 0;
         <div class="col-md-6">
             <div class="mb-md-5 mt-md-3">
                 <h3>Besteloverzicht</h3>
-                <p>Aantal artikelen: <?php echo (count($_SESSION['shoppingCart'])) ?> <span class="text-primary float-right"><a href="winkelwagen.php">WINKELWAGEN AANPASSEN
+                <p>Aantal artikelen: <?php echo(count($_SESSION['shoppingCart'])) ?> <span
+                            class="text-primary float-right"><a href="winkelwagen.php">WINKELWAGEN AANPASSEN
                 </a>    </span>
                 </p>
+
                 <?php foreach ($_SESSION['shoppingCart'] AS $key => $item) {
                     $currentProduct = getProductInformation($connection, $key) ?>
                     <div class="row p-0">
