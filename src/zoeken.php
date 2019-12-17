@@ -111,7 +111,7 @@ print_header();
             <div class="card bg-dark text-white">
                 <div class="card-body">
                     <?php
-                    if ($category === 0) {
+                    if ($category == 0) {
                         print("<h5 class=\"float-left\">$numResults resultaten voor '$search'</h5>");
                     } else {
                         print("<h5 class=\"float-left\">$numResults producten in categorie $categoryName</h5>");
@@ -214,7 +214,7 @@ print_header();
                                 print('<li class="page-item"><a class="page-link disabled text-dark">...</a></li>');
                                 print('<li class="page-item"><a class="page-link" href="' . change_url_parameter('page', $totalPages) . '">' . $totalPages . '</a></li>');
                             }
-                            if ($page !== $totalPages) {
+                            if ($page != $totalPages) {
                                 //print de "Volgende" pagina link
                                 print('<li class="page-item"><a class="page-link" href = "' . change_url_parameter('page', $page + 1) . '">&gt;</a></li>');
                             }
