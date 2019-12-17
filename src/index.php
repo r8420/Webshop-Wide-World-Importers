@@ -106,7 +106,7 @@ $categorieProducts = getIndexCategories($connection);
                        class="text-decoration-none">
                         <div class="card align-items-center border-0">
                             <div class="card-body">
-                                <h3 class="h4 text-dark"><?php echo $product[2]; ?></h3>
+                                <h3 class="h4 text-dark font-weight-bold text-center"><?php echo $product[2]; ?></h3>
                             </div>
                             <img src="data:image/png;base64,<?php echo base64_encode($product[1]) ?>"
                                  class="card-img-top w-75 mx-auto pt-3"
