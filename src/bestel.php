@@ -161,20 +161,18 @@ $total = 0;
                 </p>
 
                 <?php foreach ($_SESSION['shoppingCart'] AS $key => $item) {
-                    echo $key;
-//                    $currentProduct = getProductInformation($connection, $key)
-                    $currentProduct = getProductInformation($connection, 1) ?>
+                    $currentProduct = getProductInformation($connection, $key) ;?>
                     <div class="row p-0">
                         <div class="col-9">
-                            - <b><?php echo $currentProduct['StockItemName']; ?></b>
+                            - <b><?php echo $currentProduct[1]; ?></b>
                         </div>
                         <div class="col-1">
                             <?php echo $item; ?>
                         </div>
                         <div class="col-2 text-lg-right ">
-                            €<?php echo number_format(($item * $currentProduct['RecommendedRetailPrice']),
+                            €<?php echo number_format(($item * $currentProduct[2]),
                                 2, ',', '.');
-                            $total += $item * $currentProduct['RecommendedRetailPrice']; ?>
+                            $total += $item * $currentProduct[2]; ?>
                         </div>
                     </div>
                 <?php } ?>

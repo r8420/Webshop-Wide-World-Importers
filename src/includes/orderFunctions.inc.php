@@ -6,22 +6,15 @@
  * @return array("StockItemID"=>int,"StockItemName"=>string,"UnitPrice"=>int,"Photo"=>blob)
  */
 function getProductInformation($connection, $productID) {
-    $stmt = $connection->prepare('CALL get_product_information(?)');
+    $stmt = $connection->prepare('CALL get_product_information_bestel(?)');
     $stmt->bind_param('i', $productID);
     $stmt->execute();
-    $stmt->bind_result($stockItemID, $stockItemName, $recommendedRetailPrice, $price, $photo, $customFields, $typicalWeightPerUnit, $marketingComments);
+    $stmt->bind_result($stockItemID, $stockItemName, $recommendedRetailPrice);
     $stmt->fetch();
-    return array($stockItemID, $stockItemName, $recommendedRetailPrice, $price, $photo, $customFields, $typicalWeightPerUnit, $marketingComments);
+    $stmt->close();
+    return array($stockItemID, $stockItemName, $recommendedRetailPrice);
 }
 
-function getProductInformationOrder($connection, $productID, $quantity) {
-    $stmt = $connection->prepare('CALL get_product_information_order(?,?)');
-    $stmt->bind_param('ii', $quantity, $productID);
-    $stmt->execute();
-    $stmt->bind_result($stockItemID, $stockItemName, $newQuantity, $unitPrice);
-    $stmt->fetch();
-    return array("stockitem" => $stockItemID, "itemdescription" => $stockItemName, "quantity" => $newQuantity, "unitprice" => $unitPrice);
-}
 
 function updateCustomerRecords($connection, $nawRecords, $orderType){
     switch ($orderType){
@@ -52,6 +45,7 @@ function insertNewCustomerGuest($connection, $nawRecords){
     $stmt->execute();
     $stmt->bind_result($customerNr, $personNr);
     $stmt->fetch();
+    $stmt->close();
     return array ($customerNr, $personNr);
 
 }
@@ -61,11 +55,11 @@ function updateCustomerRecordsOldNaw($connection, $nawRecords){
 
     $sql = 'CALL update_customer_account(?,?,?,?,?,?)';
     $stmt = $connection->prepare($sql);
-    $stmt->bind_param('isssss', $_SESSION['userNr'], $nawRecords[0], $nawRecords[1], $nawRecords[2], $nawRecords[3], $nawRecords[4],
-        $nawRecords[5]);
+    $stmt->bind_param('isssss', $_SESSION['userNr'], $nawRecords[0], $nawRecords[1], $nawRecords[2], $nawRecords[3], $nawRecords[4]);
     $stmt->execute();
     $stmt->bind_result($customerNr);
     $stmt->fetch();
+    $stmt->close();
     return array ($customerNr, $_SESSION['userNr']);
 }
 
@@ -78,33 +72,52 @@ function insertNewCustomerAccount($connection,$nawRecords){
     $stmt->execute();
     $stmt->bind_result($customerNr);
     $stmt->fetch();
+    $stmt->close();
     return array ($customerNr, $_SESSION['userNr']);
 }
 
 function orderinsert($connection, $customerinfo){
-    $shoppingCartArray = array();
-    $i = 0;
-    foreach ($_SESSION['shoppingCart'] AS $key => $item){
-        $currentproduct = getProductInformationOrder($connection, $key, $item);
-        $shoppingCartArray[] = $currentproduct;
-        $i++;
-    }
-    $jsonShoppingCart = json_encode($shoppingCartArray, JSON_FORCE_OBJECT);
 
-    $sql = "CALL insert_order(?,?,?)";
-    $stmt = $connection->prepare($sql);
-    $stmt->bind_param('iis',$customerinfo[0],$customerinfo[1], $jsonShoppingCart);
-    $stmt->execute();
-    $stmt->bind_result($orderNr);
-    $stmt->fetch();
+    $orderNr = insertOrderNr($connection, $customerinfo);
+
+    foreach ($_SESSION['shoppingCart'] AS $key => $item){
+        insertOrderLines($connection, $orderNr, $key, $item);
+
+    }
 
     return $orderNr;
 
 
 }
+function insertOrderNr($connection, $customerinfo ){
+    $sql = "CALL insert_orderNr(?,?)";
+    $stmt = $connection->prepare($sql);
+    print_r($customerinfo);
+    $stmt->bind_param('ii',$customerinfo[0],$customerinfo[1]);
+    $stmt->execute();
+    $stmt->bind_result($orderNr);
+    $stmt->store_result();
+    $stmt->fetch();
+    $stmt->close();
+
+    return $orderNr;
+}
+
+function insertOrderLines($connection,$orderID, $stockitemId, $quantity){
+
+    $sql = "CALL insert_order_lines(?,?,?);";
+
+    $stmt = $connection->prepare($sql);
+    $stmt->bind_param("iii", $orderID, $stockitemId, $quantity);
+    $stmt->execute();
+    $stmt->close();
+
+}
 
 function headtoconfirmpage($orderNr){
-    header('Refresh: 0; url=../succes.php?errorcode=' . $orderNr);
+
+    unset($_SESSION['shoppingCart']);
+    header('Refresh: 0; url=../succes.php?orderNr=' . $orderNr);
     exit();
 }
 
@@ -112,11 +125,15 @@ function getCountrys($connection){
 
     $result_countrys = array();
 
-    $res = $connection->query('CALL getCountrys()');
-    while ($row =$res->fetch_assoc()){
+    $stmt = $connection->prepare('CALL getCountrys()');
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    while ($row =$result->fetch_assoc()){
         $result_countrys[] = $row['CountryName'];
     }
 
+    $stmt->close();
 
     return $result_countrys;
 }

@@ -1,5 +1,7 @@
 <?php
+include 'includes/sessionFunctions.inc.php';
 include 'Modules/functions.php';
+checkSessionActiveBestel();
 print_header();
 include 'includes/orderFunctions.inc.php';
 

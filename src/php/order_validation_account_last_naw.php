@@ -17,9 +17,9 @@ $oldNAWrecords = getUserAddress($userID, $connection);
 //check if the post is send correctly and the right records are filled in
 $orderNAWrecords = checkPOSTRequest($oldNAWrecords);
 
-if ($orderNAWrecords[5] === "newAddress") {
-    $customerDetails = updateCustomerRecords($connection, $orderNAWrecords, 2);
-}
+
+$customerDetails = updateCustomerRecords($connection, $orderNAWrecords, 2);
+
 $orderNr = orderinsert($connection, $customerDetails);
 
 headtoconfirmpage($orderNr);
@@ -48,6 +48,12 @@ function checkPOSTRequest($oldNAWrecords)
             $province = $_POST['InputProvince'];
             $country = $_POST['InputCountry'];
 
+        } else {
+            $streetNumber = $oldNAWrecords[0];
+            $postcode = $oldNAWrecords[1];
+            $city = $oldNAWrecords[2];
+            $province = $oldNAWrecords[3];
+            $country = $oldNAWrecords[4];
         }
     } else {
         header('Refresh: 0; url=../bestel.php');
@@ -55,11 +61,6 @@ function checkPOSTRequest($oldNAWrecords)
     }
     return array($streetNumber, $postcode, $city, $province, $country, $choice);
 }
-
-
-
-
-
 
 
 ?>
