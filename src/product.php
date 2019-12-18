@@ -18,8 +18,8 @@ $productInfo = getProductInfo($productId);
 $tags = json_decode($productInfo['CustomFields'], true);
 
 // If there's no product id defined, go back to index.php
-if (!$productId) {
-    header('Location: ');
+if (!$productId || !isset($productInfo['StockItemName'])) {
+    header('Location: ./');
     die();
 }
 
