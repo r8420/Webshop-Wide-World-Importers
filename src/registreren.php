@@ -82,7 +82,7 @@ print_header();
                    pattern="(?=.*\d.*\d.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
                    title="Het wachtwoord moet tenminste bestaan uit één hoofdletter, één kleine letter, 3 getallen, en het moet minimaal 8 karakters lang zijn"
                    required>
-            <div class="alert alert-warning password-alert" role="alert" id="message">
+            <div class="alertPass alert-warning password-alert" role="alert" id="message">
                 <ul>
                     <li class="requirements leng"><i class="fas fa-check green-text"></i><i class="fas fa-times red-text"></i> Uw wachtwoord moet tenminste bestaan uit 8 karakters</li>
                     <li class="requirements big-letter"><i class="fas fa-check green-text"></i><i class="fas fa-times red-text"></i> Uw wachtwoord moet tenminste bestaan uit 1 hoofdletter.</li>
