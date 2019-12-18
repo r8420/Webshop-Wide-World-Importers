@@ -177,11 +177,11 @@ $total = 0;
                     </div>
                 <?php } ?>
                 <hr>
-                <p><b>Subtotaal:<span class="float-right"><?php echo $total ?>
+                <p><b>Subtotaal:<span class="float-right">€<?php echo $total ?>
                     </span></b></p>
                 <p>Verzendkosten:<span class="float-right">€5.00</span></p>
                 <hr>
-                <p><b>Totaalbedrag:<span class="float-right"><?php echo $total + 5;
+                <p><b>Totaalbedrag:<span class="float-right">€<?php echo $total + 5;
                             $total += 5; ?>
                         </span></b></p>
 
