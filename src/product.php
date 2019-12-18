@@ -50,7 +50,7 @@ print_header();
             </div>
             <div class="product-foto">
                 <?php
-                $stmt = $connection->prepare('SELECT picture FROM imgs WHERE StockItemID = ?');
+                $stmt = $connection->prepare('CALL get_product_images(?)');
                 $stmt->bind_param('i', $productId);
                 $stmt->execute();
                 $result = $stmt->get_result();
