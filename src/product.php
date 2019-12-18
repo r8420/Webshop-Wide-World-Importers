@@ -62,6 +62,7 @@ print_header();
                 <?php
                     }
                 }
+                $stmt->close();
                 ?>
 
             </div>
