@@ -1,5 +1,5 @@
 <?php
 session_start();
-unset($_SESSION['loggedin'], $_SESSION['userNr']);
-header('Refresh: 0; url=account.php');
+unset($_SESSION['loggedin'], $_SESSION['userNr'], $_SESSION['adressnaw']);
+header('Refresh: 0; url=index.php');
 exit();
