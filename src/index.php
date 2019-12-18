@@ -16,8 +16,8 @@ $categorieProducts = getIndexCategories($connection);
 <div class="container">
 
     <! –– Product slider -->
-    <div id="carouselExampleIndicators" class="carousel slide d-none d-md-block" data-ride="carousel">
-        <ol class="carousel-indicators bg-secondary rounded">
+    <div id="carouselExampleIndicators" class="carousel slide d-none d-md-block shadow" data-ride="carousel">
+        <ol class="carousel-indicators bg-secondary mx-auto my-0">
             <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
             <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
             <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
@@ -69,15 +69,15 @@ $categorieProducts = getIndexCategories($connection);
             foreach ($products AS $product) {
                 $prijs = $product[3];
                 ?>
-                <div class="col-sm-3 col-md-3">
+                <div class="col-sm-3 col-md-3 mt-3">
                     <a href="product.php?id=<?php echo $product[0]; ?>"
                        class="text-decoration-none">
-                        <div class="card border-0">
+                        <div class="card border h-100 pt-3">
                             <img src="data:image/png;base64,<?php echo base64_encode($product[4]) ?>"
                                  class="card-img-top w-75 mx-auto" alt="Artikel foto">
                             <div class="card-body">
-                                <h5 class="card-title text-dark"><?php echo $product[1]; ?></h5>
-                                <h5 class="card-title text-dark">
+                                <h5 class="card-title text-dark text-center"><?php echo $product[1]; ?></h5>
+                                <h5 class="card-title text-dark font-weight-bold">
                                     € <?php echo str_replace('.', ',', (string)$prijs); ?></h5>
                             </div>
                         </div>
@@ -104,7 +104,7 @@ $categorieProducts = getIndexCategories($connection);
                 <div class="col-sm-3">
                     <a href="zoeken.php?category=<?php echo $product[3]; ?>"
                        class="text-decoration-none">
-                        <div class="card align-items-center border-0">
+                        <div class="card align-items-center border-0 h-100">
                             <div class="card-body">
                                 <h3 class="h4 text-dark font-weight-bold text-center"><?php echo $product[2]; ?></h3>
                             </div>
