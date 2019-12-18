@@ -92,7 +92,6 @@ function orderinsert($connection, $customerinfo){
 function insertOrderNr($connection, $customerinfo ){
     $sql = "CALL insert_orderNr(?,?)";
     $stmt = $connection->prepare($sql);
-    print_r($customerinfo);
     $stmt->bind_param('ii',$customerinfo[0],$customerinfo[1]);
     $stmt->execute();
     $stmt->bind_result($orderNr);

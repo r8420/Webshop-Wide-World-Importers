@@ -137,7 +137,7 @@ $total = 0;
                             <label>Land*:</label>
                             <select name="InputCountry" class="form-control">
                                 <?php foreach ($countrys AS $country) { ?>
-                                    <option value="<?php echo $country; ?>"><?php echo $country; ?></option>
+                                    <option <?php if ($country === "Netherlands"){ echo "selected";} ?> value="<?php echo $country; ?>"><?php echo $country; ?></option>
                                 <?php } ?>
                             </select>
                         </div>
@@ -161,6 +161,7 @@ $total = 0;
 
                 <?php foreach ($_SESSION['shoppingCart'] AS $key => $item) {
                     $currentProduct = getProductInformation($connection, $key); ?>
+
                     <div class="row p-0">
                         <div class="col-9">
                             - <b><?php echo $currentProduct[1]; ?></b>
@@ -176,11 +177,11 @@ $total = 0;
                     </div>
                 <?php } ?>
                 <hr>
-                <p><b>Subtotaal:<span class="float-right"><?php echo $total ?>
+                <p><b>Subtotaal:<span class="float-right">€<?php echo $total ?>
                     </span></b></p>
                 <p>Verzendkosten:<span class="float-right">€5.00</span></p>
                 <hr>
-                <p><b>Totaalbedrag:<span class="float-right"><?php echo $total + 5;
+                <p><b>Totaalbedrag:<span class="float-right">€<?php echo $total + 5;
                             $total += 5; ?>
                         </span></b></p>
 
