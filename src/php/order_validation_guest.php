@@ -15,7 +15,7 @@ $customerDetails = updateCustomerRecords($connection, $orderNAWrecords, 1);
 
 $orderNr = orderinsert($connection, $customerDetails);
 
-//headtoconfirmpage($orderNr);
+headtoconfirmpage($orderNr);
 
 
 /**

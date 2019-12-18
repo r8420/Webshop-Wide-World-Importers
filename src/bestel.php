@@ -20,7 +20,6 @@ $countrys = getCountrys($connection);
 $total = 0;
 
 
-
 ?>
 <!-- Begin page content -->
 <div class="container">
@@ -45,8 +44,10 @@ $total = 0;
                     <label>E-mailadres*:</label>
                     <input name="InputEmailadres" type="text" class="form-control" placeholder="" required>
                 </div>
-
-                <?php }
+            <?php }
+            if ( (isset($_SESSION['loggedin']) && $_SESSION['loggedin']) && !((!isset($_SESSION['adressnaw'])  || $_SESSION['adressnaw']) === FALSE)) { ?>
+                <form method="POST" action="php/order_validation_account.php">
+           <?php }
                 if ((isset($_SESSION['loggedin']) && $_SESSION['loggedin']) && (isset($_SESSION['adressnaw']) && $_SESSION['adressnaw'])) { ?>
                 <form method="POST" action="php/order_validation_account_last_naw.php">
                     <div class="form-group">
@@ -143,9 +144,7 @@ $total = 0;
 
                     <?php } ?>
                     <div class="form-group float-right">
-                        <a href="succes.php">
-                            <button name="inlogButton" id="inlogButton" class="btn btn-success">Naar betalen</button>
-                        </a>
+                        <input type="submit" name="Betalen" value="Betalen" class="btn btn-success"></input>
                     </div>
                 </form>
 
@@ -161,7 +160,7 @@ $total = 0;
                 </p>
 
                 <?php foreach ($_SESSION['shoppingCart'] AS $key => $item) {
-                    $currentProduct = getProductInformation($connection, $key) ;?>
+                    $currentProduct = getProductInformation($connection, $key); ?>
                     <div class="row p-0">
                         <div class="col-9">
                             - <b><?php echo $currentProduct[1]; ?></b>
