@@ -17,6 +17,8 @@ $amount = (checkInt('POST', 'amount') ? $_POST['amount'] : false);
 $productInfo = getProductInfo($productId);
 $tags = json_decode($productInfo['CustomFields'], true);
 
+
+
 // If there's no product id defined, go back to index.php
 if (!$productId || !isset($productInfo['StockItemName'])) {
     header('Location: ./');
@@ -45,6 +47,24 @@ print_header();
             <div class="m-5">
                 <img src="data:image/jpeg;base64, <?php echo base64_encode($productInfo['Photo']) ?>" class="w-60"
                      alt="Artikel foto"/>
+            </div>
+            <div class="product-foto">
+                <?php
+                $stmt = $connection->prepare('CALL get_product_images(?)');
+                $stmt->bind_param('i', $productId);
+                $stmt->execute();
+                $result = $stmt->get_result();
+                if ($result->num_rows > 0){
+                    while ($row = $result->fetch_assoc()){
+                ?>
+                        <img src="data:image/jpeg;base64, <?php echo base64_encode($row['picture']) ?>"
+                             alt="Artikel foto"/>
+                <?php
+                    }
+                }
+                $stmt->close();
+                ?>
+
             </div>
         </div>
         <div class="col-md-4">

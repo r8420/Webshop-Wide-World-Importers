@@ -33,6 +33,9 @@ function getProductInfo($id) {
     return $row;
 }
 
+
+
+
 /**
  * Checks if GET or POST value is an integer.
  * @param string $method
@@ -52,3 +55,4 @@ function checkInt($method, $name) {
     }
     return $return;
 }
+
