@@ -20,6 +20,10 @@ $countrys = getCountrys($connection);
 $total = 0;
 
 
+
+$form = 0;
+
+
 ?>
 <!-- Begin page content -->
 <div class="container">
@@ -44,11 +48,10 @@ $total = 0;
                     <label>E-mailadres*:</label>
                     <input name="InputEmailadres" type="text" class="form-control" placeholder="" required>
                 </div>
-            <?php }
-            if ( (isset($_SESSION['loggedin']) && $_SESSION['loggedin']) && !((!isset($_SESSION['adressnaw'])  || $_SESSION['adressnaw']) === FALSE)) { ?>
-                <form method="POST" action="php/order_validation_account.php">
+
            <?php }
-                if ((isset($_SESSION['loggedin']) && $_SESSION['loggedin']) && (isset($_SESSION['adressnaw']) && $_SESSION['adressnaw'])) { ?>
+                elseif ((isset($_SESSION['loggedin']) && $_SESSION['loggedin']) && (isset($_SESSION['adressnaw']) && $_SESSION['adressnaw']=== TRUE)) {
+                $form = 1; ?>
                 <form method="POST" action="php/order_validation_account_last_naw.php">
                     <div class="form-group">
                         <p class="mb-0">Kies voor u oude adres of vul een nieuw adres in</p>
@@ -113,7 +116,13 @@ $total = 0;
                         </select>
                     </div>
 
-                    <?php } else { ?>
+                    <?php }
+
+
+                    elseif ( (isset($_SESSION['loggedin']) && $_SESSION['loggedin']) && ( !isset($_SESSION['adressnaw'])  || $_SESSION['adressnaw'] === FALSE)) { ?>
+                    <form method="POST" action="php/order_validation_account.php">
+                    <?php } if ($form === 0) { ?>
+
 
                         <div class="form-group">
                             <label>Straat en huisnummer*:</label>
