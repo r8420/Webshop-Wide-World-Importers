@@ -18,7 +18,6 @@ $productInfo = getProductInfo($productId);
 $tags = json_decode($productInfo['CustomFields'], true);
 
 
-
 // If there's no product id defined, go back to index.php
 if (!$productId || !isset($productInfo['StockItemName'])) {
     header('Location: ./');
@@ -54,15 +53,26 @@ print_header();
                 $stmt->bind_param('i', $productId);
                 $stmt->execute();
                 $result = $stmt->get_result();
-                if ($result->num_rows > 0){
-                    while ($row = $result->fetch_assoc()){
-                ?>
+                if ($result->num_rows > 0) {
+                    while ($row = $result->fetch_assoc()) {
+                        ?>
                         <img src="data:image/jpeg;base64, <?php echo base64_encode($row['picture']) ?>"
                              alt="Artikel foto"/>
-                <?php
+                        <?php
                     }
                 }
+
                 $stmt->close();
+                if (isset($productInfo['Video'])) {
+                    ?>
+
+                    <video width="320" height="240" autoplay controls>
+                        <source src="videos/<?php echo $productInfo['Video'] ?>.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                    <?php
+
+                }
                 ?>
 
             </div>
