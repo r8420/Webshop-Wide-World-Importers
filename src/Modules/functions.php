@@ -30,7 +30,7 @@ $stmt->close();
 <body>
 <div id="page-container">
     <div id="content-wrap">
-        <nav class="navbar navbar-expand-lg bg-primary navbar-light mb-5">
+        <nav class="navbar navbar-expand-lg bg-primary navbar-light mb-5 shadow">
             <div class="container">
                 <a class="navbar-brand text-white mb-0 h1" href="./">
                     <img src="Images/wide-world-importers-logo-small.png" width="175" height="57"
@@ -89,9 +89,10 @@ $stmt->close();
                                aria-label="Search">
                     </form>
                 </div>
-                <div class="my-2 my-lg-0 d-none d-lg-block ">
-                    <div class="fas dropdown fa-user text-white ml-5 mr-4" id="navbarDropdown1" role="button"
+                <div class="my-2 my-lg-0 d-none d-lg-block">
+                    <div class="dropdown text-white ml-5 mr-4 d-inline-block" id="navbarDropdown1" role="button"
                          data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="fas fa-user text-white"></i>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown1">
                             <?php if (isset($_SESSION['loggedin']) === FALSE || $_SESSION['loggedin'] === FALSE) { ?>
                                 <a class="dropdown-item" href="login.php"
