@@ -82,7 +82,7 @@ print_header();
                     <div class="modal-dialog modal-lg" role="document">
                         <div class="modal-content">
                             <div class="modal-body">
-                                <video width="100%" height="100%" autoplay controls>
+                                <video width="100%" height="100%" controls>
                                     <source src="videos/<?php echo $productInfo['Video'] ?>.mp4" type="video/mp4">
                                     Your browser does not support the video tag.
                                 </video>
