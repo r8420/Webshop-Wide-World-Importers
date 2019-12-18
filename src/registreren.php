@@ -40,6 +40,12 @@ print_header();
                     Het wachtwoord voldoet niet aan de eisen.
                 </div>
                 <?php break;
+            case 'register_invalid_phone_number_error':
+                ?>
+                <div class="text-danger text-center pb-3">
+                    Voer een geldig telefoonnummer in.
+                </div>
+                <?php break;
         }
     }
     ?>

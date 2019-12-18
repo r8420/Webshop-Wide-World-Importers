@@ -10,8 +10,11 @@ $userRegistration = checkPOSTRequest();
 // voert emailvalidatie uit en een select query uit op de database
 $valid_login = emailValidation($connection, $userRegistration);
 
-// Voert wachtwoordvalidatie op het wachtwoord aan de hand van de eisen
+// Voert wachtwoordvalidatie uit op het wachtwoord aan de hand van de eisen
 $valid_password = passwordValidation($userRegistration);
+
+//Voert telefoonnummervalidatie uit aan de hand van een ge-oversimplificeerde Regex
+$valid_phone = phoneNumberValidation($userRegistration);
 
 // insert account on people table
 insertionOnPeopleTable($connection, $valid_login, $valid_password, $userRegistration);
@@ -66,7 +69,11 @@ function emailValidation($connection, $userRegistration) {
 }
 
 /**
- * Controleert of de wachtwoorden met elkaar overeen komen, en of het wachtwoord de minimum waarden volgt
+ * Controleert of de wachtwoorden met elkaar overeen komen, en of het wachtwoord aan de minimum eisen voldoet
+ * 3 getallen
+ * 1 kleine letter
+ * 1 Hoofdletter
+ * 8 karakters lang
  * @param $userValidation
  * @return bool
  */
@@ -78,9 +85,23 @@ function passwordValidation($userValidation) {
         returnToRegister(5);
     }
     return True;
-
 }
 
+/**
+ * Voert een simpele telefoonnummer validatie uit. Het patroon is het volgende:
+ * Een optionele + met daarachter 1 tot 3 getallen
+ * Optionele whitespace => +31 6 werkt daardoor gewoon
+ * 8 of 9 getallen.
+ * Dit zou de meeste telefoonnummers en sommige invoermethoden moeten ondersteunen
+ * @param $userValidation
+ * @return bool
+ */
+function phoneNumberValidation($userValidation) {
+    if(!filter_var($userValidation[3], FILTER_VALIDATE_REGEXP, array("options"=>array("regexp"=>"((\+\d{1,3})?(\s|\-)*(\d{8,9}))")))) {
+        returnToRegister(6);
+    }
+    return True;
+}
 
 /**
  * In deze functie word het account in de database gestopt indien de twee ingegeven wachtwoorden overeenkomen
@@ -136,6 +157,8 @@ function returnToRegister($errorNumber) {
         $errorCode = 'register_invalid_email_error';
     } elseif ($errorNumber === 5) {
         $errorCode = 'register_invalid_password_error';
+    } elseif ($errorNumber === 6) {
+        $errorCode = 'register_invalid_phone_number_error';
     }
 
     header('Refresh: 0; url=../registreren.php?errorcode=' . $errorCode);
