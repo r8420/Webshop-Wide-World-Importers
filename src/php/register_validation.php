@@ -28,12 +28,13 @@ insertionOnPeopleTable($connection, $valid_login, $valid_password, $userRegistra
  */
 function checkPOSTRequest() {
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        $email = $_POST['email'];
-        $email_validation = $_POST['email_validation'];
-        $name = $_POST['name'];
-        $tel = $_POST['telephone'];
-        $password = $_POST['password'];
-        $password_validation = $_POST['password_validation'];
+        $email = htmlspecialchars(strip_tags($_POST['email']));
+        $email_validation = htmlspecialchars(strip_tags($_POST['email_validation']));
+        $name = htmlspecialchars(strip_tags($_POST['name']));
+        $tel = htmlspecialchars(strip_tags($_POST['telephone']));
+        $tel = preg_replace('/[a-zA-Z]+/', '', $tel);
+        $password = htmlspecialchars(strip_tags($_POST['password']));
+        $password_validation = htmlspecialchars(strip_tags($_POST['password_validation']));
     } else {
         header('Refresh: 0; url=../registreren.php');
         exit();
