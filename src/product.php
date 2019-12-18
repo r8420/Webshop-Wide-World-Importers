@@ -11,11 +11,13 @@ include 'Modules/functions.php';
 
 
 include 'includes/productFunctions.inc.php';
+include 'includes/shoppingCartFunctions.inc.php';
 
 $productId = (checkInt('GET', 'id') ? $_GET['id'] : false);
 $amount = (checkInt('POST', 'amount') ? $_POST['amount'] : false);
 $productInfo = getProductInfo($productId);
 $tags = json_decode($productInfo['CustomFields'], true);
+$numberInStock = getProductStock($productId);
 
 
 // If there's no product id defined, go back to index.php
@@ -131,7 +133,16 @@ print_header();
                 <h2>€<?php echo $productInfo['price'] ?></h2>
             </div>
             <div>
-                <p><i class="fas fa-circle text-success"> </i> In voorraad</p>
+                <?php
+                if ($numberInStock > 10) {
+                    echo('<p><i class="fas fa-circle text-success"> </i><?php echo $numberInStock ?> In voorraad</p>');
+                } elseif ($numberInStock > 1) {
+                    echo('<p><i class="fas fa-circle text-warning"> </i><?php echo $numberInStock ?> Minder dan 10 in voorraad!</p>');
+                } else {
+                    echo('<p><i class="fas fa-circle text-danger"> </i><?php echo $numberInStock ?> Niet leverbaar</p>');
+                }
+                ?>
+
             </div>
             <div>
                 <form method="post" class="mb-2">
@@ -213,7 +224,10 @@ print_header();
                         </div>
                         <div class="col-8">
                             <label for="submitAmount">&nbsp;</label>
-                            <button type="submit" id="submitAmount" class="btn btn-success w-100">In winkelwagen
+                            <button <?php if ($numberInStock < 1): echo 'disabled'; endif ?> type="submit"
+                                                                                             id="submitAmount"
+                                                                                             class="btn btn-success w-100">
+                                In winkelwagen
                             </button>
                         </div>
                     </div>
