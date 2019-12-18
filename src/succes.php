@@ -15,7 +15,7 @@ print_header();
             Bedankt voor uw aankoop.
         </p>
         <p style="color: blue">
-            <em><?php echo $_GET['orderNr'] ?></em>
+            <em>Order Nummer: #<?php echo $_GET['orderNr'] ?></em>
         </p>
     </div>
     <a class="btn btn-success text-white" href="index.php">Terug naar de homepagina</a>
