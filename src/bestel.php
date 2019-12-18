@@ -108,7 +108,7 @@ $total = 0;
                         <select name="InputCountry" class="form-control">
                             <?php
                             foreach ($countrys AS $country) { ?>
-                                <option value="<?php echo $country; ?>"><?php echo $country; ?></option>
+                                <option <?php if ($country === "Netherlands"){ echo "selected";} ?> value="<?php echo $country; ?>"><?php echo $country; ?></option>
                             <?php } ?>
                         </select>
                     </div>
