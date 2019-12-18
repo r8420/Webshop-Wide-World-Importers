@@ -158,16 +158,26 @@ print_header();
                             $productPrice = strip_tags($resultArray[$i]['RecommendedRetailPrice']);
                             $productPrice = str_replace('.', ',', $productPrice);
                             $productPhoto = base64_encode($resultArray[$i]['Photo']);
-                            print('<li class="list-group-item shadow"><a href="product.php?id=' . $resultArray[$i]['StockItemID'] . '"><img alt="Artikel foto" src="data:image/jpeg;base64,' . $productPhoto . '" width="190" height="120"><span class="col-8">' . $productName . '</span><span class="col-4">' . '€ ' . $productPrice . '</span></a>');
+                            print('
+                    <li class="list-group-item shadow">
+                        <a href="product.php?id=' . $resultArray[$i]['StockItemID'] . '" class="col-10">
+                            <img alt="Artikel foto" src="data:image/jpeg;base64,' . $productPhoto . '" width="190" height="120">
+                            <span class="col-11">' . $productName . '</span>
+                        </a>');
                             ?>
-                            <form method="post" style="display: inline;">
+                            <form method="post" class="col-2 float-right">
 
                                 <input name="id" type="hidden"
                                        value="<?php echo $resultArray[$i]['StockItemID'] ?>" style="display: inline;">
-
-                                <button name="addToCart" type="submit" class="btn btn-success float-right my-5">In
-                                    winkelwagen
-                                </button>
+                                <div class="my-4 p-0">
+                                    <p class="d-flex justify-content-center">
+                                        <i class="fas fa-euro-sign"></i>
+                                        <?php echo $productPrice?>
+                                    </p>
+                                    <button name="addToCart" type="submit" class="btn btn-success p-3">In
+                                        winkelwagen
+                                    </button>
+                                </div>
 
 
                             </form>
