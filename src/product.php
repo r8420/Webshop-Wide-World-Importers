@@ -18,7 +18,6 @@ $productInfo = getProductInfo($productId);
 $tags = json_decode($productInfo['CustomFields'], true);
 
 
-
 // If there's no product id defined, go back to index.php
 if (!$productId || !isset($productInfo['StockItemName'])) {
     header('Location: ./');
@@ -54,18 +53,53 @@ print_header();
                 $stmt->bind_param('i', $productId);
                 $stmt->execute();
                 $result = $stmt->get_result();
-                if ($result->num_rows > 0){
-                    while ($row = $result->fetch_assoc()){
-                ?>
+                if ($result->num_rows > 0) {
+                    while ($row = $result->fetch_assoc()) {
+                        ?>
                         <img src="data:image/jpeg;base64, <?php echo base64_encode($row['picture']) ?>"
                              alt="Artikel foto"/>
-                <?php
+                        <?php
                     }
                 }
+
                 $stmt->close();
+                if (isset($productInfo['Video'])) {
+                    ?>
+                    <a href="#" data-toggle="modal" data-target="#videoModal">
+                        <img src="Images/video-placeholder.gif"
+                             alt="Artikel foto"/>
+                    </a>
+
+
+                    <?php
+
+                }
                 ?>
 
+                <!-- Modal -->
+                <div class="modal fade" id="videoModal" tabindex="-1" role="dialog" aria-labelledby="videoModal"
+                     aria-hidden="true">
+                    <div class="modal-dialog modal-lg" role="document">
+                        <div class="modal-content">
+                            <div class="modal-body">
+                                <video width="100%" height="100%" autoplay controls>
+                                    <source src="videos/<?php echo $productInfo['Video'] ?>.mp4" type="video/mp4">
+                                    Your browser does not support the video tag.
+                                </video>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
             </div>
+            <script>
+                $('#videoModal').on('hidden.bs.modal', function () {
+                    $('video').trigger('pause');
+                }).on('show.bs.modal', function () {
+                    $('video').trigger('play');
+                })
+            </script>
         </div>
         <div class="col-md-4">
             <div class="mt-5">
