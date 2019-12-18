@@ -68,7 +68,7 @@ function insertNewCustomerAccount($connection,$nawRecords){
     $sql = 'CALL insert_customer_account(?,?,?,?,?,?)';
     $stmt = $connection->prepare($sql);
     $stmt->bind_param('isssss', $_SESSION['userNr'], $nawRecords[0], $nawRecords[1], $nawRecords[2], $nawRecords[3], $nawRecords[4],
-        $nawRecords[5]);
+        );
     $stmt->execute();
     $stmt->bind_result($customerNr);
     $stmt->fetch();
