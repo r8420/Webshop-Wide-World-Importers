@@ -66,22 +66,6 @@ print_header();
                 ?>
 
             </div>
-
-            <div class="m5">
-                <h3><strong>Productbeschrijving</strong></h3>
-                <?php
-                if (!isset($tags['Tags'][0])) {
-                    $tags['Tags'][0] = '';
-                }
-                ?>
-                <?php print(sprintf('<p>Gebruik de %s voor al je %s skills.
-                    Door de super goede %s is %s geen grote klus meer. Moet je het product een keer
-                    meenemen, dan maak je het niet te zwaar voor jezelf. Deze %s weegt namelijk maar %s gram. Ook in het
-                    donker werken vormt geen enkel probleem, want met deze %s is het niet moeilijk om
-                    de juiste weg te vinden.</p>',
-                    $productInfo['StockItemName'], strtolower($tags['Tags'][0]), $productInfo['StockItemName'], strtolower($tags['Tags'][0]),
-                    $productInfo['StockItemName'], $productInfo['TypicalWeightPerUnit'], $productInfo['StockItemName'])) ?>
-            </div>
         </div>
         <div class="col-md-4">
             <div class="mt-5">
