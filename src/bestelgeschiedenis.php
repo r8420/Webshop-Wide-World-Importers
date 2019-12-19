@@ -4,14 +4,17 @@ include 'Modules/functions.php';
 checkSessionActive();
 print_header();
 include 'includes/orderHistoryFunctions.inc.php';
-$itemList = getSqlResults($_GET['orderId'], $_SESSION['userNr'], $connection);
 $totaal = 0;
 
-
+$orderID = $_GET['orderId'];
+if(!filter_var($orderID, FILTER_VALIDATE_INT)) {
+    die('Don\'t try any funny business');
+}
+$itemList = getSqlResults($orderID, $_SESSION['userNr'], $connection);
 ?>
 <div class="container">
     <div class="m-5">
-        <h1>Bestelling <?php echo $_GET['orderId']; ?></h1>
+        <h1>Bestelling <?php echo $orderID; ?></h1>
     </div>
     <div class="container rounded-0">
         <table class="table table-striped table-hover">
