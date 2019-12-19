@@ -100,7 +100,6 @@ function setAccountnawrecords($connection){
     $stmt->store_result();
     $stmt->fetch();
     if ($count == 1){
-        echo $count;
         $_SESSION['adressnaw'] = TRUE;
     }
 
