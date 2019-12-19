@@ -171,8 +171,8 @@ print_header();
                                        value="<?php echo $resultArray[$i]['StockItemID'] ?>" style="display: inline;">
                                 <div class="my-4 p-0">
                                     <p class="d-flex justify-content-center">
-                                        <i class="fas fa-euro-sign"></i>
-                                        <?php echo $productPrice?>
+
+                                        <b class="h4"><i class="fas fa-euro-sign"></i>&nbsp;<?php echo $productPrice?></b>
                                     </p>
                                     <button name="addToCart" type="submit" class="btn btn-success p-3">In
                                         winkelwagen
