@@ -27,7 +27,7 @@ if (isset($_POST['id'], $_POST['addToCart'])) {
 }
 
 
-$search = getIfExists('search', '');
+$search = trim(getIfExists('search', ''));
 $category = getIfExists('category', 0);
 $orderBy = getIfExists('order', 'nameAZ');
 $itemsPerPage = getIfExists('itemsPerPage', 12);
