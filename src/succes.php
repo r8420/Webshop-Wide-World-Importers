@@ -2,8 +2,8 @@
 include 'Modules/functions.php';
 print_header();
 
-$orderID = $_GET['orderNr'];
-if(!filter_var($orderID, FILTER_VALIDATE_INT)) {
+$orderNr = $_GET['orderNr'];
+if(!filter_var($orderNr, FILTER_VALIDATE_INT)) {
     die('Don\'t try any funny business');
 }
 ?>
@@ -20,7 +20,7 @@ if(!filter_var($orderID, FILTER_VALIDATE_INT)) {
             Bedankt voor uw aankoop.
         </p>
         <p style="color: blue">
-            <em>Order Nummer: #<?php echo $_GET['orderNr'] ?></em>
+            <em>Order Nummer: #<?php echo $orderNr ?></em>
         </p>
     </div>
     <a class="btn btn-success text-white" href="index.php">Terug naar de homepagina</a>
