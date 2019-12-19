@@ -37,11 +37,11 @@ function checkPOSTRequest($oldNAWrecords)
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $choice = $_POST['addressChoice'];
         if ($choice === 'newAddress') {
-            if (empty($_POST['InputStraatEnHuisnummer']) || empty($_POST['InputPostcode']) ||
-                empty($_POST['InputPlaats']) || empty($_POST['InputProvinceState']) || empty($_POST['InputCountry']) || empty($_POST['InputProvince']) || empty($_POST['InputCountry'])) {
-                header('Refresh: 0; url=../bestel.php');
-                exit();
-            }
+//            if (empty($_POST['InputStraatEnHuisnummer']) || empty($_POST['InputPostcode']) ||
+//                empty($_POST['InputPlaats']) || empty($_POST['InputProvinceState']) || empty($_POST['InputCountry']) ) {
+//                header('Refresh: 0; url=../bestel.php');
+//                exit();
+//            }
             $streetNumber = $_POST['InputStraatEnHuisnummer'];
             $postcode = $_POST['InputPostcode'];
             $city = $_POST['InputPlaats'];
