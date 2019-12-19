@@ -87,6 +87,7 @@ $stmt->close();
                           action="zoeken.php">
                         <input class="form-control mr-sm-2 w-75" type="search" name="search" placeholder="Zoeken..."
                                aria-label="Search">
+                        <input type="submit" class="btn btn-success" value="Zoek">
                     </form>
                 </div>
                 <div class="my-2 my-lg-0 d-none d-lg-block">
