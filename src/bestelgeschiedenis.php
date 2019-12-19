@@ -14,7 +14,7 @@ if(!filter_var($orderID, FILTER_VALIDATE_INT)) {
 ?>
 <div class="container">
     <div class="m-5">
-        <h1>Bestelling <?php echo $_GET['orderId']; ?></h1>
+        <h1>Bestelling <?php echo $orderID; ?></h1>
     </div>
     <div class="container rounded-0">
         <table class="table table-striped table-hover">
