@@ -219,7 +219,7 @@ print_header();
                     </div>
                     <div class="row">
                         <div class="col-4">
-                            <label for="aantal">Aantal</label><input name="amount" type="number" min="0"
+                            <label for="aantal">Aantal</label><input name="amount" type="number" min="0" max="<?php echo $numberInStock; ?>"
                                                                      class="form-control" id="aantal" value="1">
                         </div>
                         <div class="col-8">
