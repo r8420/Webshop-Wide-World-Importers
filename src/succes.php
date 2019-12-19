@@ -1,6 +1,11 @@
 <?php
 include 'Modules/functions.php';
 print_header();
+
+$orderNr = $_GET['orderNr'];
+if(!filter_var($orderNr, FILTER_VALIDATE_INT)) {
+    die('Don\'t try any funny business');
+}
 ?>
 <!-- Begin page content -->
 <div class="container text-center" style="margin-top: 100px; margin-bottom: 100px">
@@ -15,7 +20,7 @@ print_header();
             Bedankt voor uw aankoop.
         </p>
         <p style="color: blue">
-            <em>Order Nummer: #<?php echo $_GET['orderNr'] ?></em>
+            <em>Order Nummer: #<?php echo $orderNr ?></em>
         </p>
     </div>
     <a class="btn btn-success text-white" href="index.php">Terug naar de homepagina</a>
