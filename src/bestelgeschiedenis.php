@@ -4,13 +4,13 @@ include 'Modules/functions.php';
 checkSessionActive();
 print_header();
 include 'includes/orderHistoryFunctions.inc.php';
-$itemList = getSqlResults($_GET['orderId'], $_SESSION['userNr'], $connection);
 $totaal = 0;
 
 $orderID = $_GET['orderId'];
 if(!filter_var($orderID, FILTER_VALIDATE_INT)) {
     die('Don\'t try any funny business');
 }
+$itemList = getSqlResults($orderID, $_SESSION['userNr'], $connection);
 ?>
 <div class="container">
     <div class="m-5">
