@@ -20,7 +20,6 @@ $countrys = getCountrys($connection);
 $total = 0;
 
 
-
 $form = 0;
 
 
@@ -49,8 +48,8 @@ $form = 0;
                     <input name="InputEmailadres" type="text" class="form-control" placeholder="" required>
                 </div>
 
-           <?php }
-                elseif ((isset($_SESSION['loggedin']) && $_SESSION['loggedin']) && (isset($_SESSION['adressnaw']) && $_SESSION['adressnaw']=== TRUE)) {
+                <?php }
+                elseif ((isset($_SESSION['loggedin']) && $_SESSION['loggedin']) && (isset($_SESSION['adressnaw']) && $_SESSION['adressnaw'] === TRUE)) {
                 $form = 1; ?>
                 <form method="POST" action="php/order_validation_account_last_naw.php">
                     <div class="form-group">
@@ -111,7 +110,9 @@ $form = 0;
                         <select name="InputCountry" class="form-control">
                             <?php
                             foreach ($countrys AS $country) { ?>
-                                <option <?php if ($country === "Netherlands"){ echo "selected";} ?> value="<?php echo $country; ?>"><?php echo $country; ?></option>
+                                <option <?php if ($country === "Netherlands") {
+                                    echo "selected";
+                                } ?> value="<?php echo $country; ?>"><?php echo $country; ?></option>
                             <?php } ?>
                         </select>
                     </div>
@@ -119,43 +120,46 @@ $form = 0;
                     <?php }
 
 
-                    elseif ( (isset($_SESSION['loggedin']) && $_SESSION['loggedin']) && ( !isset($_SESSION['adressnaw'])  || $_SESSION['adressnaw'] === FALSE)) { ?>
+                    elseif ((isset($_SESSION['loggedin']) && $_SESSION['loggedin']) && (!isset($_SESSION['adressnaw']) || $_SESSION['adressnaw'] === FALSE)) { ?>
                     <form method="POST" action="php/order_validation_account.php">
-                    <?php } if ($form === 0) { ?>
+                        <?php }
+                        if ($form === 0) { ?>
 
 
-                        <div class="form-group">
-                            <label>Straat en huisnummer*:</label>
-                            <input name="InputStraatEnHuisnummer" type="text" class="form-control" placeholder=""
-                                   required>
-                        </div>
-                        <div class="form-group">
-                            <label>Postcode*:</label>
-                            <input name="InputPostcode" type="text" class="form-control" placeholder=""
-                                   required>
-                        </div>
-                        <div class="form-group">
-                            <label>Plaats*:</label>
-                            <input name="InputPlaats" type="text" class="form-control" placeholder="" required>
-                        </div>
-                        <div class="form-group">
-                            <label>Staat/Provincie*:</label>
-                            <input name="InputProvince" type="text" class="form-control" placeholder="">
-                        </div>
-                        <div class="form-group">
-                            <label>Land*:</label>
-                            <select name="InputCountry" class="form-control">
-                                <?php foreach ($countrys AS $country) { ?>
-                                    <option <?php if ($country === "Netherlands"){ echo "selected";} ?> value="<?php echo $country; ?>"><?php echo $country; ?></option>
-                                <?php } ?>
-                            </select>
-                        </div>
+                            <div class="form-group">
+                                <label>Straat en huisnummer*:</label>
+                                <input name="InputStraatEnHuisnummer" type="text" class="form-control" placeholder=""
+                                       required>
+                            </div>
+                            <div class="form-group">
+                                <label>Postcode*:</label>
+                                <input name="InputPostcode" type="text" class="form-control" placeholder=""
+                                       required>
+                            </div>
+                            <div class="form-group">
+                                <label>Plaats*:</label>
+                                <input name="InputPlaats" type="text" class="form-control" placeholder="" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Staat/Provincie*:</label>
+                                <input name="InputProvince" type="text" class="form-control" placeholder="">
+                            </div>
+                            <div class="form-group">
+                                <label>Land*:</label>
+                                <select name="InputCountry" class="form-control">
+                                    <?php foreach ($countrys AS $country) { ?>
+                                        <option <?php if ($country === "Netherlands") {
+                                            echo "selected";
+                                        } ?> value="<?php echo $country; ?>"><?php echo $country; ?></option>
+                                    <?php } ?>
+                                </select>
+                            </div>
 
-                    <?php } ?>
-                    <div class="form-group float-right">
-                        <input type="submit" name="Betalen" value="Betalen" class="btn btn-success"></input>
-                    </div>
-                </form>
+                        <?php } ?>
+                        <div class="form-group float-right">
+                            <input type="submit" name="Betalen" value="Betalen" class="btn btn-success"></input>
+                        </div>
+                    </form>
 
 
         </div>
@@ -186,11 +190,11 @@ $form = 0;
                     </div>
                 <?php } ?>
                 <hr>
-                <p><b>Subtotaal:<span class="float-right">€<?php echo $total ?>
+                <p><b>Subtotaal:<span class="float-right">€<?php echo number_format($total, 2, ',', '.') ?>
                     </span></b></p>
-                <p>Verzendkosten:<span class="float-right">€5.00</span></p>
+                <p>Verzendkosten:<span class="float-right">€5,00</span></p>
                 <hr>
-                <p><b>Totaalbedrag:<span class="float-right">€<?php echo $total + 5;
+                <p><b>Totaalbedrag:<span class="float-right">€<?php echo number_format(($total + 5), 2, ',', '.');
                             $total += 5; ?>
                         </span></b></p>
 

@@ -31,8 +31,8 @@ $totaal = 0;
                     <td><img src="data:image/png;base64,<?php echo base64_encode($item[5]) ?>" alt="Artikel foto"></td>
                     <td><?php echo $item[3] ?></td>
                     <td><?php echo $item[2] ?></td>
-                    <td><?php echo '€' . $item[4] ?></td>
-                    <td><?php echo '€' . $item[2] * $item[4] ?></td>
+                    <td><?php echo '€' . number_format($item[4], 2, ',', '.') ?></td>
+                    <td><?php echo '€' . number_format($item[2] * $item[4], 2, ',', '.') ?></td>
                     <?php $totaal += $item[2] * $item[4] ?>
                 </tr>
                 <?php
@@ -43,7 +43,7 @@ $totaal = 0;
                 <th scope="row">Totaal</th>
                 <td></td>
                 <td></td>
-                <th scope="row"><?php echo '€' . $totaal ?></th>
+                <th scope="row"><?php echo '€' . number_format($totaal, 2, ',', '.') ?></th>
             </tr>
             </tbody>
         </table>
