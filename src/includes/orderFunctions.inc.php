@@ -116,7 +116,7 @@ function insertOrderLines($connection,$orderID, $stockitemId, $quantity){
 function headtoconfirmpage($orderNr){
 
     unset($_SESSION['shoppingCart']);
-    header('Refresh: 0; url=../succes.php?orderNr=' . $orderNr);
+    header('Refresh: 0; url=../bank.php?orderNr=' . $orderNr);
     exit();
 }
 
