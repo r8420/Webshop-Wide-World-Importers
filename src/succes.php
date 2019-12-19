@@ -1,6 +1,11 @@
 <?php
 include 'Modules/functions.php';
 print_header();
+
+$orderID = $_GET['orderNr'];
+if(!filter_var($orderID, FILTER_VALIDATE_INT)) {
+    die('Don\'t try any funny business');
+}
 ?>
 <!-- Begin page content -->
 <div class="container text-center" style="margin-top: 100px; margin-bottom: 100px">
