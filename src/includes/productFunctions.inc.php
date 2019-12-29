@@ -56,3 +56,28 @@ function checkInt($method, $name) {
     return $return;
 }
 
+/**
+ * get products out of the same category
+ * @param $productId
+ * @return array
+ */
+function getCrossReferencedProducts($productId) {
+
+    global $connection;
+    $results = array();
+    $sql = 'CALL get_cross_referenced_products(?)';
+    $stmt = $connection->prepare($sql);
+    $stmt->bind_param("i", $productId);
+    $stmt->execute();
+    $stmt->bind_result($stockItemID, $stockItemName, $unitPrice, $recommendedRetailPrice, $photo);
+
+    while ($stmt->fetch()) {
+        $row = array($stockItemID, $stockItemName, $unitPrice, $recommendedRetailPrice, $photo);
+        $results[] = $row;
+    }
+    $stmt->close();
+    return $results;
+
+
+}
+

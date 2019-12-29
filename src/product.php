@@ -18,6 +18,7 @@ $amount = (checkInt('POST', 'amount') ? $_POST['amount'] : false);
 $productInfo = getProductInfo($productId);
 $tags = json_decode($productInfo['CustomFields'], true);
 $numberInStock = getProductStock($productId);
+$crossreferencedproducts = getCrossReferencedProducts($productId);
 
 
 // If there's no product id defined, go back to index.php
@@ -219,7 +220,8 @@ print_header();
                     </div>
                     <div class="row">
                         <div class="col-4">
-                            <label for="aantal">Aantal</label><input name="amount" type="number" min="0" max="<?php echo $numberInStock; ?>"
+                            <label for="aantal">Aantal</label><input name="amount" type="number" min="0"
+                                                                     max="<?php echo $numberInStock; ?>"
                                                                      class="form-control" id="aantal" value="1">
                         </div>
                         <div class="col-8">
@@ -240,6 +242,30 @@ print_header();
                     Klanten geven WWI een 10/10</p>
             </div>
         </div>
+    </div>
+    <div class="row">
+        <?php
+        if ($crossreferencedproducts !== null) {
+            foreach ($crossreferencedproducts AS $product) {
+                $prijs = $product[3]; ?>
+                <div class="col-sm-3 col-md-3 mt-3">
+                    <a href="product.php?id=<?php echo $product[0]; ?>"
+                       class="text-decoration-none">
+                        <div class="card border h-100 pt-3">
+                            <img src="data:image/png;base64,<?php echo base64_encode($product[4]) ?>"
+                                 class="card-img-top w-75 mx-auto" alt="Artikel foto">
+                            <div class="card-body">
+                                <h5 class="card-title text-dark text-center"><?php echo $product[1]; ?></h5>
+                                <h5 class="card-title text-dark font-weight-bold">
+                                    € <?php echo str_replace('.', ',', (string)$prijs); ?></h5>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <?php
+            }
+        }
+        ?>
     </div>
 </div>
 <?php
