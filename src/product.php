@@ -243,6 +243,7 @@ print_header();
             </div>
         </div>
     </div>
+    <hr>
     <div class="row">
         <?php
         if ($crossreferencedproducts !== null) {
@@ -267,6 +268,7 @@ print_header();
         }
         ?>
     </div>
+    <hr>
 </div>
 <?php
 print_footer();
