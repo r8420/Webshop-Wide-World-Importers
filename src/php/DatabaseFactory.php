@@ -16,9 +16,9 @@ function startDBConnection() {
 class DatabaseFactory {
 
     private $host = 'wwiproject.ml';
-    private $databaseName = '***REMOVED***_wwi';
-    private $user = '***REMOVED***_application';
-    private $databasePassword = '***REMOVED***';
+    private $databaseName = '_wwi';
+    private $user = '_application';
+    private $databasePassword = '';
     private $port = 3306;
 
     /**
